@@ -71,11 +71,11 @@ export default function Home() {
       
       <Socials/>
 
-      <OurServices/>
+      <Services/>
 
       <WhyChooseUs/>
 
-      <ProjectCatalogue/>
+      <Catalogue/>
 
       <Testimonials/>
 
