@@ -1,7 +1,8 @@
 "use client";
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useContext } from 'react';
+import { AppContext } from '@/Context/appReactiveContext';
 
 //Remove Following Comments... Components Imported
 
@@ -13,33 +14,15 @@ import WhyChooseUs from '../../components/WhyChooseUs';
 import Testimonials from '../../components/Testimonials';*/
 
 export default function Home() {
+  const {dark , setDark , handleThemeChange} = useContext(AppContext);
   
-  const [dark, setDark] = useState(false)
-  
-  const handleThemeChange=async()=>{
-    try {
-      if(!dark) {
-        setDark(true);
-      }
-      if(dark){
-        setDark(false);
-      }
-    } catch (error) {
-      console.log(error);
-      alert(error);
-    }
-  }
   return (
-    <main className="flex min-h-screen min-w-screen ">
-      {dark?
-      
-      //DARK MODE HERE
-      
-      <div className='bg-black text-white min-h-full min-w-full flex flex-col justify-center gap-24 items-center pt-4'>
-        {<button className='text-4xl font-bold font-serif' onClick={()=> handleThemeChange()}>Toggle Theme</button>}
+    <main className="flex h-full w-full">
+      <div className='h-screen w-screen bg-[#1D023C] -z-40 absolute top-0 right-0'/>
+      <Image src={'/Assets/bgImg.svg'} width={0} height={0} alt="GrayZone" className={`w-screen h-screen object-contain md:object-cover absolute top-0 left-0 -z-30`}/>
 
-       <p className='font-mono'> Start Content From Here...</p>
-      
+      <div className={`${`bg-white text-black`} flex flex-col justify-center gap-24 items-center h-full w-full `}>
+       
       {/* 
       
       <HeroSection/>
@@ -57,32 +40,7 @@ export default function Home() {
 
       */}
       </div>
-      :
-
-      //Light Mode Here
-      <div className=' bg-slate-200 text-black min-h-full min-w-full flex justify-center gap-24 items-center flex-col pt-4'>
-        {<button className=' text-4xl font-bold font-serif' onClick={()=> handleThemeChange()}>Toggle Theme</button>}
-      
-
-        <p className='font-mono'>Start Content From Here...</p>
-      {/* 
-      
-      <HeroSection/>
-      
-      <Socials/>
-
-      <Services/>
-
-      <WhyChooseUs/>
-
-      <Catalogue/>
-
-      <Testimonials/>
-
-
-      */}
-      </div>
-      }
+     
     </main>
   )
 }
