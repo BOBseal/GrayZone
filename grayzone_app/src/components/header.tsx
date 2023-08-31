@@ -7,7 +7,7 @@ const Header = () => {
         
         <div className='h-full w-full flex justify-between gap-1 text-[#FFFFFF]'>
 
-            <div className='left flex gap-2 w-5/12 justify-start pl-[3.3rem] items-center'>
+            <div className='left flex gap-2 w-5/12 justify-start pl-[3.3rem] items-center mt-2'>
                 
                 <Image src={'/Assets/logo.svg'} height={40} width={40} alt="GrayZone Logo"/>
                 
