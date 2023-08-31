@@ -15,9 +15,9 @@ export default function Home() {
   //const {dark , setDark , handleThemeChange} = useContext(AppContext);
   
   return (
-    <main className="flex min-h-screen w-full">
-      <div className='h-full w-full bg-[#1D023C] -z-40 absolute top-0 right-0'/>
-      <Image src={'/Assets/bgImg.svg'} width={0} height={0} alt="GrayZone" className={`w-full h-full object-cover md:object-cover absolute top-[2.5rem] left-0`}/>
+    <main className="flex min-h-screen min-w-screen">
+      <div className='h-screen w-screen bg-[#1D023C] -z-40 absolute top-0 right-0'/>
+      <Image src={'/Assets/bgImg.svg'} width={0} height={0} alt="GrayZone" className={`w-screen h-screen object-cover md:object-cover absolute top-[2.5rem] left-0`}/>
 
       <div className={`${`bg-white text-black`} flex flex-col justify-center gap-24 items-center h-full w-full `}>
 
