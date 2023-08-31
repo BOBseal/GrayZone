@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 const Header = () => {
   return (
-    <div className='absolute -top-1 h-[3.8rem] md:h-[4.5rem] w-full z-50 border-b-[2px] rounded-xl drop-shadow-m bg-gradient-to-br to-[#b67ef5] from-[#1D023C] from-10% to-85%'>
+    <div className='absolute -top-1 h-[3.8rem] md:h-[4.5rem] w-full z-50 border-b-[2px] drop-shadow-m bg-gradient-to-br to-[#b67ef5] from-[#1D023C] from-10% to-85%'>
         
         <div className='h-full w-full flex justify-between gap-1 text-[#FFFFFF]'>
 
