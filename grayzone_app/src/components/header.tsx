@@ -1,27 +1,56 @@
+"use client"
 import React from 'react'
 import Image from 'next/image'
-
+import { motion } from 'framer-motion'
 const Header = () => {
   return (
     <div className='absolute -top-1 h-[3.8rem] md:h-[4.5rem] w-full z-50 border-b-[2px] drop-shadow-m bg-gradient-to-br to-[#b67ef5] from-[#1D023C] from-10% to-85%'>
         
         <div className='h-full w-full flex justify-between gap-1 text-[#FFFFFF]'>
 
-            <div className='left flex gap-2 w-5/12 justify-start pl-[3.3rem] items-center mt-2'>
+            <div className='left flex gap-2 w-5/12 justify-start pl-[1.2rem] md:pl-[3.3rem] items-center mt-2'>
                 
                 <Image src={'/Assets/logo.svg'} height={40} width={40} alt="GrayZone Logo"/>
                 
+                <motion.div
+                    initial ={{opacity:0 , x:-20}}
+                    animate={{
+                    opacity:1,
+                    x:0
+                    }}
+                    transition={{ ease: "easeOut", duration: 0.8 }}
+                    > 
                 <div className='flex gap-1 text-xl font-bold'>
                     <h1 className='text-slate-300'>GrayZone</h1>
+                    
+                    <motion.div
+                    initial ={{opacity:0 , x:-30}}
+                    animate={{
+                    opacity:1,
+                    x:0
+                    }}
+                    transition={{ ease: "easeOut", duration:0.5 }}
+                    >
                     <h2 className='text-[#3decffec]'>Web3</h2>
+                    </motion.div>
                 </div>
+                </motion.div>
 
             </div>
 
             <div className='right flex justify-end pr-4 items-center w-7/12'>
-                <div>
-
-                </div>
+                <motion.div
+                    initial ={{opacity:0 , x:-400}}
+                    animate={{
+                    opacity:1,
+                    x:0
+                    }}
+                    transition={{ ease: "easeOut", duration: 0.35 }}
+                >
+                    <div>
+                        NAVBAR
+                    </div>
+                </motion.div>
             </div>
 
         </div>

@@ -1,3 +1,4 @@
+"use client"
 import Image from 'next/image';
 //import { useContext } from 'react';
 import { AppContext } from '@/Context/appReactiveContext';
@@ -11,6 +12,8 @@ import Services from '../components/Services';
 import WhyChooseUs from '../components/WhyChooseUs';
 import Testimonials from '../components/Testimonials';
 
+import {AnimatePresence, motion} from "framer-motion"
+
 export default function Home() {
   //const {dark , setDark , handleThemeChange} = useContext(AppContext);
   
@@ -21,9 +24,20 @@ export default function Home() {
 
       <div className={`${`bg-white text-black`} flex flex-col justify-center gap-24 items-center h-full w-full `}>
 
-        <div className='flex bg-transparent mt-[4.5rem]'>
-          <HeroSection/>
-        </div> 
+        <motion.div
+          initial ={{opacity:0 , y:-50 }}
+         animate={{
+          opacity:1,
+          y:0
+         }}
+         transition={{ ease: "easeInOut", duration: 0.4 }}
+        > 
+           
+            <div className='flex bg-transparent mt-[4.5rem]'>
+              <HeroSection/>
+            </div> 
+          
+        </motion.div>  
         {/* 
         
         <HeroSection/>
