@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import MenU  from '../../public/Assets/icons8-hamburger-menu-128.svg'
 const Header = () => {
     const [x, setX ] = useState(false); // menu opener
@@ -13,7 +13,7 @@ const Header = () => {
             <div className='left flex gap-2 w-5/12 justify-start pl-[1.2rem] md:pl-[3.3rem] items-center mt-2 cursor-pointer'>
                 
                 <Image src={'/Assets/logo.svg'} height={40} width={40} alt="GrayZone Logo" className='drop-shadow-xl'/>
-                
+                <AnimatePresence>
                 <motion.div
                     initial ={{opacity:0 , x:-20}}
                     animate={{
@@ -37,17 +37,19 @@ const Header = () => {
                             </motion.div>
                         </div>
                 </motion.div>
+                </AnimatePresence>
 
             </div>
 
             <div className='right flex justify-end md:pr-[2.5rem] lg:pr-[2.9rem] items-center w-7/12'>
+                <AnimatePresence>
                 <motion.div
-                    initial ={{opacity:0 , x:-400}}
+                    initial ={{opacity:0 , x:-200}}
                     animate={{
                     opacity:1,
                     x:0
                     }}
-                    transition={{ ease: "easeOut", duration: 0.35 }}
+                    transition={{ ease: "easeOut", duration: 0.75 }}
                 >
                     {/*MOBILE Menu */
                     
@@ -82,6 +84,7 @@ const Header = () => {
                         </div>
                     </div>
                 </motion.div>
+                </AnimatePresence>
             </div>
 
         </div>
