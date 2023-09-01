@@ -40,7 +40,7 @@ const Header = () => {
 
             </div>
 
-            <div className='right flex justify-end md:pr-[3.5rem] lg:pr-[4.5rem] items-center w-7/12'>
+            <div className='right flex justify-end md:pr-[2.5rem] lg:pr-[2.9rem] items-center w-7/12'>
                 <motion.div
                     initial ={{opacity:0 , x:-400}}
                     animate={{
@@ -57,17 +57,21 @@ const Header = () => {
                     
                     }
 
-                    
+                    {/*DESKTOP MENU*/}
                     <div className={`hidden md:flex justify-between gap-4 mt-2 w-11/12 font-semibold text-[1.1rem]`}>
+                        
                         <div className={`w-[8rem] flex justify-center hover:underline items-center drop-shadow-lg hover:text-[1.2rem]`}>
                             <button onClick={()=> setX(true)}>
                                 About Us
                             </button>
                         </div>
 
-                        <div className='w-[8rem] flex justify-center items-center hover:underline drop-shadow-lg hover:text-[1.2rem]'>
-                            <button onClick={()=> setX(true)}>
-                                Products
+                        <div className='w-[8.3rem] flex justify-center items-center hover:underline drop-shadow-lg hover:text-[1.2rem]'>
+                            <button onClick={()=> setX(true)} className='flex gap-[5px] items-center justify-center'>
+                               
+                               <p>Our Products</p>
+                               
+                               <Image src={'/Assets/down-arrow-backup-2-svgrepo-com.svg'} width={12} height={20} alt="arrow" className='flex justify-center mt-[4px] hidden'/>
                             </button>
                         </div>
 
