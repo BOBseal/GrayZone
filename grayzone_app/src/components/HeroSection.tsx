@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 const HeroSection = () => {
   return (
-    <div className={`flex h-full bg-inherit items-center max-w-screen w-screen justify-between flex-col z-0 gap-[40px] -mt-12 overflow-scroll`}>
+    <div className={`flex h-full bg-inherit items-center max-w-screen w-screen justify-between flex-col z-0 gap-[40px] -mt-6 overflow-scroll`}>
       
       <div className='flex justify-between lg:justify-center flex-col md:flex-row lg:flex-col gap-[20px] h-full w-full p-8 md:p-24 items-center'>
         
