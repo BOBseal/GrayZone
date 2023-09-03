@@ -16,9 +16,9 @@ const HeroSection = () => {
             <div className='flex font-bold text-[2rem] justify-center md:text-[2.5rem] lg:text-[5.5rem] flex-wrap gap-[5px] md:gap[10px]'>
               <p className=' text-slate-300 '>GrayZone</p>
               <div className='flex text-[#3decffec]'>
-                <p className=''>W</p>
-                <p className=''>e</p>
-                <p className=''>b</p>
+                <p className='text-[#ff2f2f]'>W</p>
+                <p className=' text-yellow-300'>e</p>
+                <p className=' text-emerald-400'>b</p>
                 <p className='text-[#3decffec]'>3</p>
               </div>
             </div>
