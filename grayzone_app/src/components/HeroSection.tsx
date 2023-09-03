@@ -23,7 +23,7 @@ const HeroSection = () => {
               </div>
             </div>
 
-            <p className='flex text-[1.1rem] flex-wrap'>
+            <p className='flex text-[1.1rem] flex-wrap text-slate-100'>
             At GrayZone Web3, we blend innovation, creativity, and 
             expertise to reshape the digital landscape. From Web3 
             development that embraces the future to captivating graphics
@@ -38,7 +38,7 @@ const HeroSection = () => {
         </div>
 
         <div className='w-full h-[150px] flex flex-col justify-between items-center'>
-            <p className='flex text-[2rem] font-bold text-[#290d34] animate-pulse'>WEB PAGE COMING SOON</p>
+            <p className='flex text-[2rem] font-bold text-[#290d34] animate-pulse text-slate-100'>WEB PAGE COMING SOON</p>
           </div>
     </div>
   )
