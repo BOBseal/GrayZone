@@ -6,7 +6,7 @@ import MenU  from '../../public/Assets/icons8-hamburger-menu-128.svg'
 const Header = () => {
     const [x, setX ] = useState(false); // menu opener
   return (
-    <div className='absolute -top-1 h-[4.2rem] md:h-[4.5rem] w-full z-50 border-b-[2px] drop-shadow-m bg-gradient-to-br to-[#b67ef5] from-[#1D023C] from-10% to-85%'>
+    <div className='sticky -top-1 h-[4.2rem] md:h-[4.5rem] w-full z-50 border-b-[2px] drop-shadow-m bg-gradient-to-br to-[#b67ef5] from-[#1D023C] from-10% to-85%'>
         
         <div className='h-full w-full flex justify-between gap-1 text-[#FFFFFF]'>
 
@@ -22,7 +22,7 @@ const Header = () => {
                     }}
                     transition={{ ease: "easeOut", duration: 0.8 }}
                     > 
-                        <div className='flex gap-1 text-xl font-bold'>
+                        <div className='flex gap-1 text-xl font-extrabold'>
                             <h1 className='text-slate-300 hover:underline drop-shadow-xl'>GrayZone</h1>
                             
                             <motion.div
@@ -33,7 +33,12 @@ const Header = () => {
                             }}
                             transition={{ ease: "easeOut", duration:0.5 }}
                             >
-                            <h2 className='text-[#3decffec] hover:underline drop-shadow-xl'>Web3</h2>
+                            <div className=' hover:underline drop-shadow-xl flex'>
+                                <p className='text-[#ff2f2f]'>W</p>
+                                <p className=' text-yellow-300'>e</p>
+                                <p className=' text-emerald-400'>b</p>
+                                <p className='text-[#3decffec]'>3</p>
+                            </div>
                             </motion.div>
                         </div>
                 </motion.div>
