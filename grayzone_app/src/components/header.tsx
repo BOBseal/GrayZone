@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
 import MenU  from '../../public/Assets/icons8-hamburger-menu-128.svg'
+import Link from 'next/link'
 const Header = () => {
     const [x, setX ] = useState(false); // menu opener
   return (
@@ -68,9 +69,11 @@ const Header = () => {
                     <div className={`hidden md:flex justify-between gap-4 mt-2 w-11/12 font-semibold text-[1.1rem]`}>
                         
                         <div className={`w-[8rem] flex justify-center hover:underline items-center drop-shadow-lg hover:text-[1.2rem]`}>
-                            <button onClick={()=> setX(true)}>
-                                About Us
-                            </button>
+                            <Link href={'./'}>
+                                <button onClick={()=> setX(true)}>
+                                    Home
+                                </button>
+                            </Link>
                         </div>
 
                         <div className='w-[8.3rem] flex justify-center items-center hover:underline drop-shadow-lg hover:text-[1.2rem]'>
