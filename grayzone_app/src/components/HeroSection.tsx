@@ -38,7 +38,7 @@ const HeroSection = () => {
         </div>
 
         <div className='w-full h-[150px] flex flex-col justify-between items-center'>
-            <p className='flex text-[2rem] font-bold animate-slowerFlicker hover:animate-wiggleSlow md:animate-slowerPing text-slate-100'>COMING SOON</p>
+            <p className='flex text-[2rem] font-bold animate-slowerFlicker hover:animate-wiggleSlow md:animate-slowerPing text-slate-100' onClick={()=> alert("GRAYZONE UNDER LOADING STATE... COMING SOON!!")}>COMING SOON</p>
         </div>    
     </div>
   )
