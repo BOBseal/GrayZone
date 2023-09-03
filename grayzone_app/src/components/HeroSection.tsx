@@ -38,7 +38,7 @@ const HeroSection = () => {
         </div>
 
         <div className='w-full h-[150px] flex flex-col justify-between items-center'>
-            <p className='flex text-[2rem] font-bold text-[#290d34] animate-pulse text-slate-100'>WEB PAGE COMING SOON</p>
+            <p className='flex text-[2rem] font-bold animate-pulse text-slate-100'>WEB PAGE COMING SOON</p>
           </div>
     </div>
   )
