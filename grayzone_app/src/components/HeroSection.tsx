@@ -23,14 +23,14 @@ const HeroSection = () => {
               </div>
             </div>
 
-            <div className='flex text-[1.1rem] flex-wrap'>
-            At [Company Name], we blend innovation, creativity, and 
+            <p className='flex text-[1.1rem] flex-wrap'>
+            At GrayZone Web3, we blend innovation, creativity, and 
             expertise to reshape the digital landscape. From Web3 
             development that embraces the future to captivating graphics
             and tailored web solutions, we're your partners in digital 
             transformation. Join us on the journey to redefine possibilities 
             in the digital world.
-            </div> 
+            </p> 
           </div>
 
 
