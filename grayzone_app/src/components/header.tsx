@@ -70,7 +70,7 @@ const Header = () => {
                         
                         <div className={`w-[8rem] flex justify-center hover:underline items-center drop-shadow-lg hover:text-[1.2rem]`}>
                             <Link href={'./'}>
-                                <button onClick={()=> setX(true)}>
+                                <button onClick={()=> window.location.reload()}>
                                     Home
                                 </button>
                             </Link>

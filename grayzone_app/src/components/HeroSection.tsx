@@ -24,7 +24,7 @@ const HeroSection = () => {
           <div className='flex flex-col justify-evenly w-full md:w-5/12 gap-4 rounded-3xl pb-1 lg:w-[600px] bg-opacity-40 object-contain md:pr-2 md:pl-2'>
             <div className='flex group font-bold text-[2rem] justify-center md:text-[2.5rem] lg:text-[5.5rem] w-full flex-wrap gap-[5px] md:gap[10px]'>
               
-              <p className=' text-slate-300 drop-shadow-2xl underline underline-offset-[4px] group-hover:no-underline gap-0 flex'><p className='group-hover:animate-wiggleBounce2'>G</p>ray<p className='group-hover:animate-wiggleBounce2'>Z</p>one</p>
+              <div className=' text-slate-300 drop-shadow-2xl underline underline-offset-[4px] group-hover:no-underline gap-0 flex'><p className='group-hover:animate-wiggleBounce2'>G</p>ray<p className='group-hover:animate-wiggleBounce2'>Z</p>one</div>
               <div className='flex text-[#3decffec] underline underline-offset-[4px] group-hover:no-underline'>
                 <p className='text-[#ff2f2f] drop-shadow-2xl  group-hover:animate-shakeshake'>W</p>
                 <p className=' text-yellow-300 drop-shadow-2xl'>e</p>
