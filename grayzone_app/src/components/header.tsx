@@ -77,7 +77,7 @@ const Header = () => {
                         </div>
 
                         <div className='w-[8.3rem] flex justify-center items-center hover:underline drop-shadow-lg hover:text-[1.2rem]'>
-                            <button onClick={()=> setX(true)} className='flex gap-[5px] items-center justify-center'>
+                            <button onClick={()=> alert("Products Coming Soon")} className='flex gap-[5px] items-center justify-center'>
                                
                                <p>Our Products</p>
                                
@@ -86,9 +86,11 @@ const Header = () => {
                         </div>
 
                         <div className='w-[8rem] flex justify-center items-center bg-slate-400 rounded-3xl drop-shadow-lg h-[2rem] hover:text-[1.2rem] hover:h-[2.1rem]'>
-                            <button onClick={()=> setX(true)} className="drop-shadow-lg">
-                                Contact Us
-                            </button>
+                            <Link href={"https://t.me/grayzoneweb3"}>
+                                <button onClick={()=> setX(true)} className="drop-shadow-lg">
+                                    Contact Us
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </motion.div>
