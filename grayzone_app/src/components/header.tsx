@@ -11,7 +11,7 @@ const Header = () => {
         
         <div className='h-full w-full flex justify-between gap-1 text-[#FFFFFF]'>
 
-            <div className='left flex gap-2 w-5/12 justify-start pl-[1.2rem] md:pl-[3.3rem] items-center mt-2 cursor-pointer'>
+            <div className='left flex gap-2 w-5/12 justify-start pl-[1.2rem] md:pl-[3.3rem] items-center mt-2 cursor-pointer group'>
                 
                 <Image src={'/Assets/logo.svg'} height={40} width={40} alt="GrayZone Logo" className='drop-shadow-xl'/>
                 <AnimatePresence>
@@ -24,7 +24,7 @@ const Header = () => {
                     transition={{ ease: "easeOut", duration: 0.8 }}
                     > 
                         <div className='flex gap-1 text-xl font-extrabold'>
-                            <h1 className='text-slate-300 hover:underline drop-shadow-xl'>GrayZone</h1>
+                            <h1 className='text-slate-300 drop-shadow-xl'>GrayZone</h1>
                             
                             <motion.div
                             initial ={{opacity:0 , x:-30}}
@@ -34,11 +34,11 @@ const Header = () => {
                             }}
                             transition={{ ease: "easeOut", duration:0.5 }}
                             >
-                            <div className=' hover:underline drop-shadow-xl flex'>
-                                <p className='text-[#ff2f2f]'>W</p>
-                                <p className=' text-yellow-300'>e</p>
-                                <p className=' text-emerald-400'>b</p>
-                                <p className='text-[#3decffec]'>3</p>
+                            <div className=' drop-shadow-xl flex'>
+                                <p className='text-[#ff2f2f] group-hover:animate-wiggleBounce3 '>W</p>
+                                <p className=' text-yellow-300 group-hover:animate-wiggleBounce3'>e</p>
+                                <p className=' text-emerald-400 group-hover:animate-wiggleBounce2'>b</p>
+                                <p className='text-[#3decffec] group-hover:animate-wiggleBounce'>3</p>
                             </div>
                             </motion.div>
                         </div>

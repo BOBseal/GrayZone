@@ -1,4 +1,3 @@
-"use client"
 import Image from 'next/image';
 //import { useContext } from 'react';
 import { AppContext } from '@/Context/appReactiveContext';
@@ -10,8 +9,6 @@ import Catalogue from '../components/Catalogue';
 import Services from '../components/Services';
 import WhyChooseUs from '../components/WhyChooseUs';
 import Testimonials from '../components/Testimonials';
-//Transitions and effects
-import {AnimatePresence, motion} from "framer-motion"
 
 export default function Home() {
   //const {dark , setDark , handleThemeChange} = useContext(AppContext);
@@ -21,16 +18,7 @@ export default function Home() {
       
       <Image src={'/Assets/bgImg.svg'} width={0} height={0} alt="GrayZone" className={`h-full w-screen object-cover md:object-cover absolute top-0 left-0`}/>
 
-      <div className={`${`bg-white text-black`} flex flex-col justify-center gap-0 items-center h-full w-full bg-[#1D023C]`}>
-        <AnimatePresence>
-        <motion.div
-          initial ={{opacity:0 , y:-50 }}
-         animate={{
-          opacity:1,
-          y:0
-         }}
-         transition={{ ease: "easeInOut", duration: 0.8 }}
-        > 
+      <div className={`${`bg-white text-black`} flex flex-col justify-center gap-0 items-center h-full w-full bg-[#1D023C]`}> 
            
             <div className='flex flex-col bg-transparent mt-[4.5rem] justify-center w-full h-full items-center'>
               <HeroSection/>
@@ -51,11 +39,7 @@ export default function Home() {
 
 
         */}
-            </div>
-            
-          
-        </motion.div>
-        </AnimatePresence>  
+            </div> 
       </div>
      
     </main>
