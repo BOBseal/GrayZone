@@ -2,6 +2,8 @@
 import React from 'react'
 import Image from 'next/image'
 import { motion , AnimatePresence } from 'framer-motion'
+import MINTPASS from './mintPass'
+import Link from 'next/link'
 
 const HeroSection = () => {
   return (
@@ -22,7 +24,7 @@ const HeroSection = () => {
           </div>
           
           <div className='flex flex-col justify-evenly w-full md:w-5/12 gap-4 rounded-3xl pb-1 lg:w-[600px] bg-opacity-40 object-contain md:pr-2 md:pl-2'>
-            <div className='flex group font-bold text-[2rem] justify-center md:text-[2.5rem] lg:text-[5.5rem] w-full flex-wrap gap-[5px] md:gap[10px]'>
+            <div className='flex group font-bold font-serif text-[2rem] justify-center md:text-[2.5rem] lg:text-[5.5rem] w-full flex-wrap gap-[5px] md:gap[10px]'>
               
               <div className=' text-slate-300 drop-shadow-2xl underline underline-offset-[4px] group-hover:no-underline gap-0 flex'><p className='group-hover:animate-wiggleBounce2'>G</p>ray<p className='group-hover:animate-wiggleBounce2'>Z</p>one</div>
               <div className='flex text-[#3decffec] underline underline-offset-[4px] group-hover:no-underline'>
@@ -47,8 +49,22 @@ const HeroSection = () => {
         </div>
 
         <div className='w-full h-[150px] flex flex-col justify-between items-center'>
-            <p className='flex text-[2rem] font-bold animate-slowerFlicker hover:animate-wiggleSlow md:animate-slowerPing text-slate-100' onClick={()=> alert("GRAYZONE UNDER LOADING STATE... COMING SOON!!")}>COMING SOON</p>
+       { /*    <p className='flex text-[2rem] font-bold animate-slowerFlicker hover:animate-wiggleSlow md:animate-slowerPing text-slate-100' onClick={()=> alert("GRAYZONE UNDER LOADING STATE... COMING SOON!!")}>COMING SOON</p>
+      */ } 
+        <div className={`text-white flex w-full h-full justify-center p-4 md:p-6 -mt-4 lg:-mt-8`}>
+          <div className='flex flex-col w-full h-full drop-shadow-lg items-center'>
+            <div className='flex gap-4 md:gap-6 lg:gap-8 flex-col w-11/12 justify-center text-center items-center p-2 border'>
+              <h2 className=' text-xl font-bold font-serif animate-slowerFlicker'>GRAYZONE TESTNET JOUNEY IS NOW LIVE</h2>
+              <Link href={'/mintpass'}>
+              <button className='p-1 flex justify-center bg-[#9041ff] bg-opacity-80 w-[10rem] rounded-3xl'>
+               <p className='animate-slowerPing'> JOIN NOW</p>
+              </button>
+              </Link>
+            </div>
+
+          </div>
         </div>
+      </div>
         </motion.div>
         </AnimatePresence>    
     </div>

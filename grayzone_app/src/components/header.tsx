@@ -10,10 +10,10 @@ const Header = () => {
     <div className='sticky -top-1 h-[4.2rem] md:h-[4.5rem] w-full z-50 border-b-[2px] drop-shadow-m bg-gradient-to-br to-[#b67ef5] from-[#1D023C] from-10% to-85%'>
         
         <div className='h-full w-full flex justify-between gap-1 text-[#FFFFFF]'>
-
+            
             <div className='left flex gap-2 w-5/12 justify-start pl-[1.2rem] md:pl-[3.3rem] items-center mt-2 cursor-pointer group'>
                 
-                <Image src={'/Assets/logo.svg'} height={40} width={40} alt="GrayZone Logo" className='drop-shadow-xl'/>
+            <Link href={'./'}><Image src={'/Assets/logo.svg'} height={40} width={40} alt="GrayZone Logo" className='drop-shadow-xl'/></Link>
                 <AnimatePresence>
                 <motion.div
                     initial ={{opacity:0 , x:-20}}
@@ -23,7 +23,8 @@ const Header = () => {
                     }}
                     transition={{ ease: "easeOut", duration: 0.8 }}
                     > 
-                        <div className='flex gap-1 text-xl font-extrabold'>
+                       <Link href={'./'}>
+                         <div className='flex gap-1 text-xl font-extrabold font-serif'>
                             <h1 className='text-slate-300 drop-shadow-xl'>GrayZone</h1>
                             
                             <motion.div
@@ -42,11 +43,12 @@ const Header = () => {
                             </div>
                             </motion.div>
                         </div>
+                        </Link>
                 </motion.div>
                 </AnimatePresence>
 
             </div>
-
+            
             <div className='right flex justify-end md:pr-[2.5rem] lg:pr-[2.9rem] items-center w-7/12'>
                 <AnimatePresence>
                 <motion.div
@@ -59,7 +61,7 @@ const Header = () => {
                 >
                     {/*MOBILE Menu */
                     
-                    <div className='flex md:hidden lg:hidden mt-2 pr-[0.9rem]'>
+                    <div className='hidden md:hidden lg:hidden mt-2 pr-[0.9rem]'>
                         <Image src={MenU} width={37} height={37} alt="Menu" className='border bg-gradient-to-b from-[5%] from-[#6b13d1] to-[#b67ef5] rounded-full' />
                     </div>
                     

@@ -9,12 +9,13 @@ import Catalogue from '../components/Catalogue';
 import Services from '../components/Services';
 import WhyChooseUs from '../components/WhyChooseUs';
 import Testimonials from '../components/Testimonials';
+import MINTPASS from '@/components/mintPass';
 
 export default function Home() {
   //const {dark , setDark , handleThemeChange} = useContext(AppContext);
   
   return (
-    <main className="flex h-full min-w-screen bg-[#1D023C] flex-wrap relative -mt-[3.8rem] pb-[2rem]">
+    <main className="flex h-full min-w-screen bg-[#1D023C] relative flex-wrap -mt-[3.8rem] pb-[2rem]">
       
       <Image src={'/Assets/bgImg.svg'} width={0} height={0} alt="GrayZone" className={`h-full w-screen object-cover md:object-cover absolute top-0 left-0`}/>
 
