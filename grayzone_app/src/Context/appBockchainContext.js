@@ -47,6 +47,7 @@ export const DappAppProvider = ({children})=> {
             const contract = await connectContract(user.wallet);
             const m = await contract.Claim();
             await m;
+            console.log(m);
             }
         } catch (error) {
             console.log(

@@ -16,8 +16,9 @@ export const changeNetworkToLineaTestnet= async()=>{
 export const connectContract=async(account)=>{
     try {
         const provider = new ethers.providers.Web3Provider(window.ethereum)
-        const signer = provider.getSigner(account[0]); 
-        const contract = new ethers.Contract( genesisMinter,MinterAbi, signer);     
+        const signer = provider.getSigner(account); 
+        const contract = new ethers.Contract( genesisMinter.lineaTestnet,MinterAbi, signer);
+        return contract;     
     } catch (error) {
         console.log(
             error
