@@ -1,14 +1,30 @@
 "use client"
-import React from 'react'
+import { changeNetworkToLineaTestnet } from '@/utils/hooks'
+import React,{useContext} from 'react'
 import Image from 'next/image'
-
+import { DappAppContext } from '@/Context/appBockchainContext'
+const lineaTestId = "0xe704"
 const MINTPASS = () => {
-
-  const a =()=>{
-    alert("UNDER CONSTRUCTION");
+  const{user , connectWallet, mint}= useContext(DappAppContext);
+  const a = async()=>{
+     try{ 
+      if(!user.wallet){
+        connectWallet();
+      }
+      if(user.wallet){
+        console.log(user.wallet , user.network);
+        mint();
+      }
+      if(user.network !=lineaTestId){
+        connectWallet();
+      }
+      else return false
+    }catch (error){
+        console.log(error);
+      }
   }
   return (
-  <div className="flex h-full min-w-screen bg-[#1D023C] relative flex-wrap pb-[2rem]">
+  <div className="flex min-h-screen h-full min-w-screen bg-[#1D023C] relative flex-wrap pb-[2rem]">
       
       <Image src={'/Assets/bgImg.svg'} width={0} height={0} alt="GrayZone" className={`h-full w-screen object-cover md:object-cover absolute top-0 left-0`}/>
 
@@ -27,9 +43,10 @@ const MINTPASS = () => {
                   </div>
 
                   <div className='w-11/12 md:w-[45rem] lg:w-[35rem] flex flex-wrap gap-3 flex-col pb-6'>
-                    <h2 className=' text-lg font-semibold underline text-white underline-offset-2 font-serif'>HOW TO MINT?</h2> 
-                    <p className=' text-xs pl-2 font-sans text-gray-200'> 1: GET SOME GOERLI ETHER FROM FAUCETS FOR GAS FEE</p>
-                    <p className=' text-xs pl-2 font-sans text-gray-200'> 2: MINT YOUR ALPHA EDITION ZONEPASS ON GOERLI</p>
+                    <h2 className=' text-lg font-semibold underline text-white underline-offset-2 font-serif'>HOW TO MINT?</h2>
+                    <p className=' text-xs pl-2 font-sans text-gray-200'> 1: CONNECT WALLET</p> 
+                    <p className=' text-xs pl-2 font-sans text-gray-200'> 2: GET SOME GOERLI ETHER FROM FAUCETS FOR GAS FEE</p>
+                    <p className=' text-xs pl-2 font-sans text-gray-200'> 3: MINT YOUR ALPHA EDITION ZONEPASS ON GOERLI</p>
                   </div>
 
                   <div className='w-11/12 md:w-[45rem] lg:w-[35rem] flex flex-col bg-[#9041ff] items-center gap-4 border-[2px] rounded-2xl p-8'>
@@ -37,7 +54,7 @@ const MINTPASS = () => {
                       <Image src={'/Assets/logo.svg'} width={300} height={200} alt="GRAYZONE WEB3" className='flex object-contain h-[250px] w-[300px] md:w-[500px] lg:w-[1200px] drop-shadow-2xl'/>
                     </div>
                   
-                    <button onClick={()=> alert("UNDER CONSTRUCTION , MEANWHILE FOLLOW US ON TELEGRAM and LINKEDIN")} className='bg-[#56239d] border p-6 rounded-3xl font-bold text-slate-200 font-serif'>MINT ZONEPASS: G-ALPHA</button>
+                    <button onClick={()=>a() } className='bg-[#56239d] border p-6 rounded-3xl font-bold text-slate-200 font-serif'>{ !user.wallet? "CONNECT WALLET":"MINT ZONEPASS"}</button>
                   </div>
 
               </div>

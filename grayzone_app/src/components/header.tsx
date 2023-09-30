@@ -79,7 +79,7 @@ const Header = () => {
                         </div>
 
                         <div className='w-[8.3rem] flex justify-center items-center hover:underline drop-shadow-lg hover:text-[1.2rem]'>
-                            <button onClick={()=> alert("Products Coming Soon")} className='flex gap-[5px] items-center justify-center'>
+                            <button onClick={()=> alert("Mint ZONEPASS Alpha Edition to Access Services")} className='flex gap-[5px] items-center justify-center'>
                                
                                <p>Our Products</p>
                                
