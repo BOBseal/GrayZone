@@ -1,18 +1,20 @@
 "use client"
 import { changeNetworkToLineaTestnet } from '@/utils/hooks'
-import React,{useContext} from 'react'
+import Link from 'next/link'
+import React,{useContext, useEffect, useState} from 'react'
 import Image from 'next/image'
 import { DappAppContext } from '@/Context/appBockchainContext'
 const lineaTestId = "0xe704"
 const MINTPASS = () => {
-  const{user , connectWallet, mint}= useContext(DappAppContext);
+  const{user , connectWallet, mint, isPassholder }= useContext(DappAppContext);
+  const [isholder, setisHolder] = useState(false);
   const a = async()=>{
      try{ 
       if(!user.wallet){
         connectWallet();
       }
       if(user.wallet){
-        console.log(user.wallet , user.network);
+       // console.log(user.wallet , user.network);
         mint();
       }
       if(user.network !=lineaTestId){
@@ -23,8 +25,29 @@ const MINTPASS = () => {
         console.log(error);
       }
   }
+
+  const handler=async()=>{
+    try {
+      const num = await isPassholder();
+      if(num >0 ){
+        setisHolder(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    try{if(user.network !=lineaTestId){
+      connectWallet();
+    }
+    handler()} catch(error){
+      console.log(error)
+    }
+  }, [user , isholder])
+  
   return (
-  <div className="flex min-h-screen h-full min-w-screen bg-[#1D023C] relative flex-wrap pb-[2rem]">
+  <div className="flex min-h-screen h-full min-w-screen bg-[#1D023C] relative flex-wrap pb-[2rem] mb-[30px]">
       
       <Image src={'/Assets/bgImg.svg'} width={0} height={0} alt="GrayZone" className={`h-full w-screen object-cover md:object-cover absolute top-0 left-0`}/>
 
@@ -43,10 +66,10 @@ const MINTPASS = () => {
                   </div>
 
                   <div className='w-11/12 md:w-[45rem] lg:w-[35rem] flex flex-wrap gap-3 flex-col pb-6'>
-                    <h2 className=' text-lg font-semibold underline text-white underline-offset-2 font-serif'>HOW TO MINT?</h2>
+                    <h3 className=' text-lg font-semibold underline text-white underline-offset-2 font-serif'>HOW TO MINT?</h3>
                     <p className=' text-xs pl-2 font-sans text-gray-200'> 1: CONNECT WALLET</p> 
-                    <p className=' text-xs pl-2 font-sans text-gray-200'> 2: GET SOME GOERLI ETHER FROM FAUCETS FOR GAS FEE</p>
-                    <p className=' text-xs pl-2 font-sans text-gray-200'> 3: MINT YOUR ALPHA EDITION ZONEPASS ON GOERLI</p>
+                    <p className=' text-xs pl-2 font-sans text-gray-200'> 2: GET SOME LINEA TEST ETHER FROM FAUCETS FOR GAS FEE</p>
+                    <p className=' text-xs pl-2 font-sans text-gray-200'> 3: MINT YOUR ALPHA EDITION ZONEPASS ON LINEA GOERLI TESTNET</p>
                   </div>
 
                   <div className='w-11/12 md:w-[45rem] lg:w-[35rem] flex flex-col bg-[#9041ff] items-center gap-4 border-[2px] rounded-2xl p-8'>
@@ -54,9 +77,27 @@ const MINTPASS = () => {
                       <Image src={'/Assets/logo.svg'} width={300} height={200} alt="GRAYZONE WEB3" className='flex object-contain h-[250px] w-[300px] md:w-[500px] lg:w-[1200px] drop-shadow-2xl'/>
                     </div>
                   
-                    <button onClick={()=>a() } className='bg-[#56239d] border p-6 rounded-3xl font-bold text-slate-200 font-serif'>{ !user.wallet? "CONNECT WALLET":"MINT ZONEPASS"}</button>
+                    <div onClick={()=>a() } className='bg-[#56239d] border p-6 rounded-3xl font-bold text-slate-200 font-serif'>{ !user.wallet? "CONNECT WALLET": 
+                    <>{
+                      isholder ? <>
+                      <Link href={``}>
+                        <button onClick={()=> alert("Under Construction")}>GO TO DASHBOARD</button>
+                      </Link></>:"MINT PASS"
+                    }</>}
+                    </div>
                   </div>
 
+
+                   <div className='w-11/12 md:w-[43rem] lg:w-[35rem] flex flex-wrap gap-3 flex-col pt-[40px]'>
+                    <h3 className=' text-lg font-semibold underline text-white underline-offset-2 font-serif'>WHAT ARE THE BENIFITS OF MINTING ALPHA(TESTNET) EDITION ZONEPASS?</h3>
+                    <p className=' text-xs pl-2 font-sans text-gray-200 w-10/12'> 1: Rewards For All Early Contributors in The Form of Exclusive Platform Benifits by Sharing us your reviews and user experience</p> 
+                    <p className=' text-xs pl-2 font-sans text-gray-200'> 2: Whitelist to Recieve MAINNET EDITION upon Mainnet Launch</p>
+                    <p className=' text-xs pl-2 font-sans text-gray-200'> 3: Future Allocation and Exciting Rewards</p>
+                    <p className=' text-lg pl-2 font-sans text-gray-200 font-semibold'> Stay Tuned for Participation,Rules and More Details!!</p>
+                    <div className='flex justify-center items-center'>
+                    <p className=' flex w-[15rem] h-[3rem] justify-center items-center text-center rounded-full text-lg pl-2 font-sans font-semibold cursor-pointer text-gray-200 bg-gradient-to-br to-[#b67ef5] from-[#1D023C] from-10% to-85% p-4'><Link href={`https://x.com/grayzoneweb3?t=VHrihi13p99Nxoc1K2yUQQ&s=09`}>FOLLOW US ON TWITTER </Link></p>
+                    </div>
+                  </div>   
               </div>
             </div> 
       </div>

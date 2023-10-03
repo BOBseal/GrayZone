@@ -1,9 +1,11 @@
 "use client"
-import React, { useState } from 'react'
-import Image from 'next/image'
-import { AnimatePresence, motion } from 'framer-motion'
-import MenU  from '../../public/Assets/icons8-hamburger-menu-128.svg'
-import Link from 'next/link'
+import React, { useState } from 'react';
+import Image from 'next/image';
+import { AnimatePresence, motion } from 'framer-motion';
+import MenU  from '../../public/Assets/icons8-hamburger-menu-128.svg';
+import Link from 'next/link';
+import { homelink } from '@/utils/hooks';
+
 const Header = () => {
     const [x, setX ] = useState(false); // menu opener
   return (
@@ -13,7 +15,7 @@ const Header = () => {
             
             <div className='left flex gap-2 w-5/12 justify-start pl-[1.2rem] md:pl-[3.3rem] items-center mt-2 cursor-pointer group'>
                 
-            <Link href={'./'}><Image src={'/Assets/logo.svg'} height={40} width={40} alt="GrayZone Logo" className='drop-shadow-xl'/></Link>
+            <Image src={'/Assets/logo.svg'} height={40} width={40} alt="GrayZone Logo" className='drop-shadow-xl'/>
                 <AnimatePresence>
                 <motion.div
                     initial ={{opacity:0 , x:-20}}
@@ -23,7 +25,7 @@ const Header = () => {
                     }}
                     transition={{ ease: "easeOut", duration: 0.8 }}
                     > 
-                       <Link href={'./'}>
+                    
                          <div className='flex gap-1 text-xl font-extrabold font-serif'>
                             <h1 className='text-slate-300 drop-shadow-xl'>GrayZone</h1>
                             
@@ -43,7 +45,6 @@ const Header = () => {
                             </div>
                             </motion.div>
                         </div>
-                        </Link>
                 </motion.div>
                 </AnimatePresence>
 
@@ -71,7 +72,7 @@ const Header = () => {
                     <div className={`hidden md:flex justify-between gap-4 mt-2 w-11/12 font-semibold text-[1.1rem]`}>
                         
                         <div className={`w-[8rem] flex justify-center hover:underline items-center drop-shadow-lg hover:text-[1.2rem]`}>
-                            <Link href={'./'}>
+                            <Link href={`${homelink}`}>
                                 <button onClick={()=> window.location.reload()}>
                                     Home
                                 </button>
@@ -98,7 +99,6 @@ const Header = () => {
                 </motion.div>
                 </AnimatePresence>
             </div>
-
         </div>
         
     </div>

@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { genesisMinter, MinterAbi } from "./constants";
+import { genesisMinter, MinterAbi , PassAbi , PassAddress } from "./constants";
 import { lineaTestNetwork } from "./networkConfigs";
 
 export const changeNetworkToLineaTestnet= async()=>{
@@ -25,5 +25,20 @@ export const connectContract=async(account)=>{
         )
     }
 }
+
+export const connectNFTContract = async(account)=>{
+    try {
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const signer = provider.getSigner(account); 
+        const contract = new ethers.Contract( PassAddress.lineaTestnet,PassAbi, signer);
+        return contract;     
+    } catch (error) {
+        console.log(
+            error
+        )
+    }
+}
+
+export const homelink = "http://localhost:3000"
 
 //export const lineaTestId = "0xe704";

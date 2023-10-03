@@ -19,10 +19,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <DappAppProvider>
-        <AppProvider>
+          
           <Header/>
+          <main>
           {children}
-        </AppProvider>
+          </main>
         </DappAppProvider>
         </body>
     </html>
