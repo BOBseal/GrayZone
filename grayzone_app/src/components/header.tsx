@@ -72,7 +72,7 @@ const Header = () => {
                     <div className={`hidden md:flex justify-between gap-4 mt-2 w-11/12 font-semibold text-[1.1rem]`}>
                         
                         <div className={`w-[8rem] flex justify-center hover:underline items-center drop-shadow-lg hover:text-[1.2rem]`}>
-                            <Link href={`${homelink}`}>
+                            <Link href={`/`}>
                                 <button onClick={()=> window.location.reload()}>
                                     Home
                                 </button>
