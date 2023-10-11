@@ -23,6 +23,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/mintpass.jsx", "src/utils/hooks.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/mintpass.jsx", "src/utils/hooks.js", "src/app/dashboard/[...user]/page.js", "src/app/dashboard/[...user]/page.js"],
   "exclude": ["node_modules"]
 }

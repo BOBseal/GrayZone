@@ -6,8 +6,9 @@ import Image from 'next/image'
 import { DappAppContext } from '@/Context/appBockchainContext'
 const lineaTestId = "0xe704"
 const MINTPASS = () => {
-  const{user , connectWallet, mint, isPassholder }= useContext(DappAppContext);
+  const{user , connectWallet, mint, isPassholder, getPassInfo }= useContext(DappAppContext);
   const [isholder, setisHolder] = useState(false);
+  let tx;
   const a = async()=>{
      try{ 
       if(!user.wallet){
@@ -15,7 +16,9 @@ const MINTPASS = () => {
       }
       if(user.wallet){
        // console.log(user.wallet , user.network);
-        mint();
+        const t = await mint();
+       // console.log(t);
+        tx = t;
       }
       if(user.network !=lineaTestId){
         connectWallet();
@@ -47,7 +50,7 @@ const MINTPASS = () => {
   }, [user , isholder])
   
   return (
-  <div className="flex min-h-screen h-full min-w-screen bg-[#1D023C] relative flex-wrap pb-[2rem] mb-[30px]">
+  <div className="flex min-h-screen h-full min-w-screen bg-[#1D023C] relative flex-wrap pb-[2rem]">
       
       <Image src={'/Assets/bgImg.svg'} width={0} height={0} alt="GrayZone" className={`h-full w-screen object-cover md:object-cover absolute top-0 left-0`}/>
 
@@ -70,6 +73,7 @@ const MINTPASS = () => {
                     <p className=' text-xs pl-2 font-sans text-gray-200'> 1: CONNECT WALLET</p> 
                     <p className=' text-xs pl-2 font-sans text-gray-200'> 2: GET SOME LINEA TEST ETHER FROM FAUCETS FOR GAS FEE</p>
                     <p className=' text-xs pl-2 font-sans text-gray-200'> 3: MINT YOUR ALPHA EDITION ZONEPASS ON LINEA GOERLI TESTNET</p>
+                    <p className=' text-xs pl-2 font-sans text-gray-200'> 4: RELOAD THIS PAGE</p> 
                   </div>
 
                   <div className='w-11/12 md:w-[45rem] lg:w-[35rem] flex flex-col bg-[#9041ff] items-center gap-4 border-[2px] rounded-2xl p-8'>
