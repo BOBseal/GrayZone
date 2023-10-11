@@ -18,7 +18,6 @@ const MINTPASS = () => {
        // console.log(user.wallet , user.network);
         const t = await mint();
        // console.log(t);
-        tx = t;
       }
       if(user.network !=lineaTestId){
         connectWallet();
@@ -84,9 +83,9 @@ const MINTPASS = () => {
                     <div onClick={()=>a() } className='bg-[#56239d] border p-6 rounded-3xl font-bold text-slate-200 font-serif'>{ !user.wallet? "CONNECT WALLET": 
                     <>{
                       isholder ? <>
-                      <Link href={``}>
-                        <button onClick={()=> alert("Under Construction")}>GO TO DASHBOARD</button>
-                      </Link></>:"MINT PASS"
+                      <Link href={`/dashboard/user`}>
+                        <button>GO TO DASHBOARD</button>
+                      </Link></>:<button>"MINT PASS"</button>
                     }</>}
                     </div>
                   </div>
