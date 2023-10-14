@@ -83,7 +83,7 @@ const MINTPASS = () => {
                     <div onClick={()=>a() } className='bg-[#56239d] border p-6 rounded-3xl font-bold text-slate-200 font-serif'>{ !user.wallet? "CONNECT WALLET": 
                     <>{
                       isholder ? <>
-                      <Link href={`/dashboard/user`}>
+                      <Link href={`/dashboard`}>
                         <button>GO TO DASHBOARD</button>
                       </Link></>:<button>"MINT PASS"</button>
                     }</>}
