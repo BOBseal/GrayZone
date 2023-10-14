@@ -2,7 +2,14 @@
 
 import React,{ useState, useEffect } from 'react';
 //import { ThirdwebProvider } from '@thirdweb-dev/react';
-import {changeNetworkToLineaTestnet, connectContract, connectNFTContract , connectStorageContract, unixTimeToHumanReadable} from "../utils/hooks"
+import {
+    changeNetworkToLineaTestnet,
+    connectContract, 
+    connectNFTContract , 
+    connectStorageContract, 
+    unixTimeToHumanReadable,
+    connectTransferContract
+} from "../utils/hooks"
 export const DappAppContext = React.createContext();
 export const DappAppProvider = ({children})=> {
     const lineaTestId = "0xe704";
@@ -146,13 +153,13 @@ export const DappAppProvider = ({children})=> {
                         const holder = res[1];
                         const mch = res[2]
                         const ach = res[3]
-                        const mintTime = unixTimeToHumanReadable(res[4].toLocaleString());
-                        const lastRen = unixTimeToHumanReadable(res[5].toLocaleString());
-                        const exp = unixTimeToHumanReadable(res[6].toLocaleString());
-                        const usedSlots = res[7].toNumber();
-                        const totalSlots = res[8].toNumber();
-                        const points = res[9].toNumber();
-
+                        const mintTime = unixTimeToHumanReadable(res[5].toLocaleString());
+                        const lastRen = unixTimeToHumanReadable(res[6].toLocaleString());
+                        const exp = unixTimeToHumanReadable(res[7].toLocaleString());
+                        const usedSlots = res[8].toNumber();
+                        const totalSlots = res[9].toNumber();
+                        const points = res[10].toNumber();
+                        const id_ = res[4].toNumber(); 
                         ans.push(mintner);
                         ans.push(holder);
                         ans.push(mch);
@@ -163,7 +170,7 @@ export const DappAppProvider = ({children})=> {
                         ans.push(usedSlots);
                         ans.push(totalSlots);
                         ans.push(points);
-                        ans.push(r.id);
+                        ans.push(id_);
                         
                         arr.push(ans);
                     }
@@ -180,10 +187,48 @@ export const DappAppProvider = ({children})=> {
             console.log(error);
         }
     }
+
+    const getIdBalance = async(id , token) =>{
+        try {
+            if(user.wallet){
+            const c = await connectNFTContract(user.wallet);
+            const bal = await c.getIdBalance(token , id);
+            return bal; 
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const depositToId = async(id , token , amount)=>{
+        try {
+            if(user.wallet){
+            const con = await connectTransferContract(user.wallet);
+            const deposit = await con.deposit(id, token , amount);
+            return deposit;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const withDrawFromId = async(id , token , amount , user)=>{
+        try {
+            if(user.wallet){
+            const con = await connectTransferContract(user.wallet);
+            const deposit = await con.deposit(id, token, user , amount);
+            return deposit;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
     return(<>
    
     <DappAppContext.Provider value={{user , error, userPass,connectWallet, mint, isPassholder, getPassInfo,
-    _delStorage , _addToStorage, _recoverStorage
+    _delStorage , _addToStorage, _recoverStorage , depositToId , withDrawFromId, getIdBalance
     }}>
         {children}
     </DappAppContext.Provider>
