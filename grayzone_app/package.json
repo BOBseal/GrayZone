@@ -22,6 +22,7 @@
     "eslint-config-next": "13.4.6",
     "ethers": "^5.7.2",
     "framer-motion": "^10.16.2",
+    "hardhat": "^2.18.1",
     "next": "13.4.6",
     "postcss": "8.4.24",
     "react": "18.2.0",
