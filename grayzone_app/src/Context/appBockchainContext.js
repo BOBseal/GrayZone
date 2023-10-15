@@ -212,11 +212,11 @@ export const DappAppProvider = ({children})=> {
         }
     }
 
-    const withDrawFromId = async(id , token , amount , user)=>{
+    const withDrawFromId = async(id , token , amount)=>{
         try {
             if(user.wallet){
             const con = await connectTransferContract(user.wallet);
-            const deposit = await con.deposit(id, token, user , amount);
+            const deposit = await con.withdraw(id, token, user.wallet , amount);
             return deposit;
             }
         } catch (error) {

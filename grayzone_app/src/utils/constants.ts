@@ -2,6 +2,7 @@ import abi from './ABIS/passAbi.json'
 import bbi from './ABIS/genesisMintAbi.json'
 import sbi from './ABIS/GRAYSTORE.json'
 import tbi from './ABIS/TransferAbi.json'
+import ebi from './ABIS/erc20.json'
 
 export const PassAddress ={
     goerli: {
@@ -32,3 +33,4 @@ export const MinterAbi = bbi.abi;
 export const PassAbi = abi.abi;
 export const StorageAbi = sbi.abi;
 export const TransferAbi = tbi.abi;
+export const ERC20Abi = ebi.abi;
