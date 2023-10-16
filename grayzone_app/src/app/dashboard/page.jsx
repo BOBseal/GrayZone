@@ -184,9 +184,9 @@ const USERDASHBOARD =()=> {
       </div>
       
       <div className='flex flex-col justify-center items-center'>
-        <h2 className='font-bold text-[2.5rem]'>ZONE SERVICES:</h2>
+        <h2 className='font-bold text-[2.5rem]'>ZONE SERVICES</h2>
 
-        <button>DECENTRALISED STORAGE SERVICE GOING ON SOON</button>
+        <button>...</button>
       </div>
      </div> 
    ) 
