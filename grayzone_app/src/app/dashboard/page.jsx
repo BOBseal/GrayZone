@@ -30,7 +30,7 @@ const USERDASHBOARD =()=> {
   })
   
 
-  const getBalances=async(token:string)=>{
+  const getBalances=async(token)=>{
     try {
       const w = await getIdBalance(passArr[10], lineaweth);
       const str = ethers.utils.formatUnits(w , 18);
@@ -73,9 +73,9 @@ const USERDASHBOARD =()=> {
       }
       if(deposits.token && deposits.amount != '0'){
         const amt = ethers.utils.parseUnits(deposits.amount, 18);
-        const cont =await connectErc20(user.wallet , deposits.token);
-        const approveMain = await cont.approve(PassAddress.lineaTestnet , amt);
-        const approveDep= await cont.approve(TransferUnit.lineaTestnet , amt);
+        const con =await connectErc20(user.wallet , deposits.token);
+        const approveMain = await con.approve(PassAddress.lineaTestnet , amt);
+        const approveDep= await con.approve(TransferUnit.lineaTestnet , amt);
         const tx = await depositToId(passArr[10] , deposits.token , amt );
       }
     } catch (error) {
