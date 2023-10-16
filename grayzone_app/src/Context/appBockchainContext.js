@@ -224,11 +224,23 @@ export const DappAppProvider = ({children})=> {
         }
     }
 
+    const idtoid = async(id1 , id2 , token , amount) =>{
+        try {
+            if(user.wallet){
+                const con = await connectTransferContract(user.wallet);
+                const tx = await con.idToId(id1 , id2 , token , amount);
+                return tx;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     return(<>
    
     <DappAppContext.Provider value={{user , error, userPass,connectWallet, mint, isPassholder, getPassInfo,
-    _delStorage , _addToStorage, _recoverStorage , depositToId , withDrawFromId, getIdBalance
+    _delStorage , _addToStorage, _recoverStorage , depositToId , withDrawFromId, getIdBalance, idtoid
     }}>
         {children}
     </DappAppContext.Provider>

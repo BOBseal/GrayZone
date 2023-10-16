@@ -12,7 +12,7 @@ const lineaTestId = "0xe704"
 const lineaweth = "0x2C1b868d6596a18e32E61B901E4060C872647b6C"
 
 const USERDASHBOARD =()=> {
-  const{user , connectWallet,getPassInfo , getIdBalance, depositToId , withDrawFromId}= useContext(DappAppContext);
+  const{user , connectWallet,getPassInfo , getIdBalance, depositToId , withDrawFromId, idtoid}= useContext(DappAppContext);
   const [passArr , setPassArr] = useState([]);
   const [b , setB] = useState(false);
   const [balances , setBalances] = useState({
@@ -28,6 +28,13 @@ const USERDASHBOARD =()=> {
    token:"",
    amount:'' 
   })
+
+  const [idTx , setIdTx] = useState({
+    setAmt:"",
+    setToken:"",
+    frmId:0,
+    toId:0
+  })
   
 
   const getBalances=async(token)=>{
@@ -37,7 +44,7 @@ const USERDASHBOARD =()=> {
       console.log(str)
       setBalances({...balances ,weth:str})
       //console.log(wth);
-      if(token!=''){
+      if(token){
       const ss = await getIdBalance(passArr[10], token);
       const as = ethers.utils.formatUnits(ss , 18);
      // const bal = await getIdBalance(token);
@@ -103,6 +110,15 @@ const USERDASHBOARD =()=> {
     }
   }
 
+  const handleIdTx = async()=>{
+    try {
+      const amt = ethers.utils.parseUnits(idTx.setAmt);
+      const tx = await idtoid(passArr[10] , idTx.toId , idTx.setToken , amt);
+    } catch (c) {
+      console.log(c)
+    }
+  }
+
   useEffect(() => {
     try {
       if(!user.wallet){
@@ -110,15 +126,15 @@ const USERDASHBOARD =()=> {
       } else 
       if(user.wallet && b == false){
         handler();
-        if(ad !=""){
-        getBalances(ad);
-        }
+       
+        getBalances();
+
       } 
       return
     } catch (error) {
       console.log(error);
     }
-  }, [user, passArr, balances.selectToken , ad, deposits.token])
+  }, [user, passArr, balances.weth, ad, deposits.token])
   
 
   return ( 
@@ -157,6 +173,14 @@ const USERDASHBOARD =()=> {
         <input type={'text'} placeholder="Enter Token Address" onChange={(e)=> setWithdrawals({...withdrawals , token:e.target.value})}/>
         <input type={'number'} placeholder="Enter Amount to Deposit" onChange={(e)=> setWithdrawals({...withdrawals , amount:e.target.value})}/>
         <button onClick={()=> handleWithdraw()}>Trigger Withdraw</button>
+      </div>
+
+      <div className='flex flex-col'>
+        Transfer Balances Id-Id
+        <input type={'number'} placeholder='enter token Id to transfer to' onChange={(e)=> setIdTx({...idTx, toId: e.target.value})}/>
+        <input type={'text'} placeholder='enter token address to transfer' onChange={(e)=> setIdTx({...idTx, setToken: e.target.value})}/>
+        <input type={'number'} placeholder='enter Amount' onChange={(e)=> setIdTx({...idTx, setAmt: e.target.value})}/>
+        <button onClick={()=> handleIdTx()}>Trigger Transfer</button>
       </div>
       
       <div className='flex flex-col justify-center items-center'>
