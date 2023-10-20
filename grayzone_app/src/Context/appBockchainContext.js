@@ -20,6 +20,7 @@ export const DappAppProvider = ({children})=> {
         errorMsg:""
     });
     const [userPass , setUserPass] = useState();
+    const [userItems , setUserItems] = useState({});
 
     useEffect(() => {
     }, [])
@@ -142,6 +143,7 @@ export const DappAppProvider = ({children})=> {
                   }
             
                   const r = await Promise.all(promises);
+                  
                   r.forEach(r => {
                     let res = r.maps;
                     let holder = res[1].toUpperCase();
@@ -159,20 +161,12 @@ export const DappAppProvider = ({children})=> {
                         const usedSlots = res[8].toNumber();
                         const totalSlots = res[9].toNumber();
                         const points = res[10].toNumber();
-                        const id_ = res[4].toNumber(); 
-                        ans.push(mintner);
-                        ans.push(holder);
-                        ans.push(mch);
-                        ans.push(ach);
-                        ans.push(mintTime);
-                        ans.push(lastRen);
-                        ans.push(exp);
-                        ans.push(usedSlots);
-                        ans.push(totalSlots);
-                        ans.push(points);
-                        ans.push(id_);
+                        const id_ = res[4].toNumber();
+                        let userBalances = {id: id_ , minter: mintner , holder: holder , mintChainId: mch , activeChainId: ach, mintTime: mintTime
+                        , lastRenewal: lastRen , expiry: exp , totalSlots: totalSlots , useSlots: usedSlots , points: points }
                         
-                        arr.push(ans);
+                        
+                        arr.push(userBalances);
                     }
                   });
             

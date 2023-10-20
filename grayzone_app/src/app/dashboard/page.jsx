@@ -35,21 +35,30 @@ const USERDASHBOARD =()=> {
     frmId:0,
     toId:0
   })
+  const [controllers , setControllers] = useState({
+    tokenSelected: false,
+    tokenId:"",
+    loading1: false,
+    loading2: false,
+    item:{}
+  })
   
 
   const getBalances=async(token)=>{
     try {
-      const w = await getIdBalance(passArr[10], lineaweth);
+      setControllers({...controllers , loading2: true})
+      const w = await getIdBalance(controllers.item.id, lineaweth);
       const str = ethers.utils.formatUnits(w , 18);
       console.log(str)
       setBalances({...balances ,weth:str})
       //console.log(wth);
       if(token){
-      const ss = await getIdBalance(passArr[10], token);
+      const ss = await getIdBalance(controllers.item.id, token);
       const as = ethers.utils.formatUnits(ss , 18);
      // const bal = await getIdBalance(token);
      // const decimal = await
-      setBalances({...balances ,selectToken: as.toString()})  
+      setBalances({...balances ,selectToken: as.toString()})
+      setControllers({...controllers , loading2: false})  
     }
     } catch (error) {
       console.log(error);
@@ -58,12 +67,14 @@ const USERDASHBOARD =()=> {
 
   async function handler(){
     try {
+      setControllers({...controllers , loading1: true})
       const a = await getPassInfo();
       console.log(a);
       const s = a.flat();
       console.log(s);
       setPassArr(s);
       setB(true);
+      setControllers({...controllers , loading1: false})
       return a;
     } catch (error) {
       console.log(error);
@@ -83,10 +94,23 @@ const USERDASHBOARD =()=> {
         const con =await connectErc20(user.wallet , deposits.token);
         const approveMain = await con.approve(PassAddress.lineaTestnet , amt);
         const approveDep= await con.approve(TransferUnit.lineaTestnet , amt);
-        const tx = await depositToId(passArr[10] , deposits.token , amt );
+        const tx = await depositToId(controllers.item.id , deposits.token , amt );
       }
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  const toggleSelect =(event)=>{
+    try {
+      if(controllers.tokenSelected== true){
+        setControllers({...controllers,tokenSelected: false})
+      } 
+      if(controllers.tokenSelected== false){
+        setControllers({...controllers,tokenSelected: true , item: event})
+      }
+    } catch (error) {
+     console.log(error) 
     }
   }
 
@@ -103,7 +127,7 @@ const USERDASHBOARD =()=> {
        
        
         //const cont =await connectErc20(user.wallet , deposits.token);
-        const tx = await withDrawFromId(passArr[10] , withdrawals.token ,amt);
+        const tx = await withDrawFromId(controllers.item.id , withdrawals.token ,amt);
       }
     } catch (error) {
       console.log(error)
@@ -113,7 +137,7 @@ const USERDASHBOARD =()=> {
   const handleIdTx = async()=>{
     try {
       const amt = ethers.utils.parseUnits(idTx.setAmt);
-      const tx = await idtoid(passArr[10] , idTx.toId , idTx.setToken , amt);
+      const tx = await idtoid(controllers.item.id , idTx.toId , idTx.setToken , amt);
     } catch (c) {
       console.log(c)
     }
@@ -121,6 +145,7 @@ const USERDASHBOARD =()=> {
 
   useEffect(() => {
     try {
+      setControllers({...controllers , loading1: true})
       if(!user.wallet){
         connectWallet();
       } else 
@@ -130,6 +155,7 @@ const USERDASHBOARD =()=> {
         getBalances();
 
       } 
+      setControllers({...controllers , loading1: false})
       return
     } catch (error) {
       console.log(error);
@@ -139,7 +165,18 @@ const USERDASHBOARD =()=> {
 
   return ( 
      <div className='flex flex-col gap-[4rem]'>
-      <div className='flex flex-col flex-wrap justify-center items-center font-semibold gap-1'>
+      
+      {!controllers.loading1 && !controllers.tokenSelected ? <div className=' flex flex-col items-center'>
+        <p className=' flex pt-6 pb-6 justify-center font-semibold text-[2rem] drop-shadow-xl'>Balances:</p>
+        {passArr.map((item)=>(
+          <div key={item.id} className={`flex w-8/12 flex-col gap-4 bg-[#9041ff] text-white text-sm rounded-lg shadow-lg p-2 border-[2px] border-[#7f3fff84] justify-between items-center`}>
+            <button onClick={()=> toggleSelect(item)} className='flex w-[14rem] justify-center bg-[#8139e5] rounded-full h-[2rem] text-lg items-center'><p>ENTER PASS PROFILE</p></button>
+            <p>PASS ID: {item.id}</p>
+            <p>Minted On: {item.mintTime}</p>
+          </div>
+        ))}
+      </div>: ""}
+      {/*<div className='flex flex-col flex-wrap justify-center items-center font-semibold gap-1'>
         <h1 className='font-bold text-[2.5rem]'>General Info Section</h1>
         <p>Token ID: {passArr[10]}</p>
         <p>OG MINTER: {passArr[0]}</p>
@@ -151,15 +188,29 @@ const USERDASHBOARD =()=> {
         <p>Used Storage Slots: {passArr[7]}</p>
         <p>Points Accumulated: {passArr[9]}</p>
         <p>Pass Expiry Date: {passArr[6]}</p>
-      </div>
+        </div>*/}
       
-      <div>
+      {controllers.tokenSelected ? <div className='flex flex-col justify-center items-center mt-8 gap-6'>
+        <button onClick={()=> toggleSelect()} className='flex w-[14rem] text-white justify-center bg-[#8139e5] rounded-full h-[2rem] text-lg items-center'><p>GO BACK</p></button>
+        
+        <div className='flex flex-col pb-4 pt-8'>
+          YOUR PASS INFO
+          <p>Pass ID: {controllers.item.id}</p>
+          <p>Points Balance: {controllers.item.points}</p>
+          <p>Minted On:{controllers.item.mintTime}</p>
+          <p>Expiry On:{controllers.item.expiry}</p>
+          <p>Active On Chain ID:{controllers.item.activeChainId}</p>
+          <p>Storage Plan : {controllers.item.totalSlots} Slots</p>
+          <p>Used Storage: {controllers.item.useSlots} Slots</p>
+        </div>
+        
+        <div>
         <p>ID DEPOSIT BALANCE Details</p>
         <p>ID Weth Balances: {balances.weth ? <>{balances.weth}</>:"0"} </p>
         <p>Selected Token Balances: {balances.selectToken?<>{balances.selectToken}</>:"0"}</p>
         <input type={'text'} placeholder="Enter Token Address" onChange={(e)=> setAd(e.target.value)}/>
         <button onClick={()=> getBalances(ad)}>Fetch Balances</button>
-      </div>
+        </div>
 
       <div className='flex flex-col'>
         Deposit To Pass:
@@ -188,6 +239,7 @@ const USERDASHBOARD =()=> {
 
         <button>...</button>
       </div>
+      </div> :<div className='flex justify-center text-[2rem] font-semibold'>ZONEPASS HOLDING LIST</div>}
      </div> 
    ) 
  }
