@@ -263,8 +263,9 @@ const USERDASHBOARD =()=> {
             <option value={zeroAddr}>ETH</option>
             <option>USDC</option>
           </select>
-          
+        <p>Enter Token ID to Transfer To:</p>
         <input type={'number'} className="text-black" placeholder='enter token Id to transfer to' onChange={(e)=> setIdTx({...idTx, toId: e.target.value})}/>
+        <p>Enter Amount to Transfer:</p>
         <input type={'number'} className="text-black" placeholder='enter Amount' onChange={(e)=> setIdTx({...idTx, setAmt: e.target.value})}/>
         <button onClick={()=> handleIdTx()}>TRANSFER</button>
 
