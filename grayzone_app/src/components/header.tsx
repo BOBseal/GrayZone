@@ -104,6 +104,7 @@ const Header = () => {
                     <div className='absolute top-[4.21rem] md:top-[4.5rem] right-0 bg-gradient-to-br to-[#b67ef5] from-[#1D023C] from-10% to-85% rounded-lg p-8 md:hidden lg:hidden pt-4 pb-4 pr-[0.9rem] items-center justify-center' onClick={()=> menuHandler()}>
                         
                         <div className='flex flex-col justify-center items-center gap-2 p-4'>
+                            <Link href={'/'}><p>HOME</p></Link>
                             <Link href={'/dashboard'}><p>DASHBOARD</p></Link>
                             <Link href={'/zonecloud'}><p>D-CLOUD</p></Link>
                             <Link href={'/erc20tools'}><p>ERC20 TOOLS</p></Link>
@@ -127,7 +128,7 @@ const Header = () => {
                         
                         <div className={`w-[8rem] flex justify-center hover:underline items-center drop-shadow-lg hover:text-[1.2rem]`}>
                             <Link href={`/`}>
-                                <button onClick={()=> window.location.reload()}>
+                                <button>
                                     Home
                                 </button>
                             </Link>
