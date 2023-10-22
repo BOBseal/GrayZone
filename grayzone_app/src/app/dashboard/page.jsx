@@ -162,11 +162,11 @@ const USERDASHBOARD =()=> {
   return ( 
      <div className='flex flex-col gap-[4rem]'>
       
-      {!controllers.loading1 && !controllers.tokenSelected ? <div className=' flex flex-col items-center'>
+      {!controllers.loading1 && !controllers.tokenSelected ? <div className=' flex flex-col items-center gap-4'>
         <p className=' flex pt-6 pb-6 justify-center font-semibold text-[2rem] drop-shadow-xl'>Balances:</p>
         {passArr.map((item)=>(
           <div key={item.id} className={`flex w-8/12 flex-col gap-4 bg-[#9041ff] text-white text-sm rounded-lg shadow-lg p-2 border-[2px] border-[#7f3fff84] justify-between items-center`}>
-            <button onClick={()=> toggleSelect(item)} className='flex w-[14rem] justify-center bg-[#8139e5] rounded-full h-[2rem] text-lg items-center'><p>ENTER PASS PROFILE</p></button>
+            <button onClick={()=> toggleSelect(item)} className='flex w-[14rem] justify-center bg-[#8139e5] rounded-full h-[2rem] text-lg items-center'><p>{`ENTER PASS ID ${item.id} PROFILE`}</p></button>
             <p>PASS ID: {item.id}</p>
             <p>Minted On: {item.mintTime}</p>
           </div>
@@ -189,7 +189,7 @@ const USERDASHBOARD =()=> {
       {controllers.tokenSelected ? <div className='flex flex-col justify-center items-center mt-8 gap-6'>
         <button onClick={()=> toggleSelect()} className='flex w-[14rem] text-white justify-center bg-[#8139e5] rounded-full h-[2rem] text-lg items-center'><p>GO BACK</p></button>
         
-        <div className='flex flex-col md:flex-row gap-2'>
+        <div className='grid md:grid-cols-2 gap-2'>
           <div className='flex flex-col pt-4 gap-1 pb-4 text-white p-[4rem]  bg-[#8139e5] rounded-2xl flex-wrap'>
             <h3 className='text-center text-[2rem] font-bold underline pb-4'>PASS GENERAL INFO</h3>
             <p>Pass ID: {controllers.item.id}</p>
@@ -221,9 +221,6 @@ const USERDASHBOARD =()=> {
 
           </div>
 
-        </div>
-
-        <div className='flex flex-col md:flex-row gap-2'>
 
         <div className='flex flex-col pt-4 gap-1 pb-4 text-white p-[4rem]  bg-[#8139e5] rounded-2xl flex-wrap'>
           <h3 className='text-center text-[1.8rem] font-bold underline pb-4'>DEPOSIT TO PASS</h3>
@@ -304,7 +301,7 @@ const USERDASHBOARD =()=> {
       </div>*/}
       
       <div className='flex flex-col justify-center items-center'>
-        <h2 className='font-bold text-[2.5rem]'>ZONEPASS DASHBOARD</h2>
+        <h2 className='font-bold text-[2.5rem]'>DASHBOARD</h2>
 
         <button>...</button>
       </div>

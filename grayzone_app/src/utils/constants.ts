@@ -3,6 +3,7 @@ import bbi from './ABIS/genesisMintAbi.json'
 import sbi from './ABIS/GRAYSTORE.json'
 import tbi from './ABIS/TransferAbi.json'
 import ebi from './ABIS/erc20.json'
+import mbi from './ABIS/NftMarket.json'
 
 export const PassAddress ={
     goerli: {
@@ -29,8 +30,13 @@ export const TransferUnit={
     lineaTestnet:"0x981A02Bf14e82770115D0EF1FC56AbD2D31834DC"
 }
 
+export const Market ={
+    lineaTestnet:"0x1ED7C3e7b1A28f4391C9369D7D14Fc6d1a0064Ee"
+}
+
 export const MinterAbi = bbi.abi;
 export const PassAbi = abi.abi;
 export const StorageAbi = sbi.abi;
 export const TransferAbi = tbi.abi;
 export const ERC20Abi = ebi.abi;
+export const MarketAbi = mbi.abi;

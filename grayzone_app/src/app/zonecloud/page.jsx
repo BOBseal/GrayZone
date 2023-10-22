@@ -1,8 +1,12 @@
-import React from 'react'
+'use client'
+import React,{useState , useEffect} from 'react'
 
 const page = () => {
   return (
-    <div>D storage</div>
+    <div>
+      <input type={'file'}/>
+      <button>Upload</button>
+    </div>
   )
 }
 

@@ -8,7 +8,8 @@ import {
     connectNFTContract , 
     connectStorageContract, 
     unixTimeToHumanReadable,
-    connectTransferContract
+    connectTransferContract,
+    connectMarketPlace
 } from "../utils/hooks"
 export const DappAppContext = React.createContext();
 export const DappAppProvider = ({children})=> {
@@ -85,6 +86,19 @@ export const DappAppProvider = ({children})=> {
             if(user.wallet){
                 const c = await connectStorageContract(user.wallet);
                 const tx =  await c.deleteSlot(id , slot);
+                return tx
+            }
+            return;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const getStorage = async(id, slot)=>{
+        try{    
+            if(user.wallet){
+                const c = await connectStorageContract(user.wallet);
+                const tx =  await c.getStorage(user.wallet , id , slot);
                 return tx
             }
             return;
@@ -230,11 +244,119 @@ export const DappAppProvider = ({children})=> {
         }
     }
 
+    const listNFT = async(nftAdr , id , paymentToken ,price, days)=>{
+        try {
+            if(user.wallet){
+                const list = {
+                    // address of the contract the asset you want to list is on
+                    assetContractAddress: nftAdr,
+                    // token ID of the asset you want to list
+                    tokenId: id,
+                    // how many of the asset you want to list
+                    quantity: 1,
+                    // address of the currency contract that will be used to pay for the listing
+                    currencyContractAddress: paymentToken,
+                    // The price to pay per unit of NFTs listed.
+                    pricePerToken: price,
+                    // when should the listing open up for offers
+                    startTimestamp: new Date(Date.now()),
+                    // how long the listing will be open for
+                    endTimestamp: new Date(Date.now() + days * 24 * 60 * 60 * 1000),
+                    // Whether the listing is reserved for a specific set of buyers.
+                    isReservedListing: false
+                }
+                const con = await connectMarketPlace(user.wallet);
+                const tx = await con.createListing(list);
+                return tx.listingId;
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const cancelListing= async(listingId)=>{
+        try {
+            if(user.wallet){
+                const con = await connectMarketPlace(user.wallet);
+                const tx = await con.cancelListing(listingId);
+                return tx.listingId;
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const updateListing= async(listingId , nftAdr , id , paymentToken ,price, days)=>{
+        try {
+            if(user.wallet){
+                const list = {
+                    // address of the contract the asset you want to list is on
+                    assetContractAddress: nftAdr,
+                    // token ID of the asset you want to list
+                    tokenId: id,
+                    // how many of the asset you want to list
+                    quantity: 1,
+                    // address of the currency contract that will be used to pay for the listing
+                    currencyContractAddress: paymentToken,
+                    // The price to pay per unit of NFTs listed.
+                    pricePerToken: price,
+                    // when should the listing open up for offers
+                    startTimestamp: new Date(Date.now()),
+                    // how long the listing will be open for
+                    endTimestamp: new Date(Date.now() + days * 24 * 60 * 60 * 1000),
+                    // Whether the listing is reserved for a specific set of buyers.
+                    isReservedListing: false
+                }
+                const con = await connectMarketPlace(user.wallet);
+                const tx = await con.cancelListing(listingId , list);
+                return tx.listingId;
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const getAllListings = async()=>{
+        try {
+            if(user.wallet){
+                const con = await connectMarketPlace(user.wallet)
+                const tx = await con.getAll();
+                return tx
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const getAllValidListings = async()=>{
+        try {
+            if(user.wallet){
+                const con = await connectMarketPlace(user.wallet)
+                const tx = await con.getAllValid();
+                return tx
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const getTotalListings = async()=>{
+        try {
+            if(user.wallet){
+                const con = await connectMarketPlace(user.wallet)
+                const tx = await con.totalListings();
+                return tx
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return(<>
    
     <DappAppContext.Provider value={{user , error, userPass,connectWallet, mint, isPassholder, getPassInfo,
-    _delStorage , _addToStorage, _recoverStorage , depositToId , withDrawFromId, getIdBalance, idtoid
+    _delStorage , _addToStorage, _recoverStorage , depositToId , withDrawFromId, getIdBalance, idtoid , listNFT,
+    cancelListing , updateListing, getAllListings , getAllValidListings, getTotalListings, getStorage
     }}>
         {children}
     </DappAppContext.Provider>

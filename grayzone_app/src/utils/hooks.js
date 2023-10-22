@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { genesisMinter, MinterAbi , PassAbi , PassAddress, storageUnit , StorageAbi , TransferAbi , TransferUnit, ERC20Abi} from "./constants";
+import { genesisMinter, MinterAbi , PassAbi , PassAddress, storageUnit , StorageAbi , TransferAbi , TransferUnit, ERC20Abi, MarketAbi , Market} from "./constants";
 import { lineaTestNetwork } from "./networkConfigs";
 
 export const changeNetworkToLineaTestnet= async()=>{
@@ -66,6 +66,17 @@ export const connectErc20 = async(addr, token)=>{
         const p = new ethers.providers.Web3Provider(window.ethereum);
         const s = p.getSigner(addr);
         const contract = new ethers.Contract(token , ERC20Abi , s);
+        return contract;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const connectMarketPlace = async(addr)=>{
+    try {
+        const p = new ethers.providers.Web3Provider(window.ethereum);
+        const s = p.getSigner(addr);
+        const contract = new ethers.Contract(Market.lineaTestnet , MarketAbi , s);
         return contract;
     } catch (error) {
         console.log(error)
