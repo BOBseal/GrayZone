@@ -148,7 +148,7 @@ const USERDASHBOARD =()=> {
       if(user.wallet && b == false){
         handler();
        
-        getBalances();
+      //  getBalances();
 
       } 
       setControllers({...controllers , loading1: false})

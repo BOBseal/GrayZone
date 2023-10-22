@@ -10,7 +10,8 @@ import Products from './Products';
 const Header = () => {
     const [x, setX ] = useState(false); // menu opener
     const [controllers , setC] = useState({
-        products:false
+        products:false,
+        menu:false
     })
 
     const productMenuHandler =()=>{
@@ -20,6 +21,21 @@ const Header = () => {
             }
             if(!controllers.products){
                 setC({...controllers, products: true})
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const menuHandler =()=>{
+        try {
+            if(controllers.menu){
+                setC({...controllers, menu: false})
+                console.log(controllers)
+            }
+            if(!controllers.menu){
+                setC({...controllers, menu: true})
+                console.log(controllers)
             }
         } catch (error) {
             console.log(error);
@@ -79,11 +95,32 @@ const Header = () => {
                 >
                     {/*MOBILE Menu */
                     
-                    <div className='hidden md:hidden lg:hidden mt-2 pr-[0.9rem]'>
+                    <div className='flex md:hidden lg:hidden mt-2 pr-[0.9rem]' onClick={()=> menuHandler()}>
                         <Image src={MenU} width={37} height={37} alt="Menu" className='border bg-gradient-to-b from-[5%] from-[#6b13d1] to-[#b67ef5] rounded-full' />
                     </div>
                     
                     }
+                    {controllers .menu ? 
+                    <div className='absolute top-[4.21rem] md:top-[4.5rem] right-0 bg-gradient-to-br to-[#b67ef5] from-[#1D023C] from-10% to-85% rounded-lg p-8 md:hidden lg:hidden pt-4 pb-4 pr-[0.9rem] items-center justify-center' onClick={()=> menuHandler()}>
+                        
+                        <div className='flex flex-col justify-center items-center gap-2 p-4'>
+                            <Link href={'/dashboard'}><p>DASHBOARD</p></Link>
+                            <Link href={'/zonecloud'}><p>D-CLOUD</p></Link>
+                            <Link href={'/erc20tools'}><p>ERC20 TOOLS</p></Link>
+                            <Link href={'/'}><p>ERC721 TOOLS</p></Link>
+                            <Link href={'/'}><p>ERC1155 TOOLS</p></Link>
+                            <Link href={'/zonepay'}><p>AUTOPAY</p></Link>
+                            <Link href={'/lending'}><p>LENDING/BORROWING</p></Link>
+                            <Link href={'/dex'}><p>DEX</p></Link>
+                            <Link href={'/marketplace'}><p>NFT MARKETPLACE</p></Link>
+                            <Link href={"https://t.me/grayzoneweb3"}>
+                                <button onClick={()=> setX(true)} className="drop-shadow-lg">
+                                    Contact Us
+                                </button>
+                            </Link>
+                        </div>
+                        
+                    </div> :""}
 
                     {/*DESKTOP MENU*/}
                     <div className={`hidden md:flex justify-between gap-4 mt-2 w-11/12 font-semibold text-[1.1rem]`}>
@@ -114,7 +151,10 @@ const Header = () => {
                                 </button>
                             </Link>
                         </div>
+                        
+                        
                     </div>
+                    
                 </motion.div>
                 </AnimatePresence>
             </div>
