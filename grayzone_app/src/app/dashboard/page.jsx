@@ -10,6 +10,7 @@ import { PassAddress ,TransferUnit } from '@/utils/constants'
 
 const lineaTestId = "0xe704"
 const lineaweth = "0x2C1b868d6596a18e32E61B901E4060C872647b6C"
+const zeroAddr = "0x0000000000000000000000000000000000000000"
 
 const USERDASHBOARD =()=> {
   const{user , connectWallet,getPassInfo , getIdBalance, depositToId , withDrawFromId, idtoid}= useContext(DappAppContext);
@@ -46,20 +47,15 @@ const USERDASHBOARD =()=> {
 
   const getBalances=async(token)=>{
     try {
-      setControllers({...controllers , loading2: true})
-      const w = await getIdBalance(controllers.item.id, lineaweth);
-      const str = ethers.utils.formatUnits(w , 18);
-      console.log(str)
-      setBalances({...balances ,weth:str})
-      //console.log(wth);
-      if(token){
+      console.log(token)
       const ss = await getIdBalance(controllers.item.id, token);
       const as = ethers.utils.formatUnits(ss , 18);
+      //console.log(as)
+      
      // const bal = await getIdBalance(token);
      // const decimal = await
       setBalances({...balances ,selectToken: as.toString()})
       setControllers({...controllers , loading2: false})  
-    }
     } catch (error) {
       console.log(error);
     }
@@ -175,7 +171,7 @@ const USERDASHBOARD =()=> {
             <p>Minted On: {item.mintTime}</p>
           </div>
         ))}
-      </div>: ""}
+      </div>: <></>}
       {/*<div className='flex flex-col flex-wrap justify-center items-center font-semibold gap-1'>
         <h1 className='font-bold text-[2.5rem]'>General Info Section</h1>
         <p>Token ID: {passArr[10]}</p>
@@ -193,18 +189,90 @@ const USERDASHBOARD =()=> {
       {controllers.tokenSelected ? <div className='flex flex-col justify-center items-center mt-8 gap-6'>
         <button onClick={()=> toggleSelect()} className='flex w-[14rem] text-white justify-center bg-[#8139e5] rounded-full h-[2rem] text-lg items-center'><p>GO BACK</p></button>
         
-        <div className='flex flex-col pb-4 pt-8'>
-          YOUR PASS INFO
-          <p>Pass ID: {controllers.item.id}</p>
-          <p>Points Balance: {controllers.item.points}</p>
-          <p>Minted On:{controllers.item.mintTime}</p>
-          <p>Expiry On:{controllers.item.expiry}</p>
-          <p>Active On Chain ID:{controllers.item.activeChainId}</p>
-          <p>Storage Plan : {controllers.item.totalSlots} Slots</p>
-          <p>Used Storage: {controllers.item.useSlots} Slots</p>
+        <div className='flex flex-col md:flex-row gap-2'>
+          <div className='flex flex-col pt-4 gap-1 pb-4 text-white p-[4rem]  bg-[#8139e5] rounded-2xl flex-wrap'>
+            <h3 className='text-center text-[2rem] font-bold underline pb-4'>PASS GENERAL INFO</h3>
+            <p>Pass ID: {controllers.item.id}</p>
+            <p>Points Balance: {controllers.item.points}</p>
+            <p>Minted On: {controllers.item.mintTime}</p>
+            <p>Expiry On: {controllers.item.expiry}</p>
+            <p>Active On Chain ID: {controllers.item.activeChainId}</p>
+            <p>Storage Plan : {controllers.item.totalSlots} Slots</p>
+            <p>Used Storage: {controllers.item.useSlots} Slots</p>
+          </div>
+
+
+          <div className='flex flex-col pt-4 gap-1 pb-4 text-white p-[4rem]  bg-[#8139e5] rounded-2xl flex-wrap'>
+            <h3 className='text-center text-[2rem] font-bold underline pb-4'>PASS BALANCES INFO</h3>
+            
+            <div className='flex flex-col pb-4'>
+              Balance: {balances.selectToken? <>{balances.selectToken}</>:"Fetch Balance First"}
+            </div>
+
+            <p>Select Token:</p>
+            <select className='flex flex-col text-black' value={ad} defaultValue={lineaweth} onChange={(e)=> setAd(e.target.value)}>
+              <option>Select Option</option>
+              <option value={lineaweth}>WETH BALANCES</option>
+              <option value={zeroAddr}>ETH BALANCES</option>
+              <option>USDC BALANCES</option>
+            </select>
+
+            <button onClick={()=> getBalances(ad)}>Fetch Balance Details</button>
+
+          </div>
+
         </div>
+
+        <div className='flex flex-col md:flex-row gap-2'>
+
+        <div className='flex flex-col pt-4 gap-1 pb-4 text-white p-[4rem]  bg-[#8139e5] rounded-2xl flex-wrap'>
+          <h3 className='text-center text-[1.8rem] font-bold underline pb-4'>DEPOSIT TO PASS</h3>
+
+          <p>Select Token:</p>
+          <select className='flex flex-col text-black' value={deposits.token} defaultValue={lineaweth} onChange={(e)=> setDeposits({...deposits,token:e.target.value})}>
+            <option>Select Option</option>
+            <option value={lineaweth}>WETH</option>
+            <option value={zeroAddr}>ETH</option>
+            <option>USDC</option>
+          </select>
+          <input className='text-black' type={'number'} placeholder="Enter Deposit Amount" onChange={(e)=> setDeposits({...deposits , amount:e.target.value})}/>
+          <button onClick={()=> handleDeposit()}>DEPOSIT</button>
+
+          <h3 className='text-center text-[1.8rem] font-bold underline pb-4'>WITHDRAW FROM PASS</h3>
+
+          <p>Select Token:</p>
+          <select className='flex flex-col text-black' value={withdrawals.token} defaultValue={lineaweth} onChange={(e)=> setWithdrawals({...withdrawals,token:e.target.value})}>
+            <option>Select Option</option>
+            <option value={lineaweth}>WETH</option>
+            <option value={zeroAddr}>ETH</option>
+            <option>USDC</option>
+          </select>
+          <input className='text-black' type={'number'} placeholder="Enter Withdraw Amount" onChange={(e)=> setWithdrawals({...withdrawals , amount:e.target.value})}/>
+          <button onClick={()=> handleWithdraw()}>WITHDRAW</button>
+        </div>
+
         
-        <div>
+        
+        <div className='flex flex-col pt-4 gap-1 pb-4 text-white p-[4rem]  bg-[#8139e5] rounded-2xl flex-wrap'>
+          <h3 className='text-center text-[1.8rem] font-bold underline pb-4'>PASS-PASS TRANSFER</h3>
+
+          <p>Select Token:</p>
+          <select className='flex flex-col text-black' value={idTx.setToken} defaultValue={lineaweth} onChange={(e)=> setIdTx({...idTx,setToken:e.target.value})}>
+            <option>Select Option</option>
+            <option value={lineaweth}>WETH</option>
+            <option value={zeroAddr}>ETH</option>
+            <option>USDC</option>
+          </select>
+          
+        <input type={'number'} className="text-black" placeholder='enter token Id to transfer to' onChange={(e)=> setIdTx({...idTx, toId: e.target.value})}/>
+        <input type={'number'} className="text-black" placeholder='enter Amount' onChange={(e)=> setIdTx({...idTx, setAmt: e.target.value})}/>
+        <button onClick={()=> handleIdTx()}>TRANSFER</button>
+
+        </div>
+      </div>
+
+        
+        {/*<div>
         <p>ID DEPOSIT BALANCE Details</p>
         <p>ID Weth Balances: {balances.weth ? <>{balances.weth}</>:"0"} </p>
         <p>Selected Token Balances: {balances.selectToken?<>{balances.selectToken}</>:"0"}</p>
@@ -232,10 +300,10 @@ const USERDASHBOARD =()=> {
         <input type={'text'} placeholder='enter token address to transfer' onChange={(e)=> setIdTx({...idTx, setToken: e.target.value})}/>
         <input type={'number'} placeholder='enter Amount' onChange={(e)=> setIdTx({...idTx, setAmt: e.target.value})}/>
         <button onClick={()=> handleIdTx()}>Trigger Transfer</button>
-      </div>
+      </div>*/}
       
       <div className='flex flex-col justify-center items-center'>
-        <h2 className='font-bold text-[2.5rem]'>ZONE SERVICES</h2>
+        <h2 className='font-bold text-[2.5rem]'>ZONEPASS DASHBOARD</h2>
 
         <button>...</button>
       </div>

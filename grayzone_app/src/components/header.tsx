@@ -5,9 +5,26 @@ import { AnimatePresence, motion } from 'framer-motion';
 import MenU  from '../../public/Assets/icons8-hamburger-menu-128.svg';
 import Link from 'next/link';
 import { homelink } from '@/utils/hooks';
+import Products from './Products';
 
 const Header = () => {
     const [x, setX ] = useState(false); // menu opener
+    const [controllers , setC] = useState({
+        products:false
+    })
+
+    const productMenuHandler =()=>{
+        try {
+            if(controllers.products){
+                setC({...controllers, products: false})
+            }
+            if(!controllers.products){
+                setC({...controllers, products: true})
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
   return (
     <div className='sticky -top-1 h-[4.2rem] md:h-[4.5rem] w-full z-50 border-b-[2px] drop-shadow-m bg-gradient-to-br to-[#b67ef5] from-[#1D023C] from-10% to-85%'>
         
@@ -79,13 +96,15 @@ const Header = () => {
                             </Link>
                         </div>
 
-                        <div className='w-[8.3rem] flex justify-center items-center hover:underline drop-shadow-lg hover:text-[1.2rem]'>
-                            <button onClick={()=> alert("Mint ZONEPASS Alpha Edition to Access Services")} className='flex gap-[5px] items-center justify-center'>
+                        <div className='w-[8.3rem] flex justify-center items-center drop-shadow-lg'>
+                            <div onClick={()=> productMenuHandler()} className='flex gap-[5px] hover:underline hover:text-[1.2rem] items-center justify-center'>
                                
-                               <p>Our Products</p>
+                               <button>Our Products</button>
+                               
                                
                                <Image src={'/Assets/down-arrow-backup-2-svgrepo-com.svg'} width={12} height={20} alt="arrow" className='flex justify-center mt-[4px] hidden'/>
-                            </button>
+                            </div>
+                            {controllers.products? <Products/>: ""}
                         </div>
 
                         <div className='w-[8rem] flex justify-center items-center bg-slate-400 rounded-3xl drop-shadow-lg h-[2rem] hover:text-[1.2rem] hover:h-[2.1rem]'>
