@@ -13,7 +13,7 @@ const lineaweth = "0x2C1b868d6596a18e32E61B901E4060C872647b6C"
 const zeroAddr = "0x0000000000000000000000000000000000000000"
 
 const USERDASHBOARD =()=> {
-  const{user , connectWallet,getPassInfo , getIdBalance, depositToId , withDrawFromId, idtoid}= useContext(DappAppContext);
+  const{user , connectWallet,getPassInfo , getIdBalance, depositToId , withDrawFromId, idtoid , boostPass, getWeeklyFee}= useContext(DappAppContext);
   const [passArr , setPassArr] = useState([]);
   const [b , setB] = useState(false);
   const [balances , setBalances] = useState({
@@ -41,7 +41,9 @@ const USERDASHBOARD =()=> {
     tokenId:"",
     loading1: false,
     loading2: false,
-    item:{}
+    item:{},
+    time:0,
+    fee:""
   })
   
 
@@ -136,6 +138,24 @@ const USERDASHBOARD =()=> {
       const tx = await idtoid(controllers.item.id , idTx.toId , idTx.setToken , amt);
     } catch (c) {
       console.log(c)
+    }
+  }
+
+  const extendTime  = async()=>{
+    try {
+      const tx = await boostPass(controllers.time, controllers.item.id);
+      console.log(tx)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getFee = async()=>{
+    try {
+      const fee = getWeeklyFee(controllers.time);
+      setControllers({...controllers, fee: fee});
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -267,6 +287,20 @@ const USERDASHBOARD =()=> {
         <button onClick={()=> handleIdTx()}>TRANSFER</button>
 
         </div>
+
+
+        <div className='flex flex-col pt-4 gap-1 pb-4 text-white p-[4rem]  bg-[#8139e5] rounded-2xl flex-wrap'>
+          <h3 className='text-center text-[1.8rem] font-bold underline pb-4'>EXTEND EXPIRY</h3>
+
+          <p>Select Number of Weeks to Extend:</p>
+          
+          <input type={'number'} className="text-black" placeholder='Enter Weeks ,Max 8' max={8} onChange={(e)=> setControllers({...controllers, time: e.target.value})}/>
+          <p>Applicable Fee:{controllers.fee} </p>
+          <button onClick={()=> getFee()}>Check Fee Applicable</button>
+          <button onClick={()=> extendTime()}>Extend</button>
+
+        </div>
+
       </div>
 
         

@@ -1,5 +1,6 @@
 "use client";
 
+import { ethers } from 'ethers';
 import React,{ useState, useEffect } from 'react';
 //import { ThirdwebProvider } from '@thirdweb-dev/react';
 import {
@@ -9,8 +10,12 @@ import {
     connectStorageContract, 
     unixTimeToHumanReadable,
     connectTransferContract,
-    connectMarketPlace
+    connectMarketPlace,
+    connectErc20
 } from "../utils/hooks"
+import { hexToNumber , numberToHex } from 'viem';
+import { PassAddress } from '@/utils/constants';
+
 export const DappAppContext = React.createContext();
 export const DappAppProvider = ({children})=> {
     const lineaTestId = "0xe704";
@@ -132,6 +137,55 @@ export const DappAppProvider = ({children})=> {
         } catch (error) {
             console.log(error);
             setError({error: error , errorMsg: "Pass Balance Fetch Failed"})
+        }
+    }
+
+    const boostPass = async(weeks, id)=>{
+        try {
+            const c = await connectNFTContract(user.wallet);
+            const w = await c.getWeeklyFee();
+            console.log(w)
+            const f = hexToNumber(w[1]); 
+           // console.log(f)
+            let fee = f * (weeks + 5) ;
+            if (weeks == 0){
+                fee = 0;
+            }
+            //console.log(fee)
+            //const fff = ethers.utils.parseEther(fee.toString());
+            const fff = numberToHex(fee);
+            const feeToken = await c.getFeeToken();
+            const token = await connectErc20(user.wallet , feeToken);
+            const apr = await token.approve(PassAddress.lineaTestnet , fff);
+            let t;
+            
+            t = await c.boostPass(weeks, id);
+            
+            let object = {
+                totalFee: fee,
+                tx: t
+            }
+            return object
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const getWeeklyFee = async(weeks) =>{
+        try {
+            const c = await connectNFTContract(user.wallet);
+            const w = await c.getWeeklyFee();
+            const f = hexToNumber(w[1]); 
+            console.log(f)
+            const fee = f * (weeks + 5) ;
+            const parse = ethers.utils.formatEther(fee);
+            if(weeks != 0)
+            {return parse};
+            if(weeks == 0){
+                return "0"
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -356,7 +410,8 @@ export const DappAppProvider = ({children})=> {
    
     <DappAppContext.Provider value={{user , error, userPass,connectWallet, mint, isPassholder, getPassInfo,
     _delStorage , _addToStorage, _recoverStorage , depositToId , withDrawFromId, getIdBalance, idtoid , listNFT,
-    cancelListing , updateListing, getAllListings , getAllValidListings, getTotalListings, getStorage
+    cancelListing , updateListing, getAllListings , getAllValidListings, getTotalListings, getStorage, boostPass,
+    getWeeklyFee
     }}>
         {children}
     </DappAppContext.Provider>
