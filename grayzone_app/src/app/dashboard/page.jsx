@@ -161,7 +161,7 @@ const USERDASHBOARD =()=> {
 
   useEffect(() => {
     try {
-      setControllers({...controllers , loading1: true})
+      //setControllers({...controllers , loading1: true})
       if(!user.wallet){
         connectWallet();
       } else 
@@ -171,7 +171,7 @@ const USERDASHBOARD =()=> {
       //  getBalances();
 
       } 
-      setControllers({...controllers , loading1: false})
+      //setControllers({...controllers , loading1: false})
       return
     } catch (error) {
       console.log(error);
@@ -180,18 +180,30 @@ const USERDASHBOARD =()=> {
   
 
   return ( 
-     <div className='flex flex-col gap-[4rem]'>
+     <div className='flex flex-col gap-[2.5rem] md:gap-[4rem] bg-[#1D023C] text-white'>
       
-      {!controllers.loading1 && !controllers.tokenSelected ? <div className=' flex flex-col items-center gap-4'>
-        <p className=' flex pt-6 pb-6 justify-center font-semibold text-[2rem] drop-shadow-xl'>Balances:</p>
+        {!controllers.tokenSelected ? 
+        <p className=' flex pt-6 justify-center font-semibold text-[2rem] drop-shadow-xl'>Balances:</p>
+        :
+        <>
+        </>
+        } 
+      
+      {!controllers.loading1 ? 
+      <div>{ !controllers.tokenSelected ? 
+      <div className=' flex flex-col items-center gap-[2.5rem]'>
+           
         {passArr.map((item)=>(
-          <div key={item.id} className={`flex w-8/12 flex-col gap-4 bg-[#9041ff] text-white text-sm rounded-lg shadow-lg p-2 border-[2px] border-[#7f3fff84] justify-between items-center`}>
-            <button onClick={()=> toggleSelect(item)} className='flex w-[14rem] justify-center bg-[#8139e5] rounded-full h-[2rem] text-lg items-center'><p>{`ENTER PASS ID ${item.id} PROFILE`}</p></button>
-            <p>PASS ID: {item.id}</p>
-            <p>Minted On: {item.mintTime}</p>
+          <div key={item.id} className={`flex w-8/12 drop-shadow-lg flex-col gap-4 bg-opacity-70 bg-[#9041ff] text-white text-sm rounded-lg shadow-lg p-2 border-[2px] border-[#7f3fff84] justify-between items-center`}>
+            <button onClick={()=> toggleSelect(item)} className='flex w-[14rem] justify-center bg-[#8139e5] rounded-full h-[2rem] text-lg items-center drop-shadow-lg'><p>{`ENTER PASS ID ${item.id} PROFILE`}</p></button>
+            <p className='drop-shadow-lg'>PASS ID: {item.id}</p>
+            <p className='drop-shadow-lg'>Minted On: {item.mintTime}</p>
           </div>
         ))}
-      </div>: <></>}
+      </div>: <></>}</div>:
+        <div className='flex flex-col w-full items-center justify-center'>
+          <p className='flex animate-slowerFlicker text-[1.6rem]'>LOADING...</p>
+        </div>}
       {/*<div className='flex flex-col flex-wrap justify-center items-center font-semibold gap-1'>
         <h1 className='font-bold text-[2.5rem]'>General Info Section</h1>
         <p>Token ID: {passArr[10]}</p>
@@ -206,11 +218,11 @@ const USERDASHBOARD =()=> {
         <p>Pass Expiry Date: {passArr[6]}</p>
         </div>*/}
       
-      {controllers.tokenSelected ? <div className='flex flex-col justify-center items-center mt-8 gap-6'>
-        <button onClick={()=> toggleSelect()} className='flex w-[14rem] text-white justify-center bg-[#8139e5] rounded-full h-[2rem] text-lg items-center'><p>GO BACK</p></button>
+      {controllers.tokenSelected ? <div className='flex flex-col justify-center items-center md:mt-8 gap-6'>
+        <button onClick={()=> toggleSelect()} className='flex w-[14rem] bg-opacity-70 text-white justify-center bg-[#8139e5] rounded-full h-[2rem] text-lg items-center'><p>GO BACK</p></button>
         
-        <div className='grid md:grid-cols-2 gap-2'>
-          <div className='flex flex-col pt-4 gap-1 pb-4 text-white p-[4rem]  bg-[#8139e5] rounded-2xl flex-wrap'>
+        <div className='grid md:grid-cols-2 gap-2 w-11/12 md:w-full'>
+          <div className='flex flex-col pt-4 gap-1 pb-4 text-white p-[4rem] bg-opacity-70  bg-[#8139e5] rounded-2xl flex-wrap'>
             <h3 className='text-center text-[2rem] font-bold underline pb-4'>PASS GENERAL INFO</h3>
             <p>Pass ID: {controllers.item.id}</p>
             <p>Points Balance: {controllers.item.points}</p>
@@ -222,7 +234,7 @@ const USERDASHBOARD =()=> {
           </div>
 
 
-          <div className='flex flex-col pt-4 gap-1 pb-4 text-white p-[4rem]  bg-[#8139e5] rounded-2xl flex-wrap'>
+          <div className='flex flex-col pt-4 gap-1 pb-4 text-white p-[4rem] bg-opacity-70 bg-[#8139e5] rounded-2xl flex-wrap'>
             <h3 className='text-center text-[2rem] font-bold underline pb-4'>PASS BALANCES INFO</h3>
             
             <div className='flex flex-col pb-4'>
@@ -242,7 +254,7 @@ const USERDASHBOARD =()=> {
           </div>
 
 
-        <div className='flex flex-col pt-4 gap-1 pb-4 text-white p-[4rem]  bg-[#8139e5] rounded-2xl flex-wrap'>
+        <div className='flex flex-col pt-4 gap-1 pb-4 text-white p-[4rem] bg-opacity-70 bg-[#8139e5] rounded-2xl flex-wrap'>
           <h3 className='text-center text-[1.8rem] font-bold underline pb-4'>DEPOSIT TO PASS</h3>
 
           <p>Select Token:</p>
@@ -270,7 +282,7 @@ const USERDASHBOARD =()=> {
 
         
         
-        <div className='flex flex-col pt-4 gap-1 pb-4 text-white p-[4rem]  bg-[#8139e5] rounded-2xl flex-wrap'>
+        <div className='flex flex-col pt-4 gap-1 pb-4 text-white p-[4rem] bg-opacity-70 bg-[#8139e5] rounded-2xl flex-wrap'>
           <h3 className='text-center text-[1.8rem] font-bold underline pb-4'>PASS-PASS TRANSFER</h3>
 
           <p>Select Token:</p>
@@ -289,7 +301,7 @@ const USERDASHBOARD =()=> {
         </div>
 
 
-        <div className='flex flex-col pt-4 gap-1 pb-4 text-white p-[4rem]  bg-[#8139e5] rounded-2xl flex-wrap'>
+        <div className='flex flex-col pt-4 gap-1 pb-4 text-white p-[4rem] bg-opacity-70  bg-[#8139e5] rounded-2xl flex-wrap'>
           <h3 className='text-center text-[1.8rem] font-bold underline pb-4'>EXTEND EXPIRY</h3>
 
           <p>Select Number of Weeks to Extend:</p>
@@ -339,7 +351,7 @@ const USERDASHBOARD =()=> {
 
         <button>...</button>
       </div>
-      </div> :<div className='flex justify-center text-[2rem] font-semibold'>ZONEPASS HOLDING LIST</div>}
+      </div> :<div className='flex justify-center text-[1.5rem] pb-4 md:text-[2rem] font-semibold'>ZONEPASS HOLDING LIST</div>}
      </div> 
    ) 
  }

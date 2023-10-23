@@ -5,7 +5,11 @@ import { AnimatePresence, motion } from 'framer-motion';
 import MenU  from '../../public/Assets/icons8-hamburger-menu-128.svg';
 import Link from 'next/link';
 import { homelink } from '@/utils/hooks';
-import Products from './Products';
+import Products from './Products.jsx';
+
+const styl = {
+    menu: 'hover:underline drop-shadow-lg font-semibold p-1 rounded-full w-[14rem] flex justify-center '
+}
 
 const Header = () => {
     const [x, setX ] = useState(false); // menu opener
@@ -42,7 +46,7 @@ const Header = () => {
         }
     }
   return (
-    <div className='sticky -top-1 h-[4.2rem] md:h-[4.5rem] w-full z-50 border-b-[2px] drop-shadow-m bg-gradient-to-br to-[#b67ef5] from-[#1D023C] from-10% to-85%'>
+    <div className='sticky -top-1 h-[4.2rem] md:h-[4.5rem] w-full z-40 border-b-[2px] drop-shadow-m bg-gradient-to-br to-[#b67ef5] from-[#1D023C] from-10% to-85%'>
         
         <div className='h-full w-full flex justify-between gap-1 text-[#FFFFFF]'>
             
@@ -101,23 +105,23 @@ const Header = () => {
                     
                     }
                     {controllers .menu ? 
-                    <div className='absolute top-[4.21rem] md:top-[4.5rem] right-0 bg-gradient-to-br to-[#b67ef5] from-[#1D023C] from-10% to-85% rounded-lg p-8 md:hidden lg:hidden pt-4 pb-4 pr-[0.9rem] items-center justify-center' onClick={()=> menuHandler()}>
+                    <div className='absolute top-[4.23rem] md:top-[4.5rem] z-50 border shadow-xl right-0 bg-gradient-to-r to-[#b67ef5] from-[#1D023C] from-10% to-85% rounded-lg p-8 md:hidden lg:hidden pt-4 pb-4 pr-[0.9rem] items-center justify-center' onClick={()=> menuHandler()}>
                         
-                        <div className='flex flex-col justify-center items-center gap-2 p-4'>
-                            <Link href={'/'}><p>HOME</p></Link>
-                            <Link href={'/dashboard'}><p>DASHBOARD</p></Link>
-                            <Link href={'/zonecloud'}><p>D-CLOUD</p></Link>
-                            <Link href={'/erc20tools'}><p>ERC20 TOOLS</p></Link>
-                            <Link href={'/'}><p>ERC721 TOOLS</p></Link>
-                            <Link href={'/'}><p>ERC1155 TOOLS</p></Link>
-                            <Link href={'/zonepay'}><p>AUTOPAY</p></Link>
-                            <Link href={'/lending'}><p>LENDING/BORROWING</p></Link>
-                            <Link href={'/dex'}><p>DEX</p></Link>
-                            <Link href={'/marketplace'}><p>NFT MARKETPLACE</p></Link>
+                        <div className='flex flex-col justify-center items-center gap-2 p-4 drop-shadow-lg' onClick={()=> productMenuHandler()}>
+                            <Link href={'/'}><p className={styl.menu}>HOME</p></Link>
+                            <Link href={'/dashboard'}><p className={styl.menu}>DASHBOARD</p></Link>
+                            <Link href={'/'}><p className={styl.menu}>D-CLOUD</p></Link>
+                            <Link href={'/'}><p className={styl.menu}>ERC20 TOOLS</p></Link>
+                            <Link href={'/'}><p className={styl.menu}>ERC721 TOOLS</p></Link>
+                            <Link href={'/'}><p className={styl.menu}>ERC1155 TOOLS</p></Link>
+                            <Link href={'/'}><p className={styl.menu}>AUTOPAY</p></Link>
+                            <Link href={'/'}><p className={styl.menu}>LENDING/BORROWING</p></Link>
+                            <Link href={'/'}><p className={styl.menu}>DEX</p></Link>
+                            <Link href={'/'}><p className={styl.menu}>NFT MARKETPLACE</p></Link>
                             <Link href={"https://t.me/grayzoneweb3"}>
-                                <button onClick={()=> setX(true)} className="drop-shadow-lg">
-                                    Contact Us
-                                </button>
+                                <div onClick={()=> setX(true)} className={styl.menu}>
+                                    Contact Us On TG
+                                </div>
                             </Link>
                         </div>
                         
@@ -142,7 +146,7 @@ const Header = () => {
                                
                                <Image src={'/Assets/down-arrow-backup-2-svgrepo-com.svg'} width={12} height={20} alt="arrow" className='flex justify-center mt-[4px] hidden'/>
                             </div>
-                            {controllers.products? <Products/>: ""}
+                            {controllers.products? <Products functions={productMenuHandler}/>: ""}
                         </div>
 
                         <div className='w-[8rem] flex justify-center items-center bg-slate-400 rounded-3xl drop-shadow-lg h-[2rem] hover:text-[1.2rem] hover:h-[2.1rem]'>

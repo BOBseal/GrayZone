@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 const HeroSection = () => {
   return (
-    <div className={`flex h-full items-center max-w-screen w-screen justify-between flex-col z-0 -mt-6 `}>
+    <div className={`flex h-full items-center max-w-screen w-screen justify-between flex-col z-0 -mt-6 bg-[#1D023C] `}>
       <AnimatePresence>
         <motion.div
           initial ={{opacity:0 , y:-50 }}
@@ -53,7 +53,7 @@ const HeroSection = () => {
       */ } 
         <div className={`text-white flex w-full h-full justify-center p-4 md:p-6 -mt-4 lg:-mt-8`}>
           <div className='flex flex-col w-full h-full drop-shadow-lg items-center'>
-            <div className='flex gap-4 md:gap-6 lg:gap-8 flex-col w-11/12 justify-center text-center items-center p-2 border'>
+            <div className='flex gap-4 md:gap-6 lg:gap-8 flex-col w-11/12 justify-center text-center items-center p-2 border h-[20rem]'>
               <h2 className=' text-xl font-bold font-serif animate-slowerFlicker'>GRAYZONE TESTNET JOUNEY IS NOW LIVE</h2>
               <Link href={'/mintpass'}>
               <button className='p-1 flex justify-center bg-[#9041ff] bg-opacity-80 w-[10rem] rounded-3xl'>

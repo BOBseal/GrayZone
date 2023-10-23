@@ -49,13 +49,12 @@ const MINTPASS = () => {
   }, [user , isholder])
   
   return (
-  <div className="flex min-h-screen h-full min-w-screen bg-[#1D023C] relative flex-wrap pb-[2rem]">
+  <div className="flex bg-[#1D023C] min-h-screen h-full min-w-screen relative flex-wrap pb-[2rem]">
       
-      <Image src={'/Assets/bgImg.svg'} width={0} height={0} alt="GrayZone" className={`h-full w-screen object-cover md:object-cover absolute top-0 left-0`}/>
-
-      <div className={`${`bg-white text-black`} flex flex-col justify-center items-center gap-0 h-full w-full bg-[#1D023C]`}> 
+      
+      <div className={`${`bg-[#1D023C] text-black`} flex flex-col justify-center items-center gap-0 h-full w-full bg-[#1D023C]`}> 
            
-            <div className='flex flex-col bg-transparent mt-[4.5rem] w-full h-full items-center justify-center'>
+            <div className='flex flex-col bg-[#1D023C] mt-[4.5rem] w-full h-full items-center justify-center'>
               <div className='z-0 h-full w-full -mt-16 p-4 flex flex-col items-center gap-2'>
                   
                   <div className='w-11/12 md:w-[45rem] lg:w-[35rem] flex flex-wrap gap-3'>

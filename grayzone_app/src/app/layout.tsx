@@ -2,6 +2,7 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import { AppProvider } from '../Context/appReactiveContext'
 import {DappAppProvider} from '../Context/appBockchainContext'
+import Footer from '@/components/Footer'
 const inter = Inter({ subsets: ['latin'] })
 import Header from '@/components/header'
 
@@ -24,6 +25,7 @@ export default function RootLayout({
           <main>
           {children}
           </main>
+          <Footer/>
         </DappAppProvider>
         </body>
     </html>
