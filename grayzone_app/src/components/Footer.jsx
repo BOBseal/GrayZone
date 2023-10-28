@@ -6,10 +6,7 @@ const Footer = () => {
         
         <div className='h-full w-full items-center pl-4 pr-4 flex justify-between gap-1 text-[#FFFFFF]'>
         
-            <p>Twitter</p>
-            <p>Telegram</p>
-            <p>LinkedIn</p>
-
+           
         </div>
     </div>       
   )
