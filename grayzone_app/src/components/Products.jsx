@@ -16,6 +16,7 @@ const Products = ({functions}) => {
             <Link href={'/'}><p className={styl.menu}>LENDING/BORROWING</p></Link>
             <Link href={'/'}><p className={styl.menu}>DEX</p></Link>
             <Link href={'/'}><p className={styl.menu}>NFT MARKETPLACE</p></Link>
+            {/*<Link href={'/hire'}><p className={styl.menu}>Hire Us</p></Link>*/}
         </div>
     </div>
   )

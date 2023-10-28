@@ -31,7 +31,7 @@ export const TransferUnit={
 }
 
 export const Market ={
-    lineaTestnet:"0x1ED7C3e7b1A28f4391C9369D7D14Fc6d1a0064Ee"
+    lineaTestnet:"0x49f8198a701c27d86a1F5fb461F80d8569751F45"
 }
 
 export const MinterAbi = bbi.abi;

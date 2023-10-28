@@ -373,8 +373,10 @@ export const DappAppProvider = ({children})=> {
     const getAllListings = async()=>{
         try {
             if(user.wallet){
+                console.log("C")
                 const con = await connectMarketPlace(user.wallet)
-                const tx = await con.getAll();
+                const tx = await con.getAllListings(1698101307,1698111307);
+                console.log(tx)
                 return tx
             }
         } catch (error) {

@@ -35,7 +35,7 @@ const HeroSection = () => {
               </div>
 
             </div>
-            <p className='flex text-[1.1rem] flex-wrap font-medium text-slate-100 md:pr-[1.5rem] md:pl-[1.5rem]'>
+            <p className='flex font-play text-[1.1rem] flex-wrap font-medium text-slate-100 md:pr-[1.5rem] md:pl-[1.5rem]'>
               At GrayZone Web3, we blend innovation, creativity, and 
               expertise to reshape the digital landscape. From Web3 
               development that embraces the future to captivating graphics

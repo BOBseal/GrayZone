@@ -9,6 +9,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily:{
+        'play':['Play', 'sans-serif']
+      },
       backgroundImage:{
         'mainBg1': "url('/public/Assets/bgImg.svg')",
       },

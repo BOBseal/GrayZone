@@ -77,6 +77,7 @@ export const connectMarketPlace = async(addr)=>{
         const p = new ethers.providers.Web3Provider(window.ethereum);
         const s = p.getSigner(addr);
         const contract = new ethers.Contract(Market.lineaTestnet , MarketAbi , s);
+        console.log("contract loaded")
         return contract;
     } catch (error) {
         console.log(error)

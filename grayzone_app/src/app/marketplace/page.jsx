@@ -1,29 +1,42 @@
 'use client'
-import React from 'react'
-
+import React,{useState , useEffect, useContext} from 'react'
+import { DappAppContext } from '@/Context/appBockchainContext';
 const MarketPlace = () => {
+  const {user , getAllListings, connectWallet} = useContext(DappAppContext);
+
+  const get = async()=>{
+    try {
+      console.log("1")
+      getAllListings();
+      console.log("end")
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    try {
+      
+      if(!user.wallet){
+        connectWallet();
+      }
+      return
+    } catch (error) {
+      console.log(error);
+    }
+  }, [user])
+
   return (
-    <div>
-      
+    <div className='flex flex-col items-center justify-center bg-[#1D023C] text-white'>
       <div>
-        <p>COLLECTIONS:</p>
-
+        <h1>GRAYZONE MARKETPLACE</h1>
         <div>
-          ZONEPASS
-        </div>
-
-        <div>
-          BAYC
+         Latest Listings
+         <button onClick={()=> get()}>GET</button>
         </div>
       </div>
-      
-      <div>
-        <p>ALL LISTINGS</p>
-      </div>
 
-      <div>
-        <p>Popular Listings</p>
-      </div>
+
     </div>
   )
 }
