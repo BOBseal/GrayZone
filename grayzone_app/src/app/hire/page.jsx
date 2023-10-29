@@ -12,7 +12,7 @@ import dotenv from 'dotenv'
 dotenv.config();
 //import HireUs from../../components/HireUs.Jsx
 
-const page = () => {
+const Hire = () => {
     const {connectWallet , user,submitForm , getAllForms, isPassholder} = useContext(DappAppContext)
     const [forms , setForms] = useState([]);
     const [hashes , setHashes] = useState()
@@ -195,4 +195,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Hire
