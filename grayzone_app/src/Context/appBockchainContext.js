@@ -419,6 +419,7 @@ export const DappAppProvider = ({children})=> {
     const submitForm = async(title , hash , email , days , price)=>{
         try {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
+            //console.log(title)
             const balanceWei = await provider.getBalance(user.wallet);
             const nnn = hexToNumber(balanceWei)
             const contract =  await connectForm(user.wallet);
@@ -431,6 +432,7 @@ export const DappAppProvider = ({children})=> {
             }
             
             const tt = stringToHex(title);
+            console.log(tt , title)
             const em = stringToHex(email)
             const tx = await contract.submit(tt , hash , em , days , price,{value: pric});
             
@@ -464,10 +466,12 @@ export const DappAppProvider = ({children})=> {
                 const days = hexToNumber(form[2])
                 const price = hexToNumber(form[3])
                 const t = hexToString(form[0])
+                const m = hexToString(form[1])
                 let obj = {
                     formId: _id,
                     title: t,
-                    hash: form[1],
+                    email:m,
+                    hash: form[4],
                     budget: price,
                     time: days
                 }

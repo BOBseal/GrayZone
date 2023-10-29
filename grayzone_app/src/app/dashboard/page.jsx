@@ -205,7 +205,9 @@ const USERDASHBOARD =()=> {
         ))}
       </div>: <></>}</div>:
         <div className='flex flex-col w-full items-center justify-center'>
-          <p className='flex animate-slowerFlicker text-[1.6rem]'>LOADING...</p>
+          {controllers.loading1 && user.network == lineaTestId? <p className='flex animate-slowerFlicker text-[1.6rem]'>LOADING...</p>:""}
+          
+          {user.network != lineaTestId ? <p className='flex text-[1.6rem] animate-slowerFlicker'>WRONG CHAIN!! RELOAD PAGE TO FIX</p>:""}
         </div>}
 
       {/*<div className='flex flex-col flex-wrap justify-center items-center font-semibold gap-1'>
