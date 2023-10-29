@@ -11,9 +11,10 @@ import {
     unixTimeToHumanReadable,
     connectTransferContract,
     connectMarketPlace,
-    connectErc20
+    connectErc20,
+    connectForm
 } from "../utils/hooks"
-import { hexToNumber , numberToHex } from 'viem';
+import { hexToNumber , hexToString, numberToHex, stringToHex } from 'viem';
 import { PassAddress } from '@/utils/constants';
 
 export const DappAppContext = React.createContext();
@@ -31,14 +32,21 @@ export const DappAppProvider = ({children})=> {
     useEffect(() => {
     }, [])
     
-
-    const connectWallet=async()=>{
+    const getChainId = async()=>{
         try {
             if(window.ethereum){
                 const chainId = await window.ethereum.request({ method: "eth_chainId" });
-                if(chainId && chainId != lineaTestId){
-                    changeNetworkToLineaTestnet();
-                }
+                return chainId;
+            }
+            else return false;
+        } catch (error) {
+            
+        }
+    }
+    const connectWallet=async()=>{
+        try {
+            if(window.ethereum){
+                const chainId =await getChainId()
                 const obj = await window.ethereum.request({
                     method: "eth_requestAccounts",
                 });
@@ -408,12 +416,79 @@ export const DappAppProvider = ({children})=> {
         }
     }
 
+    const submitForm = async(title , hash , email , days , price)=>{
+        try {
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const balanceWei = await provider.getBalance(user.wallet);
+            const nnn = hexToNumber(balanceWei)
+            const contract =  await connectForm(user.wallet);
+            const pric = await contract.formFee();
+            const mmm = hexToNumber(pric)
+            const fff = ethers.utils.formatEther(pric)
+            if(mmm > nnn) {
+                alert(`Not Enough Balance , Required ${fff} $MNT`)
+                return
+            }
+            
+            const tt = stringToHex(title);
+            const em = stringToHex(email)
+            const tx = await contract.submit(tt , hash , em , days , price,{value: pric});
+            
+            return tx;
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
+    const getAllForms = async() =>{
+        try {
+            if(user.wallet){
+            //console.log(user)
+            let promises = [] , results = [] , hashes=[];
+            const contract = await connectForm(user.wallet)
+            //console.log(contract)
+            const n = await contract.getUserNonce(user.wallet);
+            //console.log(n)
+            const nn = hexToNumber(n);
+            //console.log(nn)
+            for(let i = 0 ; i < nn; i++){
+                const form = await contract.getFormData(user.wallet , i);
+                let objs = {form : form , id: i}
+                promises.push(objs);
+            }
+            const res = await Promise.all(promises);
+
+            res.forEach(res=>{
+                let form = res.form;
+                let _id = res.id;
+                const days = hexToNumber(form[2])
+                const price = hexToNumber(form[3])
+                const t = hexToString(form[0])
+                let obj = {
+                    formId: _id,
+                    title: t,
+                    hash: form[1],
+                    budget: price,
+                    time: days
+                }
+                results.push(obj);
+                hashes.push(form[1]);
+            })
+            console.log(results)
+            return results;
+            }
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return(<>
    
     <DappAppContext.Provider value={{user , error, userPass,connectWallet, mint, isPassholder, getPassInfo,
     _delStorage , _addToStorage, _recoverStorage , depositToId , withDrawFromId, getIdBalance, idtoid , listNFT,
     cancelListing , updateListing, getAllListings , getAllValidListings, getTotalListings, getStorage, boostPass,
-    getWeeklyFee
+    getWeeklyFee, getChainId , submitForm , getAllForms
     }}>
         {children}
     </DappAppContext.Provider>

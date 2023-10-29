@@ -10,3 +10,16 @@ export const lineaTestNetwork = [
         },
     }
 ]
+
+export const MantleNetwork = [
+    {
+        chainId:"0x1388",
+        chainName:"Mantle",
+        rpcUrls:["https://rpc.mantle.xyz"],
+        nativeCurrency:{
+         name: "MNT",
+         symbol:"MNT",
+         decimals: 18,   
+        },
+    }
+]

@@ -1,12 +1,24 @@
 import { ethers } from "ethers";
-import { genesisMinter, MinterAbi , PassAbi , PassAddress, storageUnit , StorageAbi , TransferAbi , TransferUnit, ERC20Abi, MarketAbi , Market} from "./constants";
-import { lineaTestNetwork } from "./networkConfigs";
+import { genesisMinter, MinterAbi , PassAbi , PassAddress, storageUnit , StorageAbi , TransferAbi , TransferUnit, ERC20Abi, MarketAbi , Market
+, FormAbi , HireForm} from "./constants";
+import { lineaTestNetwork, MantleNetwork } from "./networkConfigs";
 
 export const changeNetworkToLineaTestnet= async()=>{
     try {
         await window.ethereum.request({
             method: "wallet_switchEthereumChain",
             params: [{chainId:"0xe704"}],
+        });
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const addMantleNetwork= async()=>{
+    try {
+        await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: MantleNetwork,
         });
     } catch (error) {
         console.log(error)
@@ -79,6 +91,29 @@ export const connectMarketPlace = async(addr)=>{
         const contract = new ethers.Contract(Market.lineaTestnet , MarketAbi , s);
         console.log("contract loaded")
         return contract;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const connectForm = async(addr) =>{
+    try {
+        const p = new ethers.providers.Web3Provider(window.ethereum);
+        const s = p.getSigner(addr);
+        if(window.ethereum){   
+            const chainId = await window.ethereum.request({ method: "eth_chainId" });
+            console.log(chainId)
+            switch (chainId) {
+                case lineaTestNetwork.chainId:
+                    return new ethers.Contract(HireForm.lineaTestnet, FormAbi, s);
+                case MantleNetwork.chainId:
+                    return new ethers.Contract(HireForm.mantle, FormAbi, s);
+                // Add more cases for other chainIds as needed
+                default:
+                    return new ethers.Contract(HireForm.mantle, FormAbi, s);
+            }
+        }
+        //console.log(contract)
     } catch (error) {
         console.log(error)
     }

@@ -4,6 +4,7 @@ import sbi from './ABIS/GRAYSTORE.json'
 import tbi from './ABIS/TransferAbi.json'
 import ebi from './ABIS/erc20.json'
 import mbi from './ABIS/NftMarket.json'
+import fbi from './ABIS/Form.json'
 
 export const PassAddress ={
     goerli: {
@@ -34,9 +35,16 @@ export const Market ={
     lineaTestnet:"0x49f8198a701c27d86a1F5fb461F80d8569751F45"
 }
 
+export const HireForm = {
+    lineaTestnet:"0x90592ddb549608376960f89cAa2C123AA3A36e26",
+    fuse:"0x7ECB4991B540875201fbdc13e99eA0BaFcFED942",
+    mantle:"0x519b997AEEBB93b008792B474da8C7957D89b9A8"
+}
+
 export const MinterAbi = bbi.abi;
 export const PassAbi = abi.abi;
 export const StorageAbi = sbi.abi;
 export const TransferAbi = tbi.abi;
 export const ERC20Abi = ebi.abi;
 export const MarketAbi = mbi.abi;
+export const FormAbi = fbi.abi;

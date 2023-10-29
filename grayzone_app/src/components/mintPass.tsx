@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { DappAppContext } from '@/Context/appBockchainContext'
 const lineaTestId = "0xe704"
 const MINTPASS = () => {
-  const{user , connectWallet, mint, isPassholder, getPassInfo }= useContext(DappAppContext);
+  const{user , connectWallet, mint, isPassholder, getPassInfo , getChainId}= useContext(DappAppContext);
   const [isholder, setisHolder] = useState(false);
   let tx;
   const a = async()=>{
@@ -40,8 +40,11 @@ const MINTPASS = () => {
   }
 
   useEffect(() => {
-    try{if(user.network !=lineaTestId){
-      connectWallet();
+    try{
+      if
+      (user.network !=lineaTestId){
+        connectWallet()
+        changeNetworkToLineaTestnet()
     }
     handler()} catch(error){
       console.log(error)

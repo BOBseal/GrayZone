@@ -1,9 +1,43 @@
-import React from 'react'
+'use client'
+import React,{useState , useEffect, useContext} from 'react'
+import { DappAppContext } from '@/Context/appBockchainContext';
+import { MantleNetwork } from '@/utils/networkConfigs';
+import { addMantleNetwork } from '@/utils/hooks';
 //import HireUs from../../components/HireUs.Jsx
 
 const page = () => {
+    const {connectWallet , user,submitForm , getAllForms, isPassholder} = useContext(DappAppContext)
+    const [forms , setForms] = useState([]);
+    const [hashes , setHashes] = useState()
+    useEffect(() => {
+      if(!user.wallet){
+        connectWallet();
+      }else
+      if(user.wallet){
+        if(user.network != MantleNetwork.chainId){
+            addMantleNetwork()
+        }
+      }
+      
+    jAA()
+        
+    }, [user.wallet , user.network])
+
+    const jAA = async()=>{
+        try {
+            
+            const results =await getAllForms()
+            setForms(results)
+            //setHashes(hashes)
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
   return (
-    <div className={`flex flex-col items-center justify-center bg-[#1D023C] text-white pb-[2rem]`}>
+    <div className={`flex items-center justify-center bg-[#1D023C] text-white pb-[2rem]`}>
+        <div className='flex flex-col w-11/12 justify-between items-center'>
         <div className=' flex flex-col gap-6'>
             <h1>Looking Devs For Hire for Your Web3 Project?</h1>
             <p>We Have Got You Covered!! Hire The Best Web3 Talents Accross the Globe, Hand-Picked Specifically for your Requirements</p>
@@ -63,11 +97,12 @@ const page = () => {
                     <p>RAZY</p>
                 </div>
             </div>
+        
         </div>
         
-        <form className='gap-2 flex flex-col'>
+        <form className='gap-2 flex flex-col w-11/12 md:w-[40rem]'>
             <p>Hire Us Form:</p>
-            <div className='gap-2 flex text-black flex-col w-[40rem]'>
+            <div className='gap-2 flex text-black flex-col'>
                 <input type={'text'} placeholder='Title'/>
                 <input type={'text'} placeholder='Requirement Decription' className='h-[6rem]'/>
                 <input type={'text'} placeholder='References' className='h-[6rem]'/>
@@ -75,10 +110,13 @@ const page = () => {
                 <input type={'number'} placeholder="Timeframe In days"/>
                 <input type={'text'} placeholder='Additional Requirements - If Any' className='h-[6rem]'/>
             </div>
-            <button>SUBMIT</button>
+            
         </form>
 
-        <p>Submitting A Hire Form Requires A Small Fee of 1$ in ETH for User Verification Purposes</p>
+        <button onClick={()=> submitForm("HELLO" , "0x01" , "boba@gmail.com" , 12 , 123)}>SUBMIT</button>
+
+        <p>Submitting A Hire Form Requires A Small Fee of 5$ in ETH for User Verification Purposes and Stop Spams</p>
+    </div>
     </div>
   )
 }

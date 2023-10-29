@@ -164,7 +164,10 @@ const USERDASHBOARD =()=> {
       //setControllers({...controllers , loading1: true})
       if(!user.wallet){
         connectWallet();
-      } else 
+        if(user.network !=lineaTestId){
+          changeNetworkToLineaTestnet()
+        }
+      }  
       if(user.wallet && b == false){
         handler();
        
@@ -205,10 +208,6 @@ const USERDASHBOARD =()=> {
           <p className='flex animate-slowerFlicker text-[1.6rem]'>LOADING...</p>
         </div>}
 
-        {controllers.tokenSelected && controllers.loading1 ?<></>:
-        <div className='flex flex-col items-center'>
-          Connect Wallet First
-        </div>}
       {/*<div className='flex flex-col flex-wrap justify-center items-center font-semibold gap-1'>
         <h1 className='font-bold text-[2.5rem]'>General Info Section</h1>
         <p>Token ID: {passArr[10]}</p>
