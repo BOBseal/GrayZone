@@ -5,11 +5,9 @@ import { DappAppContext } from '@/Context/appBockchainContext';
 import { MantleNetwork } from '@/utils/networkConfigs';
 import { addMantleNetwork } from '@/utils/hooks';
 import {encode as base64_encode} from 'base-64'
-import { ethers } from 'ethers';
-import { stringToHex } from 'viem';
-import { AbiCoder, defaultAbiCoder } from 'ethers/lib/utils';
-import dotenv from 'dotenv'
-dotenv.config();
+//import { ethers } from 'ethers';
+//import { stringToHex } from 'viem';
+//import { AbiCoder, defaultAbiCoder } from 'ethers/lib/utils';
 //import HireUs from../../components/HireUs.Jsx
 
 const Hire = () => {
