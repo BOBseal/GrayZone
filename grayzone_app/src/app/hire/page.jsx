@@ -23,6 +23,26 @@ const Hire = () => {
         timeFrame:0,
         additional:""
     })
+    const [states, setStates] = useState({
+        selectedNetwork:''
+    })
+
+    const handleChains=(e)=>{
+        setStates({...states, selectedNetwork:e.target.value})
+        console.log(e.target.value)
+        if(e.target.value === MantleNetwork[0].chainId){
+            addMantleNetwork()
+        }
+        if(e.target.value === BaseNetwork[0].chainId){
+            addBaseNetwork()
+        }
+        if(e.target.value === FuseNetwork[0].chainId){
+            addFuseNetwork()
+        }
+        if(e.target.value === PolygonPosNetwork[0].chainId){
+            addPolygonNetwork()
+        }
+    }
     
     const titleHandler = (e)=>{
         try {
@@ -71,9 +91,6 @@ const Hire = () => {
         if(user.network != MantleNetwork[0].chainId &&user.network != BaseNetwork[0].chainId &&user.network != FuseNetwork[0].chainId &&user.network !=PolygonPosNetwork[0].chainId ){
             alert("Change Network to Supported Chains")
             addMantleNetwork()
-        }else 
-        {
-            
         }
 
       }
@@ -162,11 +179,12 @@ const Hire = () => {
         <div className='gap-2 flex flex-col w-11/12 md:w-[40rem]'>
         
             <p>Select Chain Below for D-Form Submission:</p>
-            <select className='text-black'>
-                <option>Mantle Mainnet</option>
-                <option>Polygon POS Mainnet --Unavailable</option>
-                <option>Base Mainnet --Unavailable</option>
-                <option>Fuse Mainnet --Unavailable</option>
+            <select value={states.selectedNetwork} onChange={(e)=>handleChains(e)} className='text-black'>
+                <option>Select</option>
+                <option value={MantleNetwork[0].chainId}>Mantle Mainnet</option>
+                <option value={PolygonPosNetwork[0].chainId}>Polygon POS Mainnet</option>
+                <option value={BaseNetwork[0].chainId}>Base Mainnet</option>
+                <option value={FuseNetwork[0].chainId}>Fuse Mainnet</option>
             </select>
             <p>To Book Us Fill Form:</p>
             <div className='gap-2 flex text-black flex-col'>
