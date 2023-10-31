@@ -1,19 +1,19 @@
 'use client'
-import {create as ipfsClient} from 'ipfs-http-client'
+//import {create as ipfsClient} from 'ipfs-http-client'
 import React,{useState , useEffect, useContext} from 'react'
 import { DappAppContext } from '@/Context/appBockchainContext';
-import { MantleNetwork } from '@/utils/networkConfigs';
-import { addMantleNetwork } from '@/utils/hooks';
-import {encode as base64_encode} from 'base-64'
+import { MantleNetwork, BaseNetwork, FuseNetwork, PolygonPosNetwork } from '@/utils/networkConfigs';
+import { addMantleNetwork, addFuseNetwork, addPolygonNetwork, addBaseNetwork } from '@/utils/hooks';
+//import {encode as base64_encode} from 'base-64'
+import { ethers } from 'ethers';
 //import { ethers } from 'ethers';
 //import { stringToHex } from 'viem';
 //import { AbiCoder, defaultAbiCoder } from 'ethers/lib/utils';
 //import HireUs from../../components/HireUs.Jsx
 
 const Hire = () => {
-    const {connectWallet , user,submitForm , getAllForms, isPassholder} = useContext(DappAppContext)
+    const {connectWallet , user,submitForm , getAllForms} = useContext(DappAppContext)
     const [forms , setForms] = useState([]);
-    const [hashes , setHashes] = useState()
     const [formData , setFormData] = useState({
         title:"",
         description:"",
@@ -23,18 +23,6 @@ const Hire = () => {
         timeFrame:0,
         additional:""
     })
-    const projectId = "2XSB3KFypeJTlvNLydKcCwWRdnk"
-    const projectSecret = "943c4fe5855393217b8bc6a352b59705"
-    const authorisation = projectId + ":" + projectSecret;
-    const encode = base64_encode(authorisation)
-    const ipfs = new ipfsClient({
-        host: "ipfs.infura.io",
-        port: 5001,
-        protocol: "https",
-        headers: {
-          Authorization: "Basic " + encode,
-        },
-      });
     
     const titleHandler = (e)=>{
         try {
@@ -58,7 +46,7 @@ const Hire = () => {
                 alert("Title , Description , Contact Detail , Budget and Timeframe Cannot be Empty")
                 return
             }
-            let obj = {
+            const obj = {
                 title: formData.title,
                 description: formData.description, 
                 references: formData.references , 
@@ -68,14 +56,8 @@ const Hire = () => {
                 time: formData.timeFrame,
                 contact: formData.email
             }
-            const JsonObj = JSON.stringify(obj);
-            const file = new Blob([JsonObj]);
-            const buffer = await new Response(file).arrayBuffer()
-            const upload = await ipfs.add(buffer);
-            console.log(upload)
-            if(upload.path !=""){
-                submitForm(formData.title , upload.path , formData.email , formData.timeFrame , formData.budget)
-            }
+            await submitForm(obj.title , obj.description, obj.references, obj.additional , obj.contact, obj.time , obj.budget)
+            
         } catch (error) {
             console.log(error)
         }
@@ -86,9 +68,14 @@ const Hire = () => {
         connectWallet();
       }else
       if(user.wallet){
-        if(user.network != MantleNetwork.chainId){
+        if(user.network != MantleNetwork[0].chainId &&user.network != BaseNetwork[0].chainId &&user.network != FuseNetwork[0].chainId &&user.network !=PolygonPosNetwork[0].chainId ){
+            alert("Change Network to Supported Chains")
             addMantleNetwork()
+        }else 
+        {
+            
         }
+
       }
       
     jAA()
@@ -117,9 +104,9 @@ const Hire = () => {
             <div className='w-11/12 flex flex-col'>
                 <label>Why Choose Us?</label>
                 <li>Access to TOP 1% of Verified Web3 Talents</li>
-                <li>Web3 can be Confusing , So we Provide Free Of Cost Guidance in Deciding Your Project's Technical Details to Achieve Desired Goals</li>
+                <li>Web3 can be Confusing , So we Provide Free Of Cost Guidance in Deciding Your Projects Technical Details to Achieve Desired Goals</li>
                 <li>Matchmaking of Talents/Teams for Your Specific and Custom Requirement</li>
-                <li>Facilitating Client-Talent Communications so Nothing gets "Missed"</li>
+                <li>Facilitating Client-Talent Communications so Nothing gets Missed</li>
                 <li>We Employ a Strict and Meticulous Screening and Choose Only the Best and Most Suitable of Talents</li>
                 <li>24/7 Assistance</li>
             </div>
@@ -140,7 +127,7 @@ const Hire = () => {
                      <li> NFT Art</li>
                      <li>  NFT Art</li>
                      <li> Trading Bots</li>
-                      <li> Telegram Bots</li>
+                     <li> Telegram Bots</li>
                      <li>Landing Pages</li>
                      <li>Personal Websites</li>
                      <li> Business Websites </li>
@@ -173,7 +160,15 @@ const Hire = () => {
         </div>
         
         <div className='gap-2 flex flex-col w-11/12 md:w-[40rem]'>
-            <p>Hire Us Form:</p>
+        
+            <p>Select Chain Below for D-Form Submission:</p>
+            <select className='text-black'>
+                <option>Mantle Mainnet</option>
+                <option>Polygon POS Mainnet --Unavailable</option>
+                <option>Base Mainnet --Unavailable</option>
+                <option>Fuse Mainnet --Unavailable</option>
+            </select>
+            <p>To Book Us Fill Form:</p>
             <div className='gap-2 flex text-black flex-col'>
                 <input type={'text'} onChange={(e)=> titleHandler(e.target.value)} placeholder='Title'/>
                 <input type={'text'} onChange={(e)=> setFormData({...formData , description: e.target.value})} placeholder='Requirement Decription' className='h-[6rem]'/>
@@ -189,6 +184,7 @@ const Hire = () => {
 
         <p>Submitting A Hire Form Requires A Small Fee of 10 $MNT for User Verification Purposes and Stop Spams</p>
     </div>
+    
     </div>
   )
 }

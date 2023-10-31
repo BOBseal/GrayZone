@@ -37,8 +37,10 @@ export const Market ={
 
 export const HireForm = {
     lineaTestnet:"0x90592ddb549608376960f89cAa2C123AA3A36e26",
-    fuse:"0x7ECB4991B540875201fbdc13e99eA0BaFcFED942",
-    mantle:"0xB656868610823660BBe4E09be14297C8077A2669"
+    fuse:"0xEB3A60E47a899B8776fb36B5EEDd16e589E722Ae",
+    mantle:"0xc06a80778af273801ed5C14AB46883c446Dd6e23",
+    polygon:"0x042929007BFb97363741D79DDf9A1aA4C2b7EBC9",
+    base:"0x0ff9Ef29BD23c82E260aDEC858Aa1d7Cdf6ad33d"
 }
 
 export const MinterAbi = bbi.abi;

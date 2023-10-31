@@ -6,9 +6,11 @@ import Image from 'next/image'
 import { DappAppContext } from '@/Context/appBockchainContext'
 const lineaTestId = "0xe704"
 const MINTPASS = () => {
-  const{user , connectWallet, mint, isPassholder, getPassInfo , getChainId}= useContext(DappAppContext);
+  const{user , connectWallet, mint, isPassholder}= useContext(DappAppContext);
   const [isholder, setisHolder] = useState(false);
-  let tx;
+  const [states, setStates] = useState({
+    txHash:""  
+  })
   const a = async()=>{
      try{ 
       if(!user.wallet){
@@ -16,7 +18,11 @@ const MINTPASS = () => {
       }
       if(user.wallet){
        // console.log(user.wallet , user.network);
-        const t = await mint();
+       const tx =  await mint();
+
+       if(tx.hash){
+        setStates({...states, txHash: tx.hash})
+       }
        // console.log(t);
       }
       if(user.network !=lineaTestId){
@@ -62,10 +68,10 @@ const MINTPASS = () => {
                   
                   <div className='w-11/12 md:w-[45rem] lg:w-[35rem] flex flex-wrap gap-3'>
                     <h2 className=' text-lg font-semibold underline text-white underline-offset-2 font-serif'>ABOUT ZONEPASS:</h2> 
-                    <p className=' text-xs pl-2 font-sans text-gray-200'>ZONEPASS IS AN "ALL IN ONE" NFT PROFILE FOR USERS. IT SERVES AS THE GATEWAY TO GRAYZONE ECOSYSTEM AND HAS COOL FEATURES LIKE PASSIVE INCOME
+                    <p className=' text-xs pl-2 font-sans text-gray-200'>ZONEPASS IS AN ALL-IN-ONE NFT PROFILE FOR USERS. IT SERVES AS THE GATEWAY TO GRAYZONE ECOSYSTEM AND HAS COOL FEATURES LIKE PASSIVE INCOME
                       FOR OG MINTER , DECENTRALISED STORAGE WITH STORAGE SHARING , NFT BASED STORE OF VALUE AND MANY MANY MORE!!.
-                      ALL HOLDERS AS WELL AS OG MINTERS GET DISCOUNTS , ACCESS TO GRAYTOOLS , BONUSES , WL, SERVE AS WEB3 ATTESTATION "ACTIVITY BASED" , GIVEAWAYS AS WELL AS MANY MANY 
-                      "SECRET" BENIFITS AS WE MOVE FORWARD. MINT YOUR ALPHA PASS AND STAY TUNED TO FIND OUT MORE!!!
+                      ALL HOLDERS AS WELL AS OG MINTERS GET DISCOUNTS , ACCESS TO GRAYTOOLS , BONUSES , WL, SERVE AS WEB3 ATTESTATION ACTIVITY BASED , GIVEAWAYS AS WELL AS MANY MANY 
+                      SECRET BENIFITS AS WE MOVE FORWARD. MINT YOUR ALPHA PASS AND STAY TUNED TO FIND OUT MORE!!!
                     </p>
                   </div>
 
@@ -87,9 +93,10 @@ const MINTPASS = () => {
                       isholder ? <>
                       <Link href={`/dashboard`}>
                         <button>GO TO DASHBOARD</button>
-                      </Link></>:<button>"MINT PASS"</button>
+                      </Link></>:<button>MINT PASS</button>
                     }</>}
                     </div>
+                    {states.txHash ? <p>{states.txHash}</p>:""}
                   </div>
 
 

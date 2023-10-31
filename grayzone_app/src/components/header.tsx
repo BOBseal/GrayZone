@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
 import MenU  from '../../public/Assets/icons8-hamburger-menu-128.svg';
 import Link from 'next/link';
-import { homelink } from '@/utils/hooks';
+//import { homelink } from '@/utils/hooks';
 import Products from './Products.jsx';
 
 const styl = {
@@ -12,7 +12,7 @@ const styl = {
 }
 
 const Header = () => {
-    const [x, setX ] = useState(false); // menu opener
+   // const [x, setX ] = useState(false); // menu opener
     const [controllers , setC] = useState({
         products:false,
         menu:false
@@ -119,7 +119,7 @@ const Header = () => {
                             <Link href={'/'}><p className={styl.menu}>DEX</p></Link>
                             <Link href={'/'}><p className={styl.menu}>NFT MARKETPLACE</p></Link>
                             <Link href={"https://t.me/grayzoneweb3"}>
-                                <div onClick={()=> setX(true)} className={styl.menu}>
+                                <div className={styl.menu}>
                                     Contact Us On TG
                                 </div>
                             </Link>
@@ -144,14 +144,14 @@ const Header = () => {
                                <button>Our Products</button>
                                
                                
-                               <Image src={'/Assets/down-arrow-backup-2-svgrepo-com.svg'} width={12} height={20} alt="arrow" className='flex justify-center mt-[4px] hidden'/>
+                               <Image src={'/Assets/down-arrow-backup-2-svgrepo-com.svg'} width={12} height={20} alt="arrow" className=' justify-center mt-[4px] hidden'/>
                             </div>
                             {controllers.products? <Products functions={productMenuHandler}/>: ""}
                         </div>
 
                         <div className='w-[8rem] flex justify-center items-center bg-slate-400 rounded-3xl drop-shadow-lg h-[2rem] hover:text-[1.2rem] hover:h-[2.1rem]'>
                             <Link href={"https://t.me/grayzoneweb3"}>
-                                <button onClick={()=> setX(true)} className="drop-shadow-lg">
+                                <button className="drop-shadow-lg">
                                     Contact Us
                                 </button>
                             </Link>

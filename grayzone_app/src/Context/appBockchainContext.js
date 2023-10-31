@@ -416,7 +416,7 @@ export const DappAppProvider = ({children})=> {
         }
     }
 
-    const submitForm = async(title , hash , email , days , price)=>{
+    const submitForm = async(title , description , reference, extra , email , days , price)=>{
         try {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             //console.log(title)
@@ -432,9 +432,12 @@ export const DappAppProvider = ({children})=> {
             }
             
             const tt = stringToHex(title);
+            const desc= stringToHex(description)
+            const ref = stringToHex(reference)
+            const extra_ = stringToHex(extra)
             console.log(tt , title)
             const em = stringToHex(email)
-            const tx = await contract.submit(tt , hash , em , days , price,{value: pric});
+            const tx = await contract.submit(tt , desc, ref ,extra_, em , days , price,{value: pric});
             
             return tx;
         } catch (error) {
@@ -446,9 +449,9 @@ export const DappAppProvider = ({children})=> {
         try {
             if(user.wallet){
             //console.log(user)
-            let promises = [] , results = [] , hashes=[];
+            let promises = [] , results = [] ;
             const contract = await connectForm(user.wallet)
-            //console.log(contract)
+            console.log(contract)
             const n = await contract.getUserNonce(user.wallet);
             //console.log(n)
             const nn = hexToNumber(n);
@@ -462,21 +465,25 @@ export const DappAppProvider = ({children})=> {
 
             res.forEach(res=>{
                 let form = res.form;
-                let _id = res.id;
-                const days = hexToNumber(form[2])
-                const price = hexToNumber(form[3])
-                const t = hexToString(form[0])
-                const m = hexToString(form[1])
+                const _id = res.id
+                const title = hexToString(form[0])
+                const desc = hexToString(form[1])
+                const ref = hexToString(form[2])
+                const oth = hexToString(form[3])
+                const mai = hexToString(form[4])
+                const ti = hexToNumber(form[5])
+                const bud = hexToNumber(form[6])
                 let obj = {
                     formId: _id,
-                    title: t,
-                    email:m,
-                    hash: form[4],
-                    budget: price,
-                    time: days
+                    title: title,
+                    description: desc,
+                    reference: ref,
+                    extras: oth,
+                    email:mai,
+                    budget: bud,
+                    time: ti
                 }
                 results.push(obj);
-                hashes.push(form[1]);
             })
             console.log(results)
             return results;

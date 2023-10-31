@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import { genesisMinter, MinterAbi , PassAbi , PassAddress, storageUnit , StorageAbi , TransferAbi , TransferUnit, ERC20Abi, MarketAbi , Market
 , FormAbi , HireForm} from "./constants";
-import { lineaTestNetwork, MantleNetwork } from "./networkConfigs";
+import { lineaTestNetwork, MantleNetwork, FuseNetwork , PolygonPosNetwork , BaseNetwork } from "./networkConfigs";
 
 export const changeNetworkToLineaTestnet= async()=>{
     try {
@@ -19,6 +19,38 @@ export const addMantleNetwork= async()=>{
         await window.ethereum.request({
             method: "wallet_addEthereumChain",
             params: MantleNetwork,
+        });
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const addBaseNetwork= async()=>{
+    try {
+        await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: BaseNetwork,
+        });
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const addFuseNetwork= async()=>{
+    try {
+        await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: FuseNetwork,
+        });
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const addPolygonNetwork= async()=>{
+    try {
+        await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: PolygonPosNetwork,
         });
     } catch (error) {
         console.log(error)
@@ -103,14 +135,19 @@ export const connectForm = async(addr) =>{
         if(window.ethereum){   
             const chainId = await window.ethereum.request({ method: "eth_chainId" });
             console.log(chainId)
-            switch (chainId) {
-                case lineaTestNetwork.chainId:
-                    return new ethers.Contract(HireForm.lineaTestnet, FormAbi, s);
-                case MantleNetwork.chainId:
-                    return new ethers.Contract(HireForm.mantle, FormAbi, s);
-                // Add more cases for other chainIds as needed
-                default:
-                    return new ethers.Contract(HireForm.mantle, FormAbi, s);
+            //console.log(`Mantle: ${MantleNetwork[0].chainId}`)
+            if(chainId === MantleNetwork[0].chainId){
+                return new ethers.Contract(HireForm.mantle, FormAbi, s);
+            } 
+
+            if(chainId === BaseNetwork[0].chainId ){
+                return new ethers.Contract(HireForm.base, FormAbi, s);
+            } 
+            if(chainId === PolygonPosNetwork[0].chainId){
+                return new ethers.Contract(HireForm.polygon, FormAbi, s);
+            }
+            if(chainId === FuseNetwork[0].chainId){
+                return new ethers.Contract(HireForm.fuse, FormAbi, s);
             }
         }
         //console.log(contract)

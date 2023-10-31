@@ -1,10 +1,10 @@
 "use client"
 import { changeNetworkToLineaTestnet } from '@/utils/hooks'
-import Link from 'next/link'
+//import Link from 'next/link'
 import React,{useContext, useEffect, useState} from 'react'
-import Image from 'next/image'
+//import Image from 'next/image'
 import { DappAppContext } from '@/Context/appBockchainContext'
-import { Contract, ethers } from "ethers";
+import { ethers } from "ethers";
 import { connectErc20 } from '@/utils/hooks'
 import { PassAddress ,TransferUnit } from '@/utils/constants'
 
@@ -91,8 +91,12 @@ const USERDASHBOARD =()=> {
         const amt = ethers.utils.parseUnits(deposits.amount, 18);
         const con =await connectErc20(user.wallet , deposits.token);
         const approveMain = await con.approve(PassAddress.lineaTestnet , amt);
-        const approveDep= await con.approve(TransferUnit.lineaTestnet , amt);
-        const tx = await depositToId(controllers.item.id , deposits.token , amt );
+        if(approveMain.hash) {
+          const approveDep= await con.approve(TransferUnit.lineaTestnet , amt);
+          if(approveDep.hash){
+            await depositToId(controllers.item.id , deposits.token , amt );
+          }
+        }
       }
     } catch (error) {
       console.log(error)
@@ -125,7 +129,7 @@ const USERDASHBOARD =()=> {
        
        
         //const cont =await connectErc20(user.wallet , deposits.token);
-        const tx = await withDrawFromId(controllers.item.id , withdrawals.token ,amt);
+        await withDrawFromId(controllers.item.id , withdrawals.token ,amt);
       }
     } catch (error) {
       console.log(error)
@@ -135,7 +139,7 @@ const USERDASHBOARD =()=> {
   const handleIdTx = async()=>{
     try {
       const amt = ethers.utils.parseUnits(idTx.setAmt);
-      const tx = await idtoid(controllers.item.id , idTx.toId , idTx.setToken , amt);
+      await idtoid(controllers.item.id , idTx.toId , idTx.setToken , amt);
     } catch (c) {
       console.log(c)
     }

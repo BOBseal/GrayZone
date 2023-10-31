@@ -1,5 +1,5 @@
 'use client'
-import React,{useState , useEffect, useContext} from 'react'
+import React,{ useEffect, useContext} from 'react'
 import { DappAppContext } from '@/Context/appBockchainContext';
 const MarketPlace = () => {
   const {user , getAllListings, connectWallet} = useContext(DappAppContext);

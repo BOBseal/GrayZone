@@ -2,7 +2,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { motion , AnimatePresence } from 'framer-motion'
-import MINTPASS from './mintPass'
+//import MINTPASS from './mintPass'
 import Link from 'next/link'
 
 const HeroSection = () => {
@@ -39,7 +39,7 @@ const HeroSection = () => {
               At GrayZone Web3, we blend innovation, creativity, and 
               expertise to reshape the digital landscape. From Web3 
               development that embraces the future to captivating graphics
-              and tailored web solutions, we're your partners in digital 
+              and tailored web solutions, we are your partners in digital 
               transformation. Join us on the journey to redefine possibilities 
               in the digital world.
               </p> 

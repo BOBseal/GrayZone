@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
+
 const styl = {
   menu: 'hover:underline drop-shadow-lg font-semibold p-1 rounded-full w-[14rem] flex justify-center '
 }

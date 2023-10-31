@@ -1,16 +1,16 @@
-import Image from 'next/image';
+//import Image from 'next/image';
 //import { useContext } from 'react';
-import { AppContext } from '@/Context/appReactiveContext';
-
+//import { AppContext } from '@/Context/appReactiveContext';
+import React from 'react'
 //Remove Following Comments... Components Imported
 import HeroSection from '../components/HeroSection'
-import Socials from '../components/Socials';
+/*import Socials from '../components/Socials';
 import Catalogue from '../components/Catalogue';
 import Services from '../components/Services';
 import WhyChooseUs from '../components/WhyChooseUs';
 import Testimonials from '../components/Testimonials';
 import MINTPASS from '@/components/mintPass';
-
+*/
 export default function Home() {
   //const {dark , setDark , handleThemeChange} = useContext(AppContext);
   

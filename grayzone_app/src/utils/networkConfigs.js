@@ -23,3 +23,42 @@ export const MantleNetwork = [
         },
     }
 ]
+
+export const BaseNetwork = [
+    {
+        chainId:"0x2105",
+        chainName:"Base Mainnet",
+        rpcUrls:["https://mainnet.base.org"],
+        nativeCurrency:{
+         name: "ETH",
+         symbol:"ETH",
+         decimals: 18,   
+        },
+    }
+]
+
+export const PolygonPosNetwork = [
+    {
+        chainId:"0x89",
+        chainName:"Polygon POS",
+        rpcUrls:["https://polygon-rpc.com"],
+        nativeCurrency:{
+         name: "MATIC",
+         symbol:"MATIC",
+         decimals: 18,   
+        },
+    }
+]
+
+export const FuseNetwork = [
+    {
+        chainId:"0x7a",
+        chainName:"Fuse Mainnet",
+        rpcUrls:["https://rpc.fuse.io"],
+        nativeCurrency:{
+         name: "FUSE",
+         symbol:"FUSE",
+         decimals: 18,   
+        },
+    }
+]
