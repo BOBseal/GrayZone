@@ -12,7 +12,7 @@ import { ethers } from 'ethers';
 //import HireUs from../../components/HireUs.Jsx
 
 const Hire = () => {
-    const {connectWallet , user,submitForm , getAllForms} = useContext(DappAppContext)
+    const {connectWallet , user,submitForm , getAllForms, getChainId} = useContext(DappAppContext)
     const [forms , setForms] = useState([]);
     const [formData , setFormData] = useState({
         title:"",
@@ -24,10 +24,11 @@ const Hire = () => {
         additional:""
     })
     const [states, setStates] = useState({
-        selectedNetwork:''
+        selectedNetwork:'',
+        currentNetwork:""
     })
 
-    const handleChains=(e)=>{
+    const handleChains=async(e)=>{
         setStates({...states, selectedNetwork:e.target.value})
         console.log(e.target.value)
         if(e.target.value === MantleNetwork[0].chainId){
@@ -42,6 +43,20 @@ const Hire = () => {
         if(e.target.value === PolygonPosNetwork[0].chainId){
             addPolygonNetwork()
         }
+        const _chainId = await getChainId();
+        if(_chainId === MantleNetwork[0].chainId){
+            setStates({...states, currentNetwork:"Mantle"})
+        }
+        if(_chainId === FuseNetwork[0].chainId){
+            setStates({...states, currentNetwork:"Fuse"})
+        }
+        if(_chainId === BaseNetwork[0].chainId){
+            setStates({...states, currentNetwork:"Base"})
+        }
+        if(_chainId === PolygonPosNetwork[0].chainId){
+            setStates({...states, currentNetwork:"Polygon POS"})
+        }
+         
     }
     
     const titleHandler = (e)=>{
@@ -92,7 +107,19 @@ const Hire = () => {
             alert("Change Network to Supported Chains")
             addMantleNetwork()
         }
-
+        const _chainId = user.network 
+        if(_chainId === MantleNetwork[0].chainId){
+            setStates({...states, currentNetwork:"Mantle"})
+        }
+        if(_chainId === FuseNetwork[0].chainId){
+            setStates({...states, currentNetwork:"Fuse"})
+        }
+        if(_chainId === BaseNetwork[0].chainId){
+            setStates({...states, currentNetwork:"Base"})
+        }
+        if(_chainId === PolygonPosNetwork[0].chainId){
+            setStates({...states, currentNetwork:"Polygon POS"})
+        }
       }
       
     jAA()
@@ -101,7 +128,6 @@ const Hire = () => {
 
     const jAA = async()=>{
         try {
-            
             const results =await getAllForms()
             setForms(results)
             //setHashes(hashes)
@@ -186,6 +212,7 @@ const Hire = () => {
                 <option value={BaseNetwork[0].chainId}>Base Mainnet</option>
                 <option value={FuseNetwork[0].chainId}>Fuse Mainnet</option>
             </select>
+            <p>Your Current Network: {states.currentNetwork}</p>
             <p>To Book Us Fill Form:</p>
             <div className='gap-2 flex text-black flex-col'>
                 <input type={'text'} onChange={(e)=> titleHandler(e.target.value)} placeholder='Title'/>
