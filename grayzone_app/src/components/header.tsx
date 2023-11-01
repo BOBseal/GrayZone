@@ -118,9 +118,9 @@ const Header = () => {
                             <Link href={'/'}><p className={styl.menu}>LENDING/BORROWING</p></Link>
                             <Link href={'/'}><p className={styl.menu}>DEX</p></Link>
                             <Link href={'/'}><p className={styl.menu}>NFT MARKETPLACE</p></Link>
-                            <Link href={"https://t.me/grayzoneweb3"}>
+                            <Link href={"/hire"}>
                                 <div className={styl.menu}>
-                                    Contact Us On TG
+                                    HIRE US
                                 </div>
                             </Link>
                         </div>
@@ -150,9 +150,9 @@ const Header = () => {
                         </div>
 
                         <div className='w-[8rem] flex justify-center items-center bg-slate-400 rounded-3xl drop-shadow-lg h-[2rem] hover:text-[1.2rem] hover:h-[2.1rem]'>
-                            <Link href={"https://t.me/grayzoneweb3"}>
+                            <Link href={"/hire"}>
                                 <button className="drop-shadow-lg">
-                                    Contact Us
+                                    HIRE US
                                 </button>
                             </Link>
                         </div>

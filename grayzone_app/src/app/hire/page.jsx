@@ -46,24 +46,40 @@ const Hire = () => {
     const handleChains=async(e)=>{
         setStates({...states, selectedNetwork:e.target.value})
         console.log(e.target.value)
-        if(e.target.value === MantleNetwork[0].chainId){
+        if(e.target.value === MantleNetwork[0].chainId && user.network === MantleNetwork[0].chainId){
+            alert("Already Selected")
+            return
+        }
+        if(e.target.value === BaseNetwork[0].chainId && user.network === BaseNetwork[0].chainId){
+            alert("Already Selected")
+            return
+        }
+        if(e.target.value === FuseNetwork[0].chainId && user.network === FuseNetwork[0].chainId){
+            alert("Already Selected")
+            return
+        }
+        if(e.target.value === PolygonPosNetwork[0].chainId && user.network === PolygonPosNetwork[0].chainId){
+            alert("Already Selected")
+            return
+        }
+        if(e.target.value === MantleNetwork[0].chainId && user.network != MantleNetwork[0].chainId){
           const x =  addMantleNetwork()
-          const f = await getFormFee()
+          const f = getFormFee()
           setStates({...states, currentNetwork:x , currency:"$MNT" , fee: f})
         }
-        if(e.target.value === BaseNetwork[0].chainId){
+        if(e.target.value === BaseNetwork[0].chainId &&user.network != BaseNetwork[0].chainId){
             const x = addBaseNetwork()
-            const f = await getFormFee()
+            const f = getFormFee()
             setStates({...states, currentNetwork:x , currency: "$ETH" , fee:f})   
         }
-        if(e.target.value === FuseNetwork[0].chainId){
+        if(e.target.value === FuseNetwork[0].chainId &&user.network != FuseNetwork[0].chainId){
            const x = addFuseNetwork()
-           const f = await getFormFee()
+           const f = getFormFee()
            setStates({...states, currentNetwork:x , currency: "$FUSE" , fee:f})
         }
-        if(e.target.value === PolygonPosNetwork[0].chainId){
+        if(e.target.value === PolygonPosNetwork[0].chainId &&user.network != PolygonPosNetwork[0].chainId){
            const x = addPolygonNetwork()
-           const f = await getFormFee()
+           const f = getFormFee()
            setStates({...states, currentNetwork:x , currency:"$MATIC", fee:f})
         }
     }
@@ -120,7 +136,7 @@ const Hire = () => {
       
     jAA()
         
-    }, [user.wallet , user.network])
+    }, [user.wallet , user.network, states.fee , states.currency])
 
     const jAA = async()=>{
         try {
@@ -148,7 +164,7 @@ const Hire = () => {
   return (
     <div className={`flex flex-col items-center justify-between bg-[#1D023C] text-white pb-[2rem]`}>
             <div className=' flex flex-col gap-6 items-center justify-between'>
-                <div className='flex flex-col pt-[2rem] w-11/12 md:gap-4 md:w-9/12 items-start justify-between text-left'>
+                <div className='flex flex-col pt-[2rem] w-11/12 gap-[1.1rem] md:gap-[2.2rem] md:w-9/12 items-start justify-between text-left'>
                     <h2 className={styl.a1}>ARE YOU LOOKING FOR DEVELOPERS FOR YOUR WEB3 PROJECT?</h2>
                     <li className={styl.a2}>{"=>"} NOT SURE WHAT YOU NEED FOR YOUR PROJECT TO BECOME A REALITY?</li>
                     <li className={styl.a2}>{"=>"} NOT ABLE TO FIND SKILLED AND GENUINE WEB3 TALENTS?</li>
@@ -181,6 +197,9 @@ const Hire = () => {
                         <li>Scripts and Automations</li>
                     </div>
                 </div>
+
+                
+                <h2 className={`${styl.a1} flex w-11/12 md:w-9/12`}>JUST STATE YOUR REQUIREMENTS ON THE FORM BELOW AND WE WILL TAKE CARE OF THE REST :</h2>
                 {/*
                 <h1>Looking Devs For Hire for Your Web3 Project?</h1>
                 <p>We Have Got You Covered!! Hire The Best Web3 Talents Accross the Globe, Hand-Picked Specifically for your Requirements</p>
@@ -273,7 +292,7 @@ const Hire = () => {
                     <input type={'text'} onChange={(e)=> emailHandler(e.target.value)} placeholder='Email or TG Handle' className='h-[2.6rem]'/> 
                 </div>
                 <div className='flex justify-center p-[2rem]'>
-                    <button className={styl.a5} onClick={()=> IpfsHandle()}>SUBMIT FOR {states.fee}{states.currency}</button>          
+                    <button className={styl.a5} onClick={()=> IpfsHandle()}>SUBMIT FOR {states.fee} {states.currency}</button>          
                 </div>                
             </div>
 
