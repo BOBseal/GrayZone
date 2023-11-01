@@ -203,7 +203,7 @@ const Hire = () => {
                 </div>
 
                 
-                <h2 className={`${styl.a1} flex w-11/12 md:w-9/12`}>JUST STATE YOUR REQUIREMENTS ON THE FORM BELOW AND GET TECHNICAL GUIDANCE AND QUOTE FOR YOUR PROJECT:</h2>
+                <h2 className={`${styl.a1} flex w-11/12 md:w-9/12`}>JUST STATE YOUR REQUIREMENTS ON THE FORM BELOW AND GET A QUOTE AND TECHNICAL GUIDANCE FOR YOUR PROJECT:</h2>
                 {/*
                 <h1>Looking Devs For Hire for Your Web3 Project?</h1>
                 <p>We Have Got You Covered!! Hire The Best Web3 Talents Accross the Globe, Hand-Picked Specifically for your Requirements</p>
