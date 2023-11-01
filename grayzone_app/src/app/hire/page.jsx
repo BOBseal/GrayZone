@@ -46,6 +46,8 @@ const Hire = () => {
     const handleChains=async(e)=>{
         setStates({...states, selectedNetwork:e.target.value})
         console.log(e.target.value)
+        
+        /*
         if(e.target.value === MantleNetwork[0].chainId && user.network === MantleNetwork[0].chainId){
             alert("Already Selected")
             return
@@ -61,7 +63,9 @@ const Hire = () => {
         if(e.target.value === PolygonPosNetwork[0].chainId && user.network === PolygonPosNetwork[0].chainId){
             alert("Already Selected")
             return
-        }
+        }*/
+
+
         if(e.target.value === MantleNetwork[0].chainId && user.network != MantleNetwork[0].chainId){
           const x =  addMantleNetwork()
           const f = getFormFee()
