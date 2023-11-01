@@ -4,6 +4,7 @@ import './globals.css'
 import React from 'react'
 import {DappAppProvider} from '../Context/appBockchainContext'
 import Footer from '@/components/Footer'
+import { Analytics } from '@vercel/analytics/react'
 //const inter = Inter({ subsets: ['latin'] })
 import Header from '@/components/header'
 
@@ -28,6 +29,7 @@ export default function RootLayout({
           </main>
           <Footer/>
         </DappAppProvider>
+        <Analytics/>
         </body>
     </html>
   )
