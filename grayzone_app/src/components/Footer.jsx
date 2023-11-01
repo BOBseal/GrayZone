@@ -10,7 +10,7 @@ const Footer = () => {
         <div className='h-full w-full items-center pl-[2rem] pr-[2rem] md:pl-[15rem] md:pr-[15rem] flex justify-between gap-1 text-[#FFFFFF]'>
           <Link href={'https://twitter.com/grayzoneweb3'}><Image src={'/Assets/twitter.svg'} className="bg-[#9e59ff] border rounded-lg" width={40} height={40}/></Link>
           <Link href={'https://t.me/grayzoneweb3'}><Image src={'/Assets/telegram.svg'} className="bg-[#9e59ff] border rounded-lg" width={40} height={40}/></Link>
-          <Link href={''}><Image src={'/Assets/mail.svg'} className="bg-[#9e59ff] border rounded-lg" width={40} height={40}/></Link>
+          <Link href={'https://mail.google.com/mail/u/0/#inbox?compose=DmwnWrRvwLvPLBHHfvdlBlWMMKtQJCBSVKQBwGJHlbCskmtvZZknScBxqSZrBszhbpHNfvspwmNG'}><Image src={'/Assets/mail.svg'} className="bg-[#9e59ff] border rounded-lg" width={40} height={40}/></Link>
           <Link href={'https://www.linkedin.com/company/grayzoneweb3/'}><Image src={'/Assets/linkedin.svg'} className="bg-[#9e59ff] border rounded-lg" width={40} height={40}/></Link>
         </div>
     </div>       

@@ -281,19 +281,19 @@ const Hire = () => {
         
                 <div className='gap-4 flex bg-transparent flex-col'>
                     <p className={styl.a4}>Enter Subject Title {"( eg: NFT MARKETPLACE WITH DEX)"}:</p>
-                    <input  type={'text'} onChange={(e)=> titleHandler(e.target.value)} className='h-[2.6rem]' placeholder='Title'/>
+                    <input  type={'text'} onChange={(e)=> titleHandler(e.target.value)} className='h-[2.6rem] text-black' placeholder='Title'/>
                     <p className={styl.a4}>Enter Description:</p>
-                    <input type={'text'} onChange={(e)=> setFormData({...formData , description: e.target.value})} placeholder='Requirement Decription' className='h-[6rem]'/>
+                    <input type={'text'} onChange={(e)=> setFormData({...formData , description: e.target.value})} placeholder='Requirement Decription' className='h-[6rem] text-black'/>
                     <p className={styl.a4}>Enter References {"( Links Preffered if Any Available )"}: </p>
-                    <input type={'text'} onChange={(e)=> setFormData({...formData , references: e.target.value})}  placeholder='References' className='h-[6rem]'/>
+                    <input type={'text'} onChange={(e)=> setFormData({...formData , references: e.target.value})}  placeholder='References' className='h-[6rem] text-black'/>
                     <p className={styl.a4}>Enter Desired Budget in USD :</p>
-                    <input type={'number'} onChange={(e)=> setFormData({...formData , budget: e.target.value})} className='h-[2.6rem]' placeholder="Budget In $"/>
+                    <input type={'number'} onChange={(e)=> setFormData({...formData , budget: e.target.value})} className='h-[2.6rem] text-black' placeholder="Budget In $"/>
                     <p className={styl.a4}>Enter Desired Timeframe in Days :</p>
-                    <input type={'number'} onChange={(e)=> setFormData({...formData , timeFrame: e.target.value})} className='h-[2.6rem]' placeholder="Timeframe In days"/>
+                    <input type={'number'} onChange={(e)=> setFormData({...formData , timeFrame: e.target.value})} className='h-[2.6rem] text-black' placeholder="Timeframe In days"/>
                     <p className={styl.a4}>Any Additional Info :</p>
-                    <input type={'text'} onChange={(e)=> setFormData({...formData , additional: e.target.value})} placeholder='Additional Requirements - If Any' className='h-[6rem]'/>
+                    <input type={'text'} onChange={(e)=> setFormData({...formData , additional: e.target.value})} placeholder='Additional Requirements - If Any' className='h-[6rem] text-black'/>
                     <p className={styl.a4}>Your Contact Detail {"( We Will Contact you Here within 24 hours of Submission )"}</p>
-                    <input type={'text'} onChange={(e)=> emailHandler(e.target.value)} placeholder='Email or TG Handle' className='h-[2.6rem]'/> 
+                    <input type={'text'} onChange={(e)=> emailHandler(e.target.value)} placeholder='Email or TG Handle' className='h-[2.6rem] text-black'/> 
                 </div>
                 <div className='flex justify-center p-[2rem]'>
                     <button className={styl.a5} onClick={()=> IpfsHandle()}>SUBMIT FOR {states.fee} {states.currency}</button>          
