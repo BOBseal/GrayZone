@@ -453,6 +453,8 @@ export const DappAppProvider = ({children})=> {
             const contract = await connectForm(user.wallet)
             console.log(contract)
             const n = await contract.getUserNonce(user.wallet);
+            const ff = await contract.formFee();
+            const _fee = ethers.utils.formatEther(ff) 
             //console.log(n)
             const nn = hexToNumber(n);
             //console.log(nn)
@@ -486,11 +488,24 @@ export const DappAppProvider = ({children})=> {
                 results.push(obj);
             })
             console.log(results)
-            return results;
+            return {results, _fee};
             }
             
         } catch (error) {
             console.log(error);
+        }
+    }
+
+    const getFormFee = async() => {
+        try {
+            if(user.wallet){
+                const contract = await connectForm(user.wallet);
+                const f = await contract.formFee()
+                const fee = ethers.utils.formatEther(f);
+                return fee;
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -499,7 +514,7 @@ export const DappAppProvider = ({children})=> {
     <DappAppContext.Provider value={{user , error, userPass,connectWallet, mint, isPassholder, getPassInfo,
     _delStorage , _addToStorage, _recoverStorage , depositToId , withDrawFromId, getIdBalance, idtoid , listNFT,
     cancelListing , updateListing, getAllListings , getAllValidListings, getTotalListings, getStorage, boostPass,
-    getWeeklyFee, getChainId , submitForm , getAllForms
+    getWeeklyFee, getChainId , submitForm , getAllForms , getFormFee
     }}>
         {children}
     </DappAppContext.Provider>

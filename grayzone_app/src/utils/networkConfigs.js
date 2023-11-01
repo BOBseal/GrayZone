@@ -27,8 +27,8 @@ export const MantleNetwork = [
 export const BaseNetwork = [
     {
         chainId:"0x2105",
-        chainName:"Base Mainnet",
-        rpcUrls:["https://mainnet.base.org"],
+        chainName:"Base",
+        rpcUrls:["https://developer-access-mainnet.base.org"],
         nativeCurrency:{
          name: "ETH",
          symbol:"ETH",
@@ -40,7 +40,7 @@ export const BaseNetwork = [
 export const PolygonPosNetwork = [
     {
         chainId:"0x89",
-        chainName:"Polygon POS",
+        chainName:"Polygon",
         rpcUrls:["https://polygon-rpc.com"],
         nativeCurrency:{
          name: "MATIC",

@@ -9,6 +9,7 @@ export const changeNetworkToLineaTestnet= async()=>{
             method: "wallet_switchEthereumChain",
             params: [{chainId:"0xe704"}],
         });
+        return "0xe704";
     } catch (error) {
         console.log(error)
     }
@@ -20,6 +21,8 @@ export const addMantleNetwork= async()=>{
             method: "wallet_addEthereumChain",
             params: MantleNetwork,
         });
+        
+        return MantleNetwork[0].chainName;
     } catch (error) {
         console.log(error)
     }
@@ -31,6 +34,7 @@ export const addBaseNetwork= async()=>{
             method: "wallet_addEthereumChain",
             params: BaseNetwork,
         });
+        return BaseNetwork[0].chainName;
     } catch (error) {
         console.log(error)
     }
@@ -42,6 +46,7 @@ export const addFuseNetwork= async()=>{
             method: "wallet_addEthereumChain",
             params: FuseNetwork,
         });
+        return FuseNetwork[0].chainName;
     } catch (error) {
         console.log(error)
     }
@@ -52,6 +57,7 @@ export const addPolygonNetwork= async()=>{
             method: "wallet_addEthereumChain",
             params: PolygonPosNetwork,
         });
+        return PolygonPosNetwork[0].chainName;
     } catch (error) {
         console.log(error)
     }
