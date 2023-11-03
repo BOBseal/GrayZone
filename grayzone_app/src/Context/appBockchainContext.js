@@ -422,12 +422,12 @@ export const DappAppProvider = ({children})=> {
             //console.log(title)
             const balanceWei = await provider.getBalance(user.wallet);
             const nnn = hexToNumber(balanceWei)
-            const contract =  await connectForm(user.wallet);
+            const {contract, sym} =  await connectForm(user.wallet);
             const pric = await contract.formFee();
             const mmm = hexToNumber(pric)
             const fff = ethers.utils.formatEther(pric)
             if(mmm > nnn) {
-                alert(`Not Enough Balance , Required ${fff} $MNT`)
+                alert(`Not Enough Balance , Required ${fff} $${sym}`)
                 return
             }
             
@@ -450,8 +450,9 @@ export const DappAppProvider = ({children})=> {
             if(user.wallet){
             //console.log(user)
             let promises = [] , results = [] ;
-            const contract = await connectForm(user.wallet)
-            console.log(contract)
+            const {contract, sym} = await connectForm(user.wallet)
+            //console.log(sym , "")
+            //console.log(contract)
             const n = await contract.getUserNonce(user.wallet);
             const ff = await contract.formFee();
             const _fee = ethers.utils.formatEther(ff) 
@@ -487,7 +488,7 @@ export const DappAppProvider = ({children})=> {
                 }
                 results.push(obj);
             })
-            console.log(results)
+           // console.log(results)
             return {results, _fee};
             }
             
@@ -499,7 +500,7 @@ export const DappAppProvider = ({children})=> {
     const getFormFee = async() => {
         try {
             if(user.wallet){
-                const contract = await connectForm(user.wallet);
+                const {contract, sym }= await connectForm(user.wallet);
                 const f = await contract.formFee()
                 const fee = ethers.utils.formatEther(f);
                 return fee;

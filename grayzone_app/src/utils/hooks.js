@@ -143,17 +143,25 @@ export const connectForm = async(addr) =>{
             console.log(chainId)
             //console.log(`Mantle: ${MantleNetwork[0].chainId}`)
             if(chainId === MantleNetwork[0].chainId){
-                return new ethers.Contract(HireForm.mantle, FormAbi, s);
+                const contract = new ethers.Contract(HireForm.mantle, FormAbi, s)
+                const sym = MantleNetwork[0].nativeCurrency.symbol
+                return {contract , sym};
             } 
 
             if(chainId === BaseNetwork[0].chainId ){
-                return new ethers.Contract(HireForm.base, FormAbi, s);
+                const contract = new ethers.Contract(HireForm.base, FormAbi, s)
+                const sym = BaseNetwork[0].nativeCurrency.symbol
+                return {contract , sym};
             } 
             if(chainId === PolygonPosNetwork[0].chainId){
-                return new ethers.Contract(HireForm.polygon, FormAbi, s);
+                const contract = new ethers.Contract(HireForm.polygon, FormAbi, s);
+                const sym = PolygonPosNetwork[0].nativeCurrency.symbol
+                return {contract , sym}
             }
             if(chainId === FuseNetwork[0].chainId){
-                return new ethers.Contract(HireForm.fuse, FormAbi, s);
+                const contract = new ethers.Contract(HireForm.fuse, FormAbi, s)
+                const symb = FuseNetwork[0].nativeCurrency.symbol;
+                return {contract , symb};
             }
         }
         //console.log(contract)
