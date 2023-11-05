@@ -105,19 +105,19 @@ const Header = () => {
                     
                     }
                     {controllers .menu ? 
-                    <div className='absolute top-[4.23rem] md:top-[4.5rem] z-50 border shadow-xl right-0 bg-gradient-to-r to-[#b67ef5] from-[#1D023C] from-10% to-85% rounded-lg p-8 md:hidden lg:hidden pt-4 pb-4 pr-[0.9rem] items-center justify-center' onClick={()=> menuHandler()}>
+                    <div className='absolute top-[4.23rem] md:top-[4.5rem] w-[13rem] z-50 border shadow-xl right-0 bg-gradient-to-r to-[#b67ef5] from-[#1D023C] from-10% to-85% rounded-lg p-8 md:hidden lg:hidden pt-4 pb-4 pr-[0.9rem] items-center justify-center' onClick={()=> menuHandler()}>
                         
                         <div className='flex flex-col justify-center items-center gap-2 p-4 drop-shadow-lg' onClick={()=> productMenuHandler()}>
                             <Link href={'/'}><p className={styl.menu}>HOME</p></Link>
                             <Link href={'/dashboard'}><p className={styl.menu}>DASHBOARD</p></Link>
-                            <Link href={'/'}><p className={styl.menu}>D-CLOUD</p></Link>
+                            {/*<Link href={'/'}><p className={styl.menu}>D-CLOUD</p></Link>
                             <Link href={'/'}><p className={styl.menu}>ERC20 TOOLS</p></Link>
                             <Link href={'/'}><p className={styl.menu}>ERC721 TOOLS</p></Link>
                             <Link href={'/'}><p className={styl.menu}>ERC1155 TOOLS</p></Link>
                             <Link href={'/'}><p className={styl.menu}>AUTOPAY</p></Link>
                             <Link href={'/'}><p className={styl.menu}>LENDING/BORROWING</p></Link>
                             <Link href={'/'}><p className={styl.menu}>DEX</p></Link>
-                            <Link href={'/'}><p className={styl.menu}>NFT MARKETPLACE</p></Link>
+                            <Link href={'/'}><p className={styl.menu}>NFT MARKETPLACE</p></Link>*/}
                             <Link href={"/hire"}>
                                 <div className={styl.menu}>
                                     HIRE US
