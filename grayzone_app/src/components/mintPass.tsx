@@ -88,15 +88,15 @@ const MINTPASS = () => {
                       <Image src={'/Assets/logo.svg'} width={300} height={200} alt="GRAYZONE WEB3" className='flex object-contain h-[250px] w-[300px] md:w-[500px] lg:w-[1200px] drop-shadow-2xl'/>
                     </div>
                   
-                    <div onClick={()=>a() } className='bg-[#56239d] border p-6 rounded-3xl font-bold text-slate-200 font-serif'>{ !user.wallet? "CONNECT WALLET": 
+                    <div className='bg-[#56239d] border p-6 rounded-3xl font-bold text-slate-200 font-serif'>{ !user.wallet? "CONNECT WALLET": 
                     <>{
                       isholder ? <>
                       <Link href={`/dashboard`}>
                         <button>GO TO DASHBOARD</button>
-                      </Link></>:<button>MINT PASS</button>
+                      </Link></>:<button onClick={()=>a() }>MINT PASS</button>
                     }</>}
                     </div>
-                    {states.txHash ? <p>{states.txHash}</p>:""}
+                    
                   </div>
 
 

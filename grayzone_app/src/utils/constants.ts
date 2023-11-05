@@ -10,7 +10,7 @@ export const PassAddress ={
     goerli: {
         address: "0xEeAE8b69A51f6e8721cb5F42f858E6A8004e1503"
     },
-    lineaTestnet:"0xe54EB96f2087BD63110c7253eCc42c9E76c076eC"
+    lineaTestnet:"0x603C582b0f18E87a27E4A8884Be810884cc9558D"
 };
 
 export const genesisMinter = {
@@ -18,17 +18,17 @@ export const genesisMinter = {
         address:"0xB1472af0B33A96b5E669E572A35B0D8f915ebB4a",
         chainId : "0x5"
     },
-    lineaTestnet:"0xD47d70EdEea2a55eeaD97E79a588a236a1756F81"
+    lineaTestnet:"0x598E86ddd7deF373D9bc8a50ce7DF53C1E8D3C56"
 }
 
 export const storageUnit = {
     goerli:"",
-    lineaTestnet:"0x69B17F587fb5aDaCb581f5D4b8607F92C556e04A"
+    lineaTestnet:"0x0589c28794A2217E385b2B42735edEc149C0c7ae"
 }
 
 export const TransferUnit={
     goerli:"",
-    lineaTestnet:"0x981A02Bf14e82770115D0EF1FC56AbD2D31834DC"
+    lineaTestnet:"0x5530D413ed85aFE11AF1871B44bD162FD9966153"
 }
 
 export const Market ={

@@ -13,7 +13,7 @@ const lineaweth = "0x2C1b868d6596a18e32E61B901E4060C872647b6C"
 const zeroAddr = "0x0000000000000000000000000000000000000000"
 
 const USERDASHBOARD =()=> {
-  const{user , connectWallet,getPassInfo , getIdBalance, depositToId , withDrawFromId, idtoid , boostPass, getWeeklyFee}= useContext(DappAppContext);
+  const{user , connectWallet,getPassInfo , getIdBalance, depositToId , withDrawFromId, idtoid , boostPass, getWeeklyFee, transferPointsFn}= useContext(DappAppContext);
   const [passArr , setPassArr] = useState([]);
   const [b , setB] = useState(false);
   const [balances , setBalances] = useState({
@@ -35,6 +35,11 @@ const USERDASHBOARD =()=> {
     setToken:"",
     frmId:0,
     toId:0
+  })
+  const [pointTx , setPointTx] = useState({
+    fromId:0,
+    toId:0,
+    amount:0
   })
   const [controllers , setControllers] = useState({
     tokenSelected: false,
@@ -83,20 +88,40 @@ const USERDASHBOARD =()=> {
     try {
       if(!deposits.token) {
         alert("Enter Token To Deposit")
+        return
       }
       if(deposits.amount === '0' ){
         alert("Enter Deposit Amount")
+        return
       }
       if(deposits.token && deposits.amount != '0'){
         const amt = ethers.utils.parseUnits(deposits.amount, 18);
         const con =await connectErc20(user.wallet , deposits.token);
         const approveMain = await con.approve(PassAddress.lineaTestnet , amt);
         if(approveMain.hash) {
-          const approveDep= await con.approve(TransferUnit.lineaTestnet , amt);
-          if(approveDep.hash){
+          //const approveDep= await con.approve(TransferUnit.lineaTestnet , amt);
+          
             await depositToId(controllers.item.id , deposits.token , amt );
-          }
+          
         }
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handlePointTransfer= async()=>{
+    try {
+      if(!pointTx.toId){
+        alert("Enter Id to transfer points to");
+        return
+      }
+      if(pointTx.amount == 0){
+        alert("Enter Amount of Points to Transfer");
+        return
+      }
+      if(pointTx.toId , pointTx.amount){
+        const tx = await transferPointsFn(controllers.item.id , pointTx.toId , pointTx.amount);
       }
     } catch (error) {
       console.log(error)
@@ -321,6 +346,22 @@ const USERDASHBOARD =()=> {
           <button onClick={()=> getFee()}>Check Fee Applicable</button>
           <button onClick={()=> extendTime()}>Extend</button>
 
+        </div>
+
+        <div className='flex flex-col pt-4 gap-1 pb-4 text-white p-[4rem] bg-opacity-70  bg-[#8139e5] rounded-2xl flex-wrap'>
+          <h3 className='text-center text-[1.8rem] font-bold underline pb-4'>TRANSFER POINTS</h3>
+          <input type={'number'} className="text-black" placeholder='Enter Token Id to Transfer to' onChange={(e)=> setPointTx({...pointTx, toId: e.target.value})}/>
+          <input type={'number'} className="text-black" placeholder='Enter Points Amount to Transfer' max={controllers.item.points} onChange={(e)=> setPointTx({...pointTx, amount: e.target.value})}/>
+          <button onClick={()=> handlePointTransfer()}>TRANSFER</button>
+
+        </div>
+
+        <div className='flex flex-col pt-4 gap-1 pb-4 text-white p-[4rem] bg-opacity-70  bg-[#8139e5] rounded-2xl flex-wrap'>
+          <h3 className='text-center text-[1.8rem] font-bold underline pb-4'>BUY REVENUE SHARES</h3>
+          Minter Roles can buy Percentages of Revenue with Points or Eth for the IDS they are a Minter for
+          By default Minter enjoys 2% Revenue (Eth) and 1.5% royalty from deposit/withdrawals/transfers
+
+          <p className='flex justify-center underline animate-slowerFlicker'>Coming Soon</p> 
         </div>
 
       </div>

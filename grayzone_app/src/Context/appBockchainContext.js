@@ -274,7 +274,8 @@ export const DappAppProvider = ({children})=> {
         try {
             if(user.wallet){
             const con = await connectTransferContract(user.wallet);
-            const deposit = await con.deposit(id, token , amount);
+            const fee = await con.getFee();
+            const deposit = await con.deposit(id, token , amount,{value: fee});
             return deposit;
             }
         } catch (error) {
@@ -282,11 +283,25 @@ export const DappAppProvider = ({children})=> {
         }
     }
 
+    const transferPointsFn=async(fromId , toId , amount)=>{
+        try {
+            if(user.wallet){
+                const con = await connectTransferContract(user.wallet);
+                const fee = await con.getFee();
+                const tx = await con.transferPoints(fromId, toId, amount,{value:fee});
+                return tx;
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const withDrawFromId = async(id , token , amount)=>{
         try {
             if(user.wallet){
             const con = await connectTransferContract(user.wallet);
-            const deposit = await con.withdraw(id, token, user.wallet , amount);
+            const fee = await con.getFee();
+            const deposit = await con.withdraw(id, token, user.wallet , amount,{value:fee});
             return deposit;
             }
         } catch (error) {
@@ -298,7 +313,8 @@ export const DappAppProvider = ({children})=> {
         try {
             if(user.wallet){
                 const con = await connectTransferContract(user.wallet);
-                const tx = await con.idToId(id1 , id2 , token , amount);
+                const fee = await con.getFee();
+                const tx = await con.idToId(id1 , id2 , token , amount,{value:fee});
                 return tx;
             }
         } catch (error) {
@@ -515,7 +531,7 @@ export const DappAppProvider = ({children})=> {
     <DappAppContext.Provider value={{user , error, userPass,connectWallet, mint, isPassholder, getPassInfo,
     _delStorage , _addToStorage, _recoverStorage , depositToId , withDrawFromId, getIdBalance, idtoid , listNFT,
     cancelListing , updateListing, getAllListings , getAllValidListings, getTotalListings, getStorage, boostPass,
-    getWeeklyFee, getChainId , submitForm , getAllForms , getFormFee
+    getWeeklyFee, getChainId , submitForm , getAllForms , getFormFee, transferPointsFn
     }}>
         {children}
     </DappAppContext.Provider>
