@@ -34,7 +34,9 @@ export const TransferUnit={
 export const Market ={
     lineaTestnet:"0x49f8198a701c27d86a1F5fb461F80d8569751F45"
 }
-
+export const Lender = {
+    lineaTestnet:"0xC104970c3A4cd2EacFf17227992EB44F52c3Fe7d"
+}
 export const HireForm = {
     lineaTestnet:"0x90592ddb549608376960f89cAa2C123AA3A36e26",
     fuse:"0xEB3A60E47a899B8776fb36B5EEDd16e589E722Ae",

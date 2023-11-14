@@ -7,11 +7,13 @@ import { DappAppContext } from '@/Context/appBockchainContext'
 import { ethers } from "ethers";
 import { connectErc20 } from '@/utils/hooks'
 import { PassAddress ,TransferUnit } from '@/utils/constants'
+import { hexToNumber } from 'viem';
 
 const lineaTestId = "0xe704"
 const lineaweth = "0x2C1b868d6596a18e32E61B901E4060C872647b6C"
 const zeroAddr = "0x0000000000000000000000000000000000000000"
-
+//0x01D7C804148B6fb7821c36fbDA3bEcd82B25E949 -- tusdc
+//0xBe89a1CEC2De3fa75b4103d9F153fd0ee6Ad4411 -- tusdt
 const USERDASHBOARD =()=> {
   const{user , connectWallet,getPassInfo , getIdBalance, depositToId , withDrawFromId, idtoid , boostPass, getWeeklyFee, transferPointsFn}= useContext(DappAppContext);
   const [passArr , setPassArr] = useState([]);
@@ -95,8 +97,10 @@ const USERDASHBOARD =()=> {
         return
       }
       if(deposits.token && deposits.amount != '0'){
-        const amt = ethers.utils.parseUnits(deposits.amount, 18);
         const con =await connectErc20(user.wallet , deposits.token);
+        const deci = await con.decimals();
+        const de = hexToNumber(deci);
+        const amt = ethers.utils.parseUnits(deposits.amount, de);
         const approveMain = await con.approve(PassAddress.lineaTestnet , amt);
         if(approveMain.hash) {
           //const approveDep= await con.approve(TransferUnit.lineaTestnet , amt);
@@ -150,9 +154,10 @@ const USERDASHBOARD =()=> {
         alert("Enter Deposit Amount")
       }
       if(withdrawals.token && withdrawals.amount != '0'){
-        const amt = ethers.utils.parseUnits(withdrawals.amount, 18);
-       
-       
+        const con =await connectErc20(user.wallet , withdrawals.token);
+        const deci = await con.decimals();
+        const de = hexToNumber(deci);
+        const amt = ethers.utils.parseUnits(withdrawals.amount, de);
         //const cont =await connectErc20(user.wallet , deposits.token);
         await withDrawFromId(controllers.item.id , withdrawals.token ,amt);
       }
@@ -163,6 +168,9 @@ const USERDASHBOARD =()=> {
 
   const handleIdTx = async()=>{
     try {
+      const con =await connectErc20(user.wallet , idTx.setToken);
+      const deci = await con.decimals();
+      const de = hexToNumber(deci);
       const amt = ethers.utils.parseUnits(idTx.setAmt);
       await idtoid(controllers.item.id , idTx.toId , idTx.setToken , amt);
     } catch (c) {
@@ -281,7 +289,7 @@ const USERDASHBOARD =()=> {
               <option>Select Option</option>
               <option value={lineaweth}>WETH BALANCES</option>
               <option value={zeroAddr}>ETH BALANCES</option>
-              <option>USDC BALANCES</option>
+              <option value={"0x01D7C804148B6fb7821c36fbDA3bEcd82B25E949"}>USDC BALANCES</option>
             </select>
 
             <button onClick={()=> getBalances(ad)}>Fetch Balance Details</button>
@@ -297,7 +305,7 @@ const USERDASHBOARD =()=> {
             <option>Select Option</option>
             <option value={lineaweth}>WETH</option>
             <option value={zeroAddr}>ETH</option>
-            <option>USDC</option>
+            <option value={"0x01D7C804148B6fb7821c36fbDA3bEcd82B25E949"}>USDC</option>
           </select>
           <input className='text-black' type={'number'} placeholder="Enter Deposit Amount" onChange={(e)=> setDeposits({...deposits , amount:e.target.value})}/>
           <button onClick={()=> handleDeposit()}>DEPOSIT</button>
@@ -309,7 +317,7 @@ const USERDASHBOARD =()=> {
             <option>Select Option</option>
             <option value={lineaweth}>WETH</option>
             <option value={zeroAddr}>ETH</option>
-            <option>USDC</option>
+            <option value={"0x01D7C804148B6fb7821c36fbDA3bEcd82B25E949"}>USDC</option>
           </select>
           <input className='text-black' type={'number'} placeholder="Enter Withdraw Amount" onChange={(e)=> setWithdrawals({...withdrawals , amount:e.target.value})}/>
           <button onClick={()=> handleWithdraw()}>WITHDRAW</button>
@@ -325,7 +333,7 @@ const USERDASHBOARD =()=> {
             <option>Select Option</option>
             <option value={lineaweth}>WETH</option>
             <option value={zeroAddr}>ETH</option>
-            <option>USDC</option>
+            <option value={"0x01D7C804148B6fb7821c36fbDA3bEcd82B25E949"}>USDC</option>
           </select>
         <p>Enter Token ID to Transfer To:</p>
         <input type={'number'} className="text-black" placeholder='enter token Id to transfer to' onChange={(e)=> setIdTx({...idTx, toId: e.target.value})}/>

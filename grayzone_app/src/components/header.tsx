@@ -110,8 +110,8 @@ const Header = () => {
                         <div className='flex flex-col justify-center items-center gap-2 p-4 drop-shadow-lg' onClick={()=> productMenuHandler()}>
                             <Link href={'/'}><p className={styl.menu}>HOME</p></Link>
                             <Link href={'/dashboard'}><p className={styl.menu}>DASHBOARD</p></Link>
-                            {/*<Link href={'/'}><p className={styl.menu}>D-CLOUD</p></Link>
-                            <Link href={'/'}><p className={styl.menu}>ERC20 TOOLS</p></Link>
+                            <Link href={'/'}><p onClick={()=>alert("Associate Your Wallets or Zonepass with a Culture Badges : Coming Soon")} className={styl.menu}>Culture Badges</p></Link>
+                            {/*<Link href={'/'}><p className={styl.menu}>ERC20 TOOLS</p></Link>
                             <Link href={'/'}><p className={styl.menu}>ERC721 TOOLS</p></Link>
                             <Link href={'/'}><p className={styl.menu}>ERC1155 TOOLS</p></Link>
                             <Link href={'/'}><p className={styl.menu}>AUTOPAY</p></Link>
