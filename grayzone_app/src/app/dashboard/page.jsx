@@ -58,7 +58,10 @@ const USERDASHBOARD =()=> {
     try {
       console.log(token)
       const ss = await getIdBalance(controllers.item.id, token);
-      const as = ethers.utils.formatUnits(ss , 18);
+      const con = await connectErc20(user.wallet, token);
+      const d = await con.decimals();
+      const deci = hexToNumber(d);
+      const as = ethers.utils.formatUnits(ss ,deci);
       //console.log(as)
       
      // const bal = await getIdBalance(token);
@@ -101,6 +104,8 @@ const USERDASHBOARD =()=> {
         const deci = await con.decimals();
         const de = hexToNumber(deci);
         const amt = ethers.utils.parseUnits(deposits.amount, de);
+        
+        console.log(`Decimals: ${de} , Amount: ${amt}`)
         const approveMain = await con.approve(PassAddress.lineaTestnet , amt);
         if(approveMain.hash) {
           //const approveDep= await con.approve(TransferUnit.lineaTestnet , amt);
@@ -171,7 +176,7 @@ const USERDASHBOARD =()=> {
       const con =await connectErc20(user.wallet , idTx.setToken);
       const deci = await con.decimals();
       const de = hexToNumber(deci);
-      const amt = ethers.utils.parseUnits(idTx.setAmt);
+      const amt = ethers.utils.parseUnits(idTx.setAmt, de);
       await idtoid(controllers.item.id , idTx.toId , idTx.setToken , amt);
     } catch (c) {
       console.log(c)
