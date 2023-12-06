@@ -10,6 +10,7 @@ const Products = ({functions}) => {
         <div className='flex flex-col justify-center items-center gap-2 p-4' onClick={()=>functions()}>
             <Link href={'/dashboard'}><p className={styl.menu}>DASHBOARD</p></Link>
             <Link href={'/'}><p onClick={()=>alert("Associate Your Wallets or Zonepass with a Culture Badges : Coming Soon")} className={styl.menu}>Culture Badges</p></Link>
+            <Link href={'/tools'}><p>GrayZone Tooling</p></Link>
             {/*<Link href={'/'}><p className={styl.menu}>ERC20 TOOLS</p></Link>
             <Link href={'/'}><p className={styl.menu}>ERC721 TOOLS</p></Link>
             <Link href={'/'}><p className={styl.menu}>ERC1155 TOOLS</p></Link>

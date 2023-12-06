@@ -10,7 +10,8 @@ export const PassAddress ={
     goerli: {
         address: "0xEeAE8b69A51f6e8721cb5F42f858E6A8004e1503"
     },
-    lineaTestnet:"0x603C582b0f18E87a27E4A8884Be810884cc9558D"
+    lineaTestnet:"0xA91c617Bd8cDa04a8fcC4d001CE98E3D87d7a5Ae",
+    baseTestnet:"0x4280AD35a16613E703408334B0De266ACdaf66eD"
 };
 
 export const genesisMinter = {
@@ -18,25 +19,30 @@ export const genesisMinter = {
         address:"0xB1472af0B33A96b5E669E572A35B0D8f915ebB4a",
         chainId : "0x5"
     },
-    lineaTestnet:"0x598E86ddd7deF373D9bc8a50ce7DF53C1E8D3C56"
+    lineaTestnet:"0x044954581d4683097F73d47F59DF0f8b580F27eF",
+    baseTestnet:"0x95Ee881b80CE0601f9B1e506DD599ce85C11a025"
 }
 
 export const storageUnit = {
     goerli:"",
-    lineaTestnet:"0x0589c28794A2217E385b2B42735edEc149C0c7ae"
+    lineaTestnet:"0x6F5A846dbD98f641F3371135650e24Ac0BAEdb87",
+    baseTestnet:"0xa9Bf0321fC38440ec1bA3827f30DC85b377f8b83"
 }
 
 export const TransferUnit={
     goerli:"",
-    lineaTestnet:"0x5530D413ed85aFE11AF1871B44bD162FD9966153"
+    lineaTestnet:"0xBecc2376b6B78Ae4EE224846e52C37699125970E",
+    baseTestnet:"0x5f90fdC76b64d8E96a50c6EEeDfB5019F39703A1"
 }
 
 export const Market ={
     lineaTestnet:"0x49f8198a701c27d86a1F5fb461F80d8569751F45"
 }
+
 export const Lender = {
     lineaTestnet:"0xC104970c3A4cd2EacFf17227992EB44F52c3Fe7d"
 }
+
 export const HireForm = {
     lineaTestnet:"0x90592ddb549608376960f89cAa2C123AA3A36e26",
     fuse:"0xEB3A60E47a899B8776fb36B5EEDd16e589E722Ae",

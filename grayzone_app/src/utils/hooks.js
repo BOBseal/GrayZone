@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import { genesisMinter, MinterAbi , PassAbi , PassAddress, storageUnit , StorageAbi , TransferAbi , TransferUnit, ERC20Abi, MarketAbi , Market
 , FormAbi , HireForm} from "./constants";
 import { lineaTestNetwork, MantleNetwork, FuseNetwork , PolygonPosNetwork , BaseNetwork } from "./networkConfigs";
-
+const lineachainId = "0xe704";
 export const changeNetworkToLineaTestnet= async()=>{
     try {
         await window.ethereum.request({
@@ -65,10 +65,23 @@ export const addPolygonNetwork= async()=>{
 
 export const connectContract=async(account)=>{
     try {
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
-        const signer = provider.getSigner(account); 
-        const contract = new ethers.Contract( genesisMinter.lineaTestnet,MinterAbi, signer);
-        return contract;     
+        if(window.ethereum){
+            const chainId = await window.ethereum.request({ method: "eth_chainId" });
+            let networkId = chainId;
+        if(networkId == lineachainId){
+            const provider = new ethers.providers.Web3Provider(window.ethereum)
+            const signer = provider.getSigner(account); 
+            const contract = new ethers.Contract( genesisMinter.lineaTestnet,MinterAbi, signer);
+            return contract;
+        }
+        
+        if(networkId == BaseNetwork[0].chainId){
+            const provider = new ethers.providers.Web3Provider(window.ethereum)
+            const signer = provider.getSigner(account); 
+            const contract = new ethers.Contract( genesisMinter.baseTestnet,MinterAbi, signer);
+            return contract;
+        }
+        }
     } catch (error) {
         console.log(
             error
@@ -78,10 +91,22 @@ export const connectContract=async(account)=>{
 
 export const connectNFTContract = async(account)=>{
     try {
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
-        const signer = provider.getSigner(account); 
-        const contract = new ethers.Contract( PassAddress.lineaTestnet,PassAbi, signer);
-        return contract;     
+        if(window.ethereum){
+            const chainId = await window.ethereum.request({ method: "eth_chainId" }); 
+            
+            if(chainId == lineachainId){
+                const provider = new ethers.providers.Web3Provider(window.ethereum)
+                const signer = provider.getSigner(account); 
+                const contract = new ethers.Contract( PassAddress.lineaTestnet,PassAbi, signer);
+                return contract;
+            }
+            if(chainId == BaseNetwork[0].chainId){
+                const provider = new ethers.providers.Web3Provider(window.ethereum)
+                const signer = provider.getSigner(account); 
+                const contract = new ethers.Contract( PassAddress.baseTestnet,PassAbi, signer);
+                return contract;
+            }
+        }     
     } catch (error) {
         console.log(
             error
@@ -89,7 +114,7 @@ export const connectNFTContract = async(account)=>{
     }
 }
 
-export const connectStorageContract = async(acc) =>{
+export const connectStorageContract = async(acc, networkId) =>{
     try {
         const p = new ethers.providers.Web3Provider(window.ethereum);
         const s = p.getSigner(acc);
@@ -100,12 +125,24 @@ export const connectStorageContract = async(acc) =>{
     }
 }
 
-export const connectTransferContract = async(acc) =>{
+export const connectTransferContract = async(acc, networkId) =>{
     try {
-        const p = new ethers.providers.Web3Provider(window.ethereum);
-        const s = p.getSigner(acc);
-        const contract = new ethers.Contract(TransferUnit.lineaTestnet , TransferAbi , s);
-        return contract;
+        if(window.ethereum){
+            const chainId = await window.ethereum.request({ method: "eth_chainId" }); 
+            if(chainId == lineachainId) {
+                const p = new ethers.providers.Web3Provider(window.ethereum);
+                const s = p.getSigner(acc);
+                const contract = new ethers.Contract(TransferUnit.lineaTestnet , TransferAbi , s);
+                return contract;
+            }
+            
+            if(chainId == BaseNetwork[0].chainId){
+                const p = new ethers.providers.Web3Provider(window.ethereum);
+                const s = p.getSigner(acc);
+                const contract = new ethers.Contract(TransferUnit.baseTestnet , TransferAbi , s);
+                return contract;
+            }
+        }
     } catch (error) {
         console.log(error)
     }

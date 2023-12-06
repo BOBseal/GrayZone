@@ -1,6 +1,6 @@
 "use client";
 
-import { ethers } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 import React,{ useState, useEffect } from 'react';
 //import { ThirdwebProvider } from '@thirdweb-dev/react';
 import {
@@ -153,7 +153,7 @@ export const DappAppProvider = ({children})=> {
             const c = await connectNFTContract(user.wallet);
             const w = await c.getWeeklyFee();
             console.log(w)
-            const f = hexToNumber(w[1]); 
+            const f = parseInt(w[1]); 
            // console.log(f)
             let fee = f * (weeks + 5) ;
             if (weeks == 0){
@@ -161,7 +161,7 @@ export const DappAppProvider = ({children})=> {
             }
             //console.log(fee)
             //const fff = ethers.utils.parseEther(fee.toString());
-            const fff = numberToHex(fee);
+            const fff = ethers.utils.formatEther(fee);
             const feeToken = await c.getFeeToken();
             const token = await connectErc20(user.wallet , feeToken);
             const apr = await token.approve(PassAddress.lineaTestnet , fff);
@@ -316,6 +316,40 @@ export const DappAppProvider = ({children})=> {
                 const fee = await con.getFee();
                 const tx = await con.idToId(id1 , id2 , token , amount,{value:fee});
                 return tx;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const buyRevenue = async(id , percent, bool) => {
+        try {
+            if(user.wallet){
+                const con = await connectTransferContract(user.wallet);
+                const feePercent = await con.getFeePerPercent();
+                const fee = ethers.utils.formatEther(feePercent);
+                const fe = parseInt(fee);
+                const totalFee = (fe * percent)*2;
+                const fr = ethers.utils.parseEther(totalFee.toString());
+                console.log(fr)
+                console.log(fee , percent)
+                if(bool == false){
+                    const tx = await con.buyRevenuePercent(id , percent, false , id,{value:fr});
+                } else if(bool == true){
+                    const tx = await con.buyRevenuePercent(id , percent, true , id);
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const getPercentCost = async() =>{
+        try {
+            if(user.wallet){
+                const con  =await connectTransferContract(user.wallet);
+                const price  = await con.getFeePerPercent();
+                return price;
             }
         } catch (error) {
             console.log(error);
@@ -526,12 +560,24 @@ export const DappAppProvider = ({children})=> {
         }
     }
 
+    const getRevenueData = async(id) => {
+        if(user.wallet){
+            console.log(id);
+            const con = await connectNFTContract(user.wallet);
+            const shares = await con.revenueData(id);
+            const h = hexToNumber(shares);
+            console.log(h);
+            return h;
+        }
+    }
+
     return(<>
    
     <DappAppContext.Provider value={{user , error, userPass,connectWallet, mint, isPassholder, getPassInfo,
     _delStorage , _addToStorage, _recoverStorage , depositToId , withDrawFromId, getIdBalance, idtoid , listNFT,
     cancelListing , updateListing, getAllListings , getAllValidListings, getTotalListings, getStorage, boostPass,
-    getWeeklyFee, getChainId , submitForm , getAllForms , getFormFee, transferPointsFn
+    getWeeklyFee, getChainId , submitForm , getAllForms , getFormFee, transferPointsFn, buyRevenue, getRevenueData
+    , getPercentCost
     }}>
         {children}
     </DappAppContext.Provider>

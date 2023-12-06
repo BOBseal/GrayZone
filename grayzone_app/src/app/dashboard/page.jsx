@@ -12,10 +12,11 @@ import { hexToNumber } from 'viem';
 const lineaTestId = "0xe704"
 const lineaweth = "0x2C1b868d6596a18e32E61B901E4060C872647b6C"
 const zeroAddr = "0x0000000000000000000000000000000000000000"
+const pricePercentPoints = 1000;
 //0x01D7C804148B6fb7821c36fbDA3bEcd82B25E949 -- tusdc
 //0xBe89a1CEC2De3fa75b4103d9F153fd0ee6Ad4411 -- tusdt
 const USERDASHBOARD =()=> {
-  const{user , connectWallet,getPassInfo , getIdBalance, depositToId , withDrawFromId, idtoid , boostPass, getWeeklyFee, transferPointsFn}= useContext(DappAppContext);
+  const{user , connectWallet,getPassInfo , getIdBalance, depositToId , withDrawFromId, getPercentCost,getRevenueData, buyRevenue,idtoid , boostPass, getWeeklyFee, transferPointsFn}= useContext(DappAppContext);
   const [passArr , setPassArr] = useState([]);
   const [b , setB] = useState(false);
   const [balances , setBalances] = useState({
@@ -49,8 +50,13 @@ const USERDASHBOARD =()=> {
     loading1: false,
     loading2: false,
     item:{},
+    rev:5,
     time:0,
-    fee:""
+    fee:"",
+    cost: 0,
+    mode :"",
+    percent:0,
+    paymentMode : "POINTS"
   })
   
 
@@ -70,6 +76,15 @@ const USERDASHBOARD =()=> {
       setControllers({...controllers , loading2: false})  
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  const handleRevFetch = async(id)=>{
+    try {
+      const t = await getRevenueData(id);
+      setControllers({...controllers, rev:t})
+    } catch (error) {
+      
     }
   }
 
@@ -107,6 +122,7 @@ const USERDASHBOARD =()=> {
         
         console.log(`Decimals: ${de} , Amount: ${amt}`)
         const approveMain = await con.approve(PassAddress.lineaTestnet , amt);
+        const appr = await con.approve(TransferUnit.lineaTestnet, amt);
         if(approveMain.hash) {
           //const approveDep= await con.approve(TransferUnit.lineaTestnet , amt);
           
@@ -144,7 +160,9 @@ const USERDASHBOARD =()=> {
       } 
       if(controllers.tokenSelected== false){
         setControllers({...controllers,tokenSelected: true , item: event})
+        //getBalances(ad);
       }
+      
     } catch (error) {
      console.log(error) 
     }
@@ -198,6 +216,38 @@ const USERDASHBOARD =()=> {
       setControllers({...controllers, fee: fee});
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  const handleRevenue=async(e)=>{
+    try {
+      if(controllers.paymentMode === "POINTS"){
+        const c = e.target.value * pricePercentPoints;
+        setControllers({...controllers, cost : c, percent: e.target.value});
+      }
+
+      if(controllers.paymentMode ==="ETHER"){
+        const p = await getPercentCost();
+        const pp = ethers.utils.formatEther(p);
+        const c = e.target.value * pp;
+        setControllers({...controllers, cost : c, percent:e.target.value});
+      }
+      
+    } catch (error) {
+      
+    }
+  }
+
+  const handleRevenueBuy = async(id) => {
+    try {
+      if(controllers.paymentMode == "POINTS"){
+       const tx = await buyRevenue(id , controllers.percent, true);
+      }
+      if(controllers.paymentMode == "ETHER"){
+        const tx = await buyRevenue(id, controllers.percent, false);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -297,7 +347,7 @@ const USERDASHBOARD =()=> {
               <option value={"0x01D7C804148B6fb7821c36fbDA3bEcd82B25E949"}>USDC BALANCES</option>
             </select>
 
-            <button onClick={()=> getBalances(ad)}>Fetch Balance Details</button>
+            <button onClick={()=> getBalances(ad)} className='border p-2 rounded-lg'>Fetch Balance Details</button>
 
           </div>
 
@@ -313,7 +363,7 @@ const USERDASHBOARD =()=> {
             <option value={"0x01D7C804148B6fb7821c36fbDA3bEcd82B25E949"}>USDC</option>
           </select>
           <input className='text-black' type={'number'} placeholder="Enter Deposit Amount" onChange={(e)=> setDeposits({...deposits , amount:e.target.value})}/>
-          <button onClick={()=> handleDeposit()}>DEPOSIT</button>
+          <button onClick={()=> handleDeposit()} className='border p-2 rounded-lg'>DEPOSIT</button>
 
           <h3 className='text-center text-[1.8rem] font-bold underline pb-4'>WITHDRAW FROM PASS</h3>
 
@@ -325,7 +375,7 @@ const USERDASHBOARD =()=> {
             <option value={"0x01D7C804148B6fb7821c36fbDA3bEcd82B25E949"}>USDC</option>
           </select>
           <input className='text-black' type={'number'} placeholder="Enter Withdraw Amount" onChange={(e)=> setWithdrawals({...withdrawals , amount:e.target.value})}/>
-          <button onClick={()=> handleWithdraw()}>WITHDRAW</button>
+          <button onClick={()=> handleWithdraw()} className='border p-2 rounded-lg'>WITHDRAW</button>
         </div>
 
         
@@ -344,7 +394,7 @@ const USERDASHBOARD =()=> {
         <input type={'number'} className="text-black" placeholder='enter token Id to transfer to' onChange={(e)=> setIdTx({...idTx, toId: e.target.value})}/>
         <p>Enter Amount to Transfer:</p>
         <input type={'number'} className="text-black" placeholder='enter Amount' onChange={(e)=> setIdTx({...idTx, setAmt: e.target.value})}/>
-        <button onClick={()=> handleIdTx()}>TRANSFER</button>
+        <button onClick={()=> handleIdTx()} className='border p-2 rounded-lg'>TRANSFER</button>
 
         </div>
 
@@ -356,8 +406,8 @@ const USERDASHBOARD =()=> {
           
           <input type={'number'} className="text-black" placeholder='Enter Weeks ,Max 8' max={8} onChange={(e)=> setControllers({...controllers, time: e.target.value})}/>
           <p>Applicable Fee:{controllers.fee} </p>
-          <button onClick={()=> getFee()}>Check Fee Applicable</button>
-          <button onClick={()=> extendTime()}>Extend</button>
+          <button onClick={()=> getFee()} className='border p-2 rounded-lg'>Check Fee Applicable</button>
+          <button onClick={()=> extendTime()} className='border p-2 rounded-lg'>Extend</button>
 
         </div>
 
@@ -365,16 +415,25 @@ const USERDASHBOARD =()=> {
           <h3 className='text-center text-[1.8rem] font-bold underline pb-4'>TRANSFER POINTS</h3>
           <input type={'number'} className="text-black" placeholder='Enter Token Id to Transfer to' onChange={(e)=> setPointTx({...pointTx, toId: e.target.value})}/>
           <input type={'number'} className="text-black" placeholder='Enter Points Amount to Transfer' max={controllers.item.points} onChange={(e)=> setPointTx({...pointTx, amount: e.target.value})}/>
-          <button onClick={()=> handlePointTransfer()}>TRANSFER</button>
+          <button onClick={()=> handlePointTransfer()} className='border p-2 rounded-lg'>TRANSFER</button>
 
         </div>
 
         <div className='flex flex-col pt-4 gap-1 pb-4 text-white p-[4rem] bg-opacity-70  bg-[#8139e5] rounded-2xl flex-wrap'>
           <h3 className='text-center text-[1.8rem] font-bold underline pb-4'>BUY REVENUE SHARES</h3>
-          Minter Roles can buy Percentages of Revenue with Points or Eth for the IDS they are a Minter for
-          By default Minter enjoys 2% Revenue (Eth) and 1.5% royalty from deposit/withdrawals/transfers
+            
+            <p>Current Rate : {controllers.rev <5 ? <>5 %</>:<>{controllers.rev} %</>} of Id Revenue</p>
+            <button onClick={()=>handleRevFetch(controllers.item.id)} className='border p-1 rounded-lg'>Refresh Data</button>
 
-          <p className='flex justify-center underline animate-slowerFlicker'>Coming Soon</p> 
+            <div className='flex flex-col items-center gap-2'>
+              <p className='flex flex-col items-center'>BUY SHARES (Max 50%): <input type={'number'} max={50} onChange={(e)=>handleRevenue(e)} className='text-black'/></p>
+              
+              <select className='text-black' value={controllers.paymentMode} defaultValue={"POINTS"} onChange={(e)=> setControllers({...controllers, paymentMode:e.target.value})}>
+                <option value={"POINTS"}>Pay With Points</option>
+              </select>
+              <p>Estimated Cost : {controllers.cost} {controllers.paymentMode}</p>
+              <button className='border p-2 rounded-lg' onClick={()=>handleRevenueBuy(controllers.item.id)}>BUY REVENUE SHARES</button>
+            </div>
         </div>
 
       </div>
