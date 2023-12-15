@@ -30,6 +30,11 @@ export const DappAppProvider = ({children})=> {
     const [userItems , setUserItems] = useState({});
 
     useEffect(() => {
+        //const chainId = await window.ethereum.request({ method: "eth_chainId" });
+        window.ethereum.on('chainChanged', (chainId) => window.location.reload());
+        window.ethereum.on('accountsChanged', (account) => window.location.reload());
+
+        connectWallet();
     }, [])
     
     const getChainId = async()=>{
@@ -52,9 +57,11 @@ export const DappAppProvider = ({children})=> {
                 });
                 await obj;
                 if(obj){
-                    setUser({network:chainId, wallet:obj[0]});
+                    const f4 = obj[0].slice(0,4);
+                    const l4 = obj[0].slice(39,42);
+                    setUser({...user ,network:chainId, wallet:obj[0] , allWallets:obj , str: "User: 0x..."+l4});
                     setAccount(obj);
-                    return true;
+                    return obj[0];
                 }
                 return false;
             }
@@ -93,6 +100,7 @@ export const DappAppProvider = ({children})=> {
             console.log(error);
         }
     }
+    
 
     const _delStorage=async(id , slot)=>{
         try{    

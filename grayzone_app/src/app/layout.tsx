@@ -6,7 +6,7 @@ import {DappAppProvider} from '../Context/appBockchainContext'
 import Footer from '@/components/Footer'
 import { Analytics } from '@vercel/analytics/react'
 //const inter = Inter({ subsets: ['latin'] })
-import Header from '@/components/header'
+import Header from '@/components/header.jsx'
 
 export const metadata = {
   title: 'GrayZone Web3 Services',

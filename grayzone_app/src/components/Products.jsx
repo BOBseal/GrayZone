@@ -8,9 +8,9 @@ const Products = ({functions}) => {
   return (
     <div className='absolute w-[18rem] top-[3.1rem] border z-50 bg-gradient-to-br to-[#b67ef5] from-[#1D023C] from-10% to-85% rounded-lg'>
         <div className='flex flex-col justify-center items-center gap-2 p-4' onClick={()=>functions()}>
-            <Link href={'/dashboard'}><p className={styl.menu}>DASHBOARD</p></Link>
-            <Link href={'/'}><p onClick={()=>alert("Associate Your Wallets or Zonepass with a Culture Badges : Coming Soon")} className={styl.menu}>Culture Badges</p></Link>
-            <Link href={'/tools'}><p>GrayZone Tooling</p></Link>
+            <Link href={'/'} onClick={()=> alert("Coming Soon")}><p className={styl.menu}>GraySale : The LaunchPad</p></Link>
+            <Link href={'/'}><p onClick={()=>alert("Associate Your Wallets or Zonepass with a Culture Badges : Coming Soon")} className={styl.menu}>Culture Badge Attestation</p></Link>
+            <Link href={'/'} onClick={()=> alert("MultiProtocol Bridge Coming Soon ... Choose your own provider ;-)")}><p>GrayBridge : The Bridge</p></Link>
             {/*<Link href={'/'}><p className={styl.menu}>ERC20 TOOLS</p></Link>
             <Link href={'/'}><p className={styl.menu}>ERC721 TOOLS</p></Link>
             <Link href={'/'}><p className={styl.menu}>ERC1155 TOOLS</p></Link>

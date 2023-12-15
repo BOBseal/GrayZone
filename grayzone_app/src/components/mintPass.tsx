@@ -36,10 +36,6 @@ const MINTPASS = () => {
 
   const handler=async()=>{
     try {
-      const num = await isPassholder();
-      if(num >0 ){
-        setisHolder(true);
-      }
     } catch (error) {
       console.log(error);
     }
