@@ -141,6 +141,7 @@ const Header = () => {
                             <Link href={'/'} onClick={()=> alert("Coming Soon")}><p className={styl.menu}>GraySale</p></Link>
                             <Link href={'/'}><p onClick={()=>alert("Associate Your Wallets or Zonepass with a Culture Badges : Coming Soon")} className={styl.menu}>Culture Badge</p></Link>
                             <Link href={'/'} onClick={()=> alert("MultiProtocol Bridge Coming Soon ... Choose your own provider ;-)")}><p>Bridge</p></Link>
+                            <Link href={'/mintpass'}><p>Mint</p></Link>
                             {/*<Link href={'/'}><p className={styl.menu}>ERC20 TOOLS</p></Link>
                             <Link href={'/'}><p className={styl.menu}>ERC721 TOOLS</p></Link>
                             <Link href={'/'}><p className={styl.menu}>ERC1155 TOOLS</p></Link>
