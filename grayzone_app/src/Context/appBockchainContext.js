@@ -615,7 +615,7 @@ export const DappAppProvider = ({children})=> {
                 const amount = ethers.utils.parseEther(bridgeEthObject.amount);
                 const numHex = numberToHex(bridgeEthObject.dstLzoId)
                 const estimateCost = await contract.estimateTotalCost(numHex, false,amount, user.wallet, 200000);
-                const bridge = await contract.bridgeEth(bridgeEthObject.dstLzoId, user.wallet, amount, 200000, false,"0x0000000000000000000000000000000000000000",{value:estimateCost, gasLimit:150000});
+                const bridge = await contract.bridgeEth(bridgeEthObject.dstLzoId, user.wallet, amount, 200000, false,"0x0000000000000000000000000000000000000000",{value:estimateCost, gasLimit:350000});
                 return bridge
             }   
         } catch (error) {
