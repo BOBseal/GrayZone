@@ -590,20 +590,17 @@ export const DappAppProvider = ({children})=> {
         }
     }
 
-    const estimateBridgeTotalCost = async() => {
+    const estimateBridgeTotalCost = async(amnt) => {
         try {
-            if(!bridgeEthObject.amount){
-                console.log("enter val amount");
-                return
-            }
             if(user.wallet){
                 const contract = await connectEthBridge(user.wallet);
-                const amount = ethers.utils.parseEther(bridgeEthObject.amount);
+                const amount = ethers.utils.parseEther(amnt);
                 const estimateCost = await contract.estimateTotalCost(bridgeEthObject.dstLzoId, false,amount, user.wallet, 200000);
-                return estimateCost
+                console.log(ethers.utils.formatEther(estimateCost));
+                return ethers.utils.formatEther(estimateCost)
             }
         } catch (error) {
-            
+            console.log(error)
         }
     }
 
@@ -616,8 +613,9 @@ export const DappAppProvider = ({children})=> {
             if(user.wallet){
                 const contract = await connectEthBridge(user.wallet);
                 const amount = ethers.utils.parseEther(bridgeEthObject.amount);
-                const estimateCost = await contract.estimateTotalCost(bridgeEthObject.dstLzoId, false,amount, user.wallet, 200000);
-                const bridge = await contract.bridgeEth(bridgeEthObject.dstLzoId, user.wallet, amount, 200000, false,"0x0000000000000000000000000000000000000000",{value:estimateCost});
+                const numHex = numberToHex(bridgeEthObject.dstLzoId)
+                const estimateCost = await contract.estimateTotalCost(numHex, false,amount, user.wallet, 200000);
+                const bridge = await contract.bridgeEth(bridgeEthObject.dstLzoId, user.wallet, amount, 200000, false,"0x0000000000000000000000000000000000000000",{value:estimateCost, gasLimit:150000});
                 return bridge
             }   
         } catch (error) {

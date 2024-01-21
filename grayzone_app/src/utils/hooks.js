@@ -254,11 +254,11 @@ export const connectEthBridge = async(address) =>{
             const chainId = await window.ethereum.request({ method: "eth_chainId" });
             console.log(chainId)
             if(chainId === LineaMainnet[0].chainId){
-                const contract = new ethers.Contract(EthBridge.linea , EtherBridgeV1ABI , s);
+                const contract = new ethers.Contract(EthBridge.linea.bridge , EtherBridgeV1ABI , s);
                 return contract;
             }
             if(chainId === OPMainnet[0].chainId){
-                const contract = new ethers.Contract(EthBridge.op , EtherBridgeV1ABI , s);
+                const contract = new ethers.Contract(EthBridge.op.bridge , EtherBridgeV1ABI , s);
                 return contract;
             }
         }

@@ -10,7 +10,7 @@ import Header from '@/components/header.jsx'
 
 export const metadata = {
   title: 'GrayZone Web3 Services',
-  description: 'Official Site for GrayZone Web3 Service Agency',
+  description: 'GRAYZONE WEB3 : Grayzone Web3 is a Blockchain Based Development Service Provider cum Tooling Service. Powered by Zonepass as a one source to web3 for users, as well as B2B services for Businesses',
 }
 
 export default function RootLayout({

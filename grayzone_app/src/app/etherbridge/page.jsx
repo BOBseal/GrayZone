@@ -4,18 +4,75 @@ import React,{useState , useEffect, useContext} from 'react'
 import { DappAppContext } from '@/Context/appBockchainContext';
 import { OPMainnet, LineaMainnet } from '@/utils/networkConfigs';
 import { changeNetworkToLineaMainnet,addOPNetwork} from '@/utils/hooks';
+import { EthBridge } from '@/utils/constants';
 
 const Index = () => {
   const {connectWallet,user,bridgeEth,setBridgeEthObject, bridgeEthObject, estimateBridgeTotalCost, getChainId} = useContext(DappAppContext);
-  
+  const [data , setData] = useState({
+    fromChain: LineaMainnet[0].chainId,
+    toChain: OPMainnet[0].chainId,
+    totalCost:'',
+    minOut:''
+  })
+
+  const [states, setStates] = useState({
+    feeScreen: false,
+  })
+
+  const setBridgeData = async(e)=>{
+    if(data.fromChain === LineaMainnet[0].chainId && data.toChain === OPMainnet[0].chainId){
+      const amnt = e.target.value.toString()
+      setBridgeEthObject({...bridgeEthObject,amount:amnt,srcLzoId: EthBridge.linea.lzoId, dstLzoId:EthBridge.op.lzoId})
+    }
+    if(data.fromChain === OPMainnet[0].chainId && data.toChain === LineaMainnet[0].chainId){
+      const amnt = e.target.value.toString()
+      setBridgeEthObject({...bridgeEthObject,amount:amnt,srcLzoId: EthBridge.op.lzoId, dstLzoId:EthBridge.linea.lzoId})
+    }
+    const x = await estimateBridgeTotalCost(e.target.value);
+    setData({...data,totalCost:x})
+  }
+
+  const selectorHandlerFrom = async(e)=>{
+    try {
+      if(e.target.value === LineaMainnet[0].chainId){
+        setData({...data, fromChain: e.target.value, toChain: OPMainnet[0].chainId});
+        changeNetworkToLineaMainnet();
+      } 
+      if(e.target.value ===OPMainnet[0].chainId) {
+        setData({...data, fromChain: e.target.value, toChain: LineaMainnet[0].chainId});
+        addOPNetwork();
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const selectorHandlerTo = async(e)=>{
+    try {
+      if(e.target.value === data.fromChain){
+        alert("cant be same")
+        return;
+      }
+      if(e.target.value === LineaMainnet[0].chainId){
+        setData({...data, toChain: e.target.value });
+        changeNetworkToLineaMainnet();
+      } 
+      if(e.target.value ===OPMainnet[0].chainId) {
+        setData({...data, toChain: e.target.value});
+        addOPNetwork();
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     if(!user.wallet){
       connectWallet();
     }else
     if(user.wallet){
-      if(user.network != OPMainnet[0].chainId &&user.network != LineaMainnet[0].chainId){
+      if(user.network != LineaMainnet[0].chainId){
           alert("Change Network to Supported Chains")
-          changeNetworkToLineaMainnet();
       }
     }
       
@@ -23,7 +80,7 @@ const Index = () => {
 
   
   return (
-    <div className={`flex min-h-[800px] md:min-h-[860px] flex-col items-center justify-evenly bg-[#1D023C] text-white pb-[2rem]`}>
+    <div className={`flex min-h-[800px] md:min-h-[860px] flex-col items-center justify-center gap-[4rem] bg-[#1D023C] text-white pb-[2rem]`}>
         <h1 className='flex text-[1.85rem] md:text-[2.8rem]'>GRAY-BRIDGE (BETA)</h1>
         
         <div className={`w-[90%] md:w-[40rem] shadow-xl justify-center items-center h-[30rem] z-10`}>
@@ -32,39 +89,35 @@ const Index = () => {
                   
                   <div className='border rounded-2xl flex flex-col h-[90%] w-full items-center justify-between'>
                     <div className='flex flex-col w-full justify-center h-[95%] items-start gap-[1rem]'>
-                      <div className='flex flex-col p-[1rem] w-full'>
+                      <div className='flex flex-col p-[1rem] w-full gap-2'>
                         <div className='flex justify-between'>
                           <p>FROM :</p>
-                          <select placeholder='select network' className='text-black'>
-                            <option>LINEA</option>
-                            <option>OPTIMISM</option>
+                          <select placeholder='select network' className='text-black' defaultValue={data.fromChain} onChange={(e)=>selectorHandlerFrom(e)}>
+                            <option value={LineaMainnet[0].chainId}>LINEA</option>
+                            <option value={OPMainnet[0].chainId}>OPTIMISM</option>
                           </select>
                         </div>
                         <div className='flex justify-between'>
-                          <p>TO :</p>
-                          <select placeholder='select network' className='text-black'>
-                            <option>OPTIMISM</option>
-                            <option>LINEA</option>
-                          </select>
+                          TO : <p>{data.fromChain === LineaMainnet[0].chainId? "OPTIMISM":"LINEA"}</p>
                         </div>
                       </div>  
                       
-                      <div className='flex flex-col justify-between items-start w-full p-[1rem]'>
-                        <p>platform fee: 0.0001 ETH</p>
-                        <p>total cost: 1 ETH</p>
+                      <div className='flex text-sm flex-col justify-between w-full p-[1rem]'>
+                        <p>Our Platform Fee = 0.25$ in ETH</p>
                       </div>
                       <div className=' flex flex-col justify-center items-center w-full'>
                         <p>Enter Amount To Recieve:</p>
-                        <input type={'number'} className='text-black flex w-full'/>
+                        <input type={'number'} className='text-black flex w-full' onChange={(e)=>setBridgeData(e)}/>
+                        <p>total cost: {data.totalCost? data.totalCost:"0.00"}</p>
                       </div>
                     </div>
                     <div className='flex text-sm justify-between items-center gap-[0.5rem] md:gap-[5rem] p-[5px]'>
-                      <p>Balance: {user.balance? <>{user.balance} ETH</>:"0"}</p>
+                      <p>Balance: {user.balance? <>{user.balance} ETH</>:"0.00"}</p>
                     </div>
                   </div>
    
                   <div className='flex justify-center'>
-                    <button className=' -mt-[1rem] bg-purple-700 rounded-full p-[0.1rem] w-[5rem]'>BRIDGE</button>
+                    <button className=' -mt-[1rem] bg-purple-700 rounded-full p-[0.1rem] w-[5rem]' onClick={()=> bridgeEth()}>BRIDGE</button>
                   </div>
                       
               </div>
