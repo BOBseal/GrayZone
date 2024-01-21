@@ -76,7 +76,7 @@ const Index = () => {
       }
     }
       
-  }, [user.wallet , user.network])
+  }, [user.wallet])
 
   
   return (
