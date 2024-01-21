@@ -5,6 +5,8 @@ import React,{ useState, useEffect } from 'react';
 //import { ThirdwebProvider } from '@thirdweb-dev/react';
 import {
     changeNetworkToLineaTestnet,
+    changeNetworkToLineaMainnet,
+    addOPNetwork,
     connectContract, 
     connectNFTContract , 
     connectStorageContract, 
@@ -12,10 +14,13 @@ import {
     connectTransferContract,
     connectMarketPlace,
     connectErc20,
-    connectForm
+    connectForm,
+    connectEthBridge,
+    getEthBalance
 } from "../utils/hooks"
 import { hexToNumber , hexToString, numberToHex, stringToHex } from 'viem';
 import { PassAddress } from '@/utils/constants';
+
 
 export const DappAppContext = React.createContext();
 export const DappAppProvider = ({children})=> {
@@ -28,6 +33,11 @@ export const DappAppProvider = ({children})=> {
     });
     const [userPass , setUserPass] = useState();
     const [userItems , setUserItems] = useState({});
+    const [bridgeEthObject , setBridgeEthObject] = useState({
+        amount:'',
+        srcLzoId:0,
+        dstLzoId:0,
+    })
 
     useEffect(() => {
         //const chainId = await window.ethereum.request({ method: "eth_chainId" });
@@ -59,7 +69,8 @@ export const DappAppProvider = ({children})=> {
                 if(obj){
                     const f4 = obj[0].slice(0,4);
                     const l4 = obj[0].slice(39,42);
-                    setUser({...user ,network:chainId, wallet:obj[0] , allWallets:obj , str: "User: 0x..."+l4});
+                    const bal = getEthBalance(obj[0]);
+                    setUser({...user ,network:chainId, wallet:obj[0] , allWallets:obj , str: "User: 0x..."+l4, balance:bal});
                     setAccount(obj);
                     return obj[0];
                 }
@@ -579,13 +590,48 @@ export const DappAppProvider = ({children})=> {
         }
     }
 
+    const estimateBridgeTotalCost = async() => {
+        try {
+            if(!bridgeEthObject.amount){
+                console.log("enter val amount");
+                return
+            }
+            if(user.wallet){
+                const contract = await connectEthBridge(user.wallet);
+                const amount = ethers.utils.parseEther(bridgeEthObject.amount);
+                const estimateCost = await contract.estimateTotalCost(bridgeEthObject.dstLzoId, false,amount, user.wallet, 200000);
+                return estimateCost
+            }
+        } catch (error) {
+            
+        }
+    }
+
+    const bridgeEth = async() =>{
+        try {
+            if(!bridgeEthObject.amount){
+                console.log("enter val amount");
+                return
+            }
+            if(user.wallet){
+                const contract = await connectEthBridge(user.wallet);
+                const amount = ethers.utils.parseEther(bridgeEthObject.amount);
+                const estimateCost = await contract.estimateTotalCost(bridgeEthObject.dstLzoId, false,amount, user.wallet, 200000);
+                const bridge = await contract.bridgeEth(bridgeEthObject.dstLzoId, user.wallet, amount, 200000, false,"0x0000000000000000000000000000000000000000",{value:estimateCost});
+                return bridge
+            }   
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return(<>
    
     <DappAppContext.Provider value={{user , error, userPass,connectWallet, mint, isPassholder, getPassInfo,
     _delStorage , _addToStorage, _recoverStorage , depositToId , withDrawFromId, getIdBalance, idtoid , listNFT,
     cancelListing , updateListing, getAllListings , getAllValidListings, getTotalListings, getStorage, boostPass,
     getWeeklyFee, getChainId , submitForm , getAllForms , getFormFee, transferPointsFn, buyRevenue, getRevenueData
-    , getPercentCost
+    , getPercentCost, bridgeEth,setBridgeEthObject, bridgeEthObject, estimateBridgeTotalCost
     }}>
         {children}
     </DappAppContext.Provider>

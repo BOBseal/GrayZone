@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import { genesisMinter, MinterAbi , PassAbi , PassAddress, storageUnit , StorageAbi , TransferAbi , TransferUnit, ERC20Abi, MarketAbi , Market
-, FormAbi , HireForm} from "./constants";
-import { lineaTestNetwork, MantleNetwork, FuseNetwork , PolygonPosNetwork , BaseNetwork } from "./networkConfigs";
+, FormAbi , HireForm, EthBridge , EtherBridgeV1ABI} from "./constants";
+import { lineaTestNetwork, MantleNetwork, FuseNetwork , PolygonPosNetwork , BaseNetwork , LineaMainnet, OPMainnet } from "./networkConfigs";
 const lineachainId = "0xe704";
 export const changeNetworkToLineaTestnet= async()=>{
     try {
@@ -15,6 +15,18 @@ export const changeNetworkToLineaTestnet= async()=>{
     }
 }
 
+export const changeNetworkToLineaMainnet= async()=>{
+    try {
+        await window.ethereum.request({
+            method: "wallet_switchEthereumChain",
+            params: [{chainId:LineaMainnet[0].chainId}],
+        });
+        return LineaMainnet[0].chainId;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const addMantleNetwork= async()=>{
     try {
         await window.ethereum.request({
@@ -23,6 +35,19 @@ export const addMantleNetwork= async()=>{
         });
         
         return MantleNetwork[0].chainName;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const addOPNetwork= async()=>{
+    try {
+        await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: OPMainnet,
+        });
+        
+        return OPMainnet[0].chainName;
     } catch (error) {
         console.log(error)
     }
@@ -86,6 +111,20 @@ export const connectContract=async(account)=>{
         console.log(
             error
         )
+    }
+}
+
+export const getEthBalance=async(account)=>{
+    try {
+        if(window.ethereum){
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const balance = await provider.getBalance(account);
+            const balanceInEth = ethers.utils.formatEther(balance);
+            console.log(balanceInEth);
+            return balanceInEth
+        }
+    } catch (error) {
+        console.log(error)
     }
 }
 
@@ -204,6 +243,27 @@ export const connectForm = async(addr) =>{
         //console.log(contract)
     } catch (error) {
         console.log(error)
+    }
+}
+
+export const connectEthBridge = async(address) =>{
+    try {
+        if(window.ethereum){
+            const p = new ethers.providers.Web3Provider(window.ethereum);
+            const s = p.getSigner(address);
+            const chainId = await window.ethereum.request({ method: "eth_chainId" });
+            console.log(chainId)
+            if(chainId === LineaMainnet[0].chainId){
+                const contract = new ethers.Contract(EthBridge.linea , EtherBridgeV1ABI , s);
+                return contract;
+            }
+            if(chainId === OPMainnet[0].chainId){
+                const contract = new ethers.Contract(EthBridge.op , EtherBridgeV1ABI , s);
+                return contract;
+            }
+        }
+    } catch (error) {
+        console.log(error);
     }
 }
 

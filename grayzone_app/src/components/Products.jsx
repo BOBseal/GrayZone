@@ -10,7 +10,7 @@ const Products = ({functions}) => {
         <div className='flex flex-col justify-center items-center gap-2 p-4' onClick={()=>functions()}>
             <Link href={'/'} onClick={()=> alert("Coming Soon")}><p className={styl.menu}>GraySale : The LaunchPad</p></Link>
             <Link href={'/'}><p onClick={()=>alert("Associate Your Wallets or Zonepass with a Culture Badges : Coming Soon")} className={styl.menu}>Culture Badge Attestation</p></Link>
-            <Link href={'/'} onClick={()=> alert("MultiProtocol Bridge Coming Soon ... Choose your own provider ;-)")}><p>GrayBridge : The Bridge</p></Link>
+            <Link href={'/etherbridge'}><p>Eth Bridge</p></Link>
             {/*<Link href={'/'}><p className={styl.menu}>ERC20 TOOLS</p></Link>
             <Link href={'/'}><p className={styl.menu}>ERC721 TOOLS</p></Link>
             <Link href={'/'}><p className={styl.menu}>ERC1155 TOOLS</p></Link>

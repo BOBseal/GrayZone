@@ -140,7 +140,7 @@ const Header = () => {
                             </select>
                             <Link href={'/'} onClick={()=> alert("Coming Soon")}><p className={styl.menu}>GraySale</p></Link>
                             <Link href={'/'}><p onClick={()=>alert("Associate Your Wallets or Zonepass with a Culture Badges : Coming Soon")} className={styl.menu}>Culture Badge</p></Link>
-                            <Link href={'/'} onClick={()=> alert("MultiProtocol Bridge Coming Soon ... Choose your own provider ;-)")}><p>Bridge</p></Link>
+                            <Link href={'/etherbridge'}><p>Eth Bridge</p></Link>
                             <Link href={'/mintpass'}><p>Mint</p></Link>
                             {/*<Link href={'/'}><p className={styl.menu}>ERC20 TOOLS</p></Link>
                             <Link href={'/'}><p className={styl.menu}>ERC721 TOOLS</p></Link>
@@ -177,7 +177,7 @@ const Header = () => {
                         </div>
 
                         <div className={`w-[4rem] flex justify-center hover:underline items-center drop-shadow-lg hover:text-[1.2rem]`}>
-                            <Link href={`/`}>
+                            <Link href={`/mintpass`}>
                                 <button>
                                     Mint
                                 </button>

@@ -62,3 +62,29 @@ export const FuseNetwork = [
         },
     }
 ]
+
+export const LineaMainnet = [
+    {
+        chainId:"0xe708",
+        chainName:"Linea",
+        rpcUrls:["https://rpc.linea.build"],
+        nativeCurrency:{
+         name: "ETH",
+         symbol:"ETH",
+         decimals: 18,   
+        },
+    }
+]
+
+export const OPMainnet = [
+    {
+        chainId:"0xa",
+        chainName:"Optimism",
+        rpcUrls:["https://mainnet.optimism.io"],
+        nativeCurrency:{
+         name: "ETH",
+         symbol:"ETH",
+         decimals: 18,   
+        },
+    }
+]

@@ -5,7 +5,7 @@ import tbi from './ABIS/TransferAbi.json'
 import ebi from './ABIS/erc20.json'
 import mbi from './ABIS/NftMarket.json'
 import fbi from './ABIS/Form.json'
-
+import bridgeBi from './ABIS/EtherBridgeV1.json'
 export const PassAddress ={
     goerli: {
         address: "0xEeAE8b69A51f6e8721cb5F42f858E6A8004e1503"
@@ -51,6 +51,27 @@ export const HireForm = {
     base:"0x0ff9Ef29BD23c82E260aDEC858Aa1d7Cdf6ad33d"
 }
 
+export const EthBridge ={
+    op:{
+        bridge:"0x355d81301cCfE58738D1c787BbA4Fbf78e998E68",
+        gasUnitsAsDes: 200000,
+        wormholeId: 0,
+        lzoId:111
+    },
+    linea:{
+        bridge:"0x972C7E6180D0deb3d2a4CbC7CE777E7Afc0d51A3",
+        gasUnitsAsDes: 400000,
+        wormholeId: 0,
+        lzoId:183
+    },
+    /*fuse:{
+        bridge:"0x268a9B67eDdb65d50FDfff2D233b93526C8772cC",
+        gasUnitsAsDes: 400000,
+        wormholeId: 0,
+        lzoId:138
+    }*/
+}
+
 export const MinterAbi = bbi.abi;
 export const PassAbi = abi.abi;
 export const StorageAbi = sbi.abi;
@@ -58,3 +79,4 @@ export const TransferAbi = tbi.abi;
 export const ERC20Abi = ebi.abi;
 export const MarketAbi = mbi.abi;
 export const FormAbi = fbi.abi;
+export const EtherBridgeV1ABI= bridgeBi.abi

@@ -23,6 +23,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/mintpass.jsx", "src/utils/hooks.js", "src/app/dashboard/[...user]/page.js", "src/app/dashboard/[...user]/page.js", "src/app/dashboard/page.jsx", "src/components/Products.jsx", "src/app/hire/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/mintpass.jsx", "src/utils/hooks.js", "src/app/dashboard/[...user]/page.js", "src/app/dashboard/[...user]/page.js", "src/app/dashboard/page.jsx", "src/components/Products.jsx", "src/app/hire/page.jsx", "src/components/header.jsx"],
   "exclude": ["node_modules"]
 }
