@@ -35,32 +35,27 @@ const Index = () => {
   const selectorHandlerFrom = async(e)=>{
     try {
       if(e.target.value === LineaMainnet[0].chainId){
-        setData({...data, fromChain: e.target.value, toChain: OPMainnet[0].chainId});
         changeNetworkToLineaMainnet();
+        setData({...data, fromChain: e.target.value, toChain: OPMainnet[0].chainId});
       } 
       if(e.target.value ===OPMainnet[0].chainId) {
-        setData({...data, fromChain: e.target.value, toChain: LineaMainnet[0].chainId});
         addOPNetwork();
+        setData({...data, fromChain: e.target.value, toChain: LineaMainnet[0].chainId});
       }
     } catch (error) {
       console.log(error)
     }
   }
 
-  const selectorHandlerTo = async(e)=>{
+  const bridge = async(e)=>{
     try {
-      if(e.target.value === data.fromChain){
-        alert("cant be same")
-        return;
-      }
-      if(e.target.value === LineaMainnet[0].chainId){
-        setData({...data, toChain: e.target.value });
+      if(data.fromChain === LineaMainnet[0].chainId){
         changeNetworkToLineaMainnet();
-      } 
-      if(e.target.value ===OPMainnet[0].chainId) {
-        setData({...data, toChain: e.target.value});
+      }
+      if(data.fromChain === OPMainnet[0].chainId){
         addOPNetwork();
       }
+      await bridgeEth();
     } catch (error) {
       console.log(error)
     }
@@ -69,14 +64,14 @@ const Index = () => {
   useEffect(() => {
     if(!user.wallet){
       connectWallet();
-    }else
-    if(user.wallet){
-      if(user.network != LineaMainnet[0].chainId){
-          alert("Change Network to Supported Chains")
-      }
+    } 
+    if(user.network === LineaMainnet[0].chainId){
+
     }
+    if(user.network === OPMainnet[0].chainId){
       
-  }, [user.wallet])
+    }
+  }, [])
 
   
   return (
@@ -108,7 +103,7 @@ const Index = () => {
                       <div className=' flex flex-col justify-center items-center w-full'>
                         <p>Enter Amount To Recieve:</p>
                         <input type={'number'} className='text-black flex w-full' onChange={(e)=>setBridgeData(e)}/>
-                        <p>total cost: {data.totalCost? data.totalCost:"0.00"}</p>
+                        <p>total cost: {data.fromChain != user.network ?"Change Network first":<>{data.totalCost? data.totalCost:"0.00"}</>}</p>
                       </div>
                     </div>
                     <div className='flex text-sm justify-between items-center gap-[0.5rem] md:gap-[5rem] p-[5px]'>
@@ -117,7 +112,7 @@ const Index = () => {
                   </div>
    
                   <div className='flex justify-center'>
-                    <button className=' -mt-[1rem] bg-purple-700 rounded-full p-[0.1rem] w-[5rem]' onClick={()=> bridgeEth()}>BRIDGE</button>
+                    <button className=' -mt-[1rem] bg-purple-700 rounded-full p-[0.1rem] w-[5rem]' onClick={()=> bridge()}>BRIDGE</button>
                   </div>
                       
               </div>
